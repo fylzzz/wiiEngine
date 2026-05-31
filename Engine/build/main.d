@@ -1,4 +1,4 @@
-main.o: C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/src/main.cpp \
+main.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/main.cpp \
  C:/devkitPro/libogc2/wii/include/raylib.h \
  C:/devkitPro/libogc2/wii/include/gccore.h \
  C:/devkitPro/libogc2/wii/include/ogc/dsp.h \
@@ -60,18 +60,18 @@ main.o: C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/src/main.cpp \
  C:/devkitPro/libogc2/wii/include/wiiuse/wiiuse.h \
  C:/devkitPro/libogc2/wii/include/bte/bte.h \
  C:/devkitPro/libogc2/wii/include/bte/bd_addr.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/World.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/EntityManager.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/Types.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/ComponentManager.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/ComponentArray.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/TypeId.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/SystemManager.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/System.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/ResourceManager.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/Serializer.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/Components.h \
- C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/Systems/RenderSystem.h
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/World.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/EntityManager.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ComponentManager.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ComponentArray.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/TypeId.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SystemManager.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ResourceManager.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/gccore.h:
 C:/devkitPro/libogc2/wii/include/ogc/dsp.h:
@@ -133,15 +133,15 @@ C:/devkitPro/libogc2/wii/include/wiiuse/wpad.h:
 C:/devkitPro/libogc2/wii/include/wiiuse/wiiuse.h:
 C:/devkitPro/libogc2/wii/include/bte/bte.h:
 C:/devkitPro/libogc2/wii/include/bte/bd_addr.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/World.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/EntityManager.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/Types.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/ComponentManager.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/ComponentArray.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/TypeId.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/SystemManager.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/System.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/ResourceManager.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/ECS/Serializer.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/Components.h:
-C:/Users/iChoc/Desktop/WiiTest/wiiEngine/Engine/include/Systems/RenderSystem.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/World.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/EntityManager.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ComponentManager.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ComponentArray.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/TypeId.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SystemManager.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ResourceManager.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h:

@@ -46,7 +46,8 @@ LIBS	:=	-lraylib -lopengx -lwiiuse -lbte -lfat -lm -logc
 # include and lib
 #---------------------------------------------------------------------------------
 LIBDIRS	:= /opt/devkitpro/libogc2/wii \
-           /opt/devkitpro/portlibs/wii
+           $(CURDIR)/../portlibs/wii \
+		   $(CURDIR)/../libogc2/wii
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
