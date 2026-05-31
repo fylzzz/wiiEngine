@@ -1,0 +1,10 @@
+prefix=/opt/devkitpro/libogc2/wii
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenGL
+Description: OpenGL (without GLX) library and headers.
+Version: 0.1
+Libs.private: -lstdc++ -logc -lm
+Libs: -L${libdir} -lopengx
+Cflags: -I${includedir}

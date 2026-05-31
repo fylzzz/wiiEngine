@@ -1,0 +1,11 @@
+prefix=/opt/devkitpro/libogc2/wii
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: BtEmbedded
+Description: Bluetooth for embedded devices
+Version: 0.1.0
+Requires: 
+Libs.private:  -logc -lm
+Libs: -L${libdir} -lbt-embedded
+Cflags: -I${includedir}
