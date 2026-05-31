@@ -1,0 +1,9 @@
+[submodule "ControllerTest/opengx"]
+	path = ControllerTest/opengx
+	url = https://github.com/devkitpro/opengx.git
+[submodule "ControllerTest/raylib"]
+	path = ControllerTest/raylib
+	url = https://github.com/raysan5/raylib.git
+[submodule "raylib4gamecube"]
+	path = raylib4gamecube
+	url = https://github.com/raylib4consoles/raylib4gamecube.git
