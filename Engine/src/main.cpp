@@ -20,6 +20,53 @@ void SetDrawMode2D() {
 	return;
 }
 
+void SetDrawMode3D(Camera3D* camera) {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	float aspect = 640.0f / 480.0f;
+	float near = 0.05f, far = 1000.0f;
+	float t = near * tanf(camera->fovy * 0.5f * 3.14159f / 180.0f);
+	glFrustum(-t * aspect, t * aspect, -t, t, near, far);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	// Manual lookAt
+	Vector3 eye = camera->position;
+	Vector3 center = camera->target;
+	Vector3 up = camera->up;
+
+	// forward = normalize(center - eye)
+	float fx = center.x - eye.x, fy = center.y - eye.y, fz = center.z - eye.z;
+	float fl = sqrtf(fx * fx + fy * fy + fz * fz);
+	fx /= fl; fy /= fl; fz /= fl;
+
+	// right = normalize(forward x up)
+	float rx = fy * up.z - fz * up.y;
+	float ry = fz * up.x - fx * up.z;
+	float rz = fx * up.y - fy * up.x;
+	float rl = sqrtf(rx * rx + ry * ry + rz * rz);
+	rx /= rl; ry /= rl; rz /= rl;
+
+	// up = right x forward
+	float ux = ry * fz - rz * fy;
+	float uy = rz * fx - rx * fz;
+	float uz = rx * fy - ry * fx;
+
+	float m[16] = {
+		rx, ux, -fx, 0,
+		ry, uy, -fy, 0,
+		rz, uz, -fz, 0,
+		-(rx * eye.x + ry * eye.y + rz * eye.z),
+		-(ux * eye.x + uy * eye.y + uz * eye.z),
+		(fx * eye.x + fy * eye.y + fz * eye.z), 1
+	};
+	glMultMatrixf(m);
+
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+}
+
 int main() {
 	fatInitDefault();
 
@@ -31,7 +78,8 @@ int main() {
 	World world;
 	world.init();
 
-	ResourceId teapotId = world.loadModel("sd:/teapot.obj");
+	//ResourceId teapotId = world.loadModel("sd:/teapot.obj");
+	SpriteId testimageId = world.loadSprite("sd:/laser.png");
 
 	Camera3D camera = {};
 	camera.position = Vector3{ 0.0f, 5.0f, 5.0f };
@@ -44,6 +92,8 @@ int main() {
 	world.registerComponentSerializer<EngineTransform>();
 	world.registerComponent<Renderable>();
 	world.registerComponentSerializer<Renderable>();
+	world.registerComponent<Renderable2D>();
+	world.registerComponentSerializer<Renderable2D>();
 
 	auto render = world.registerSystem<RenderSystem>();
 	render->world = &world;
@@ -51,7 +101,6 @@ int main() {
 
 	Signature sig;
 	sig.set(world.getComponentType<EngineTransform>());
-	sig.set(world.getComponentType<Renderable>());
 	world.setSystemSignature<RenderSystem>(sig);
 
 	/*for (int x = 0; x < 20; x += 2) {
@@ -76,19 +125,18 @@ int main() {
 		}
 	}*/
 
-	Entity e = world.createEntity();
-	world.addComponent(e, EngineTransform{ Vector3{0.0f, 0.0f, 0.0f}, Vector3{0,0,0}, Vector3{1,1,1} });
-	Renderable r;
-	r.shape = RenderShape::ModelWires;
-	r.color = WHITE;
-	r.model.modelId = teapotId;
-	r.model.scale = 1.0f;
-	world.addComponent(e, r);
-
 	world.save("sd:/world1.bin");
 
 	InitWindow(640, 480, "Wii Raylib");
 	SetTargetFPS(60);
+
+	Entity e = world.createEntity();
+	world.addComponent(e, EngineTransform{ Vector3{320.0f, 240.0f, 0.0f}, Vector3{0,0,0}, Vector3{1,1,1} });
+	Renderable2D r;
+	r.spriteId = testimageId;
+	r.color = WHITE;
+	r.texture = LoadTextureFromImage(world.getSprite(testimageId));
+	world.addComponent(e, r);
 
 	float orbitAngleX = 0.0f;  // horizontal angle (around Y axis)
 	float orbitAngleY = 0.5f;  // vertical angle
@@ -127,14 +175,14 @@ int main() {
 		UpdateCamera(&camera, CAMERA_CUSTOM);
 
 		BeginDrawing();
-		ClearBackground(BLACK);
+		ClearBackground(WHITE);
 			glClear(GL_DEPTH_BUFFER_BIT);
 			render->update(GetFrameTime());
-			SetDrawMode2D();
 			DrawFPS(10, 10);
 		EndDrawing();
 	}
 
 	world.unloadAllResources();
+	world.unloadAllSprites();
 	CloseWindow();
 }

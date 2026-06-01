@@ -69,6 +69,7 @@ main.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/main.cpp \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SystemManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ResourceManager.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h
@@ -142,6 +143,7 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/TypeId.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SystemManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ResourceManager.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h:

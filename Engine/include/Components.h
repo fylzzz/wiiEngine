@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include "ResourceManager.h"
+#include "SpriteManager.h"
 
 struct EngineTransform {
 	Vector3 pos;
@@ -12,6 +13,12 @@ struct EngineTransform {
 // --------------------
 // Render Components
 // --------------------
+
+struct Renderable2D {
+    SpriteId spriteId;
+    Color color;
+    Texture2D texture;
+};
 
 enum class RenderShape {Cube, Sphere, Cylinder, Capsule, Plane, Model, ModelWires};
 

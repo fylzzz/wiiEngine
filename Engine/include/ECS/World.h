@@ -4,6 +4,7 @@
 #include "ComponentManager.h"
 #include "SystemManager.h"
 #include "ResourceManager.h"
+#include "SpriteManager.h"
 #include "Serializer.h"
 #include "Types.h"
 
@@ -31,6 +32,7 @@ class World {
 		template<typename T> void removeComponent(Entity e);
 		template<typename T> T& getComponent(Entity e);
 		template<typename T> ComponentType getComponentType() const;
+		template<typename T> bool hasComponent(Entity e);
 
 		// System API calls
 		template<typename T> std::shared_ptr<T> registerSystem();
@@ -40,6 +42,11 @@ class World {
 		ResourceId loadModel(const char* path);
 		Model& getModel(ResourceId id);
 		void unloadAllResources();
+
+		// Sprite API calls
+		SpriteId loadSprite(const char* path);
+		Image& getSprite(SpriteId id);
+		void unloadAllSprites();
 
 		// Serializer API calls
 		template<typename T> void registerComponentSerializer();
@@ -51,6 +58,7 @@ class World {
 		std::unique_ptr<ComponentManager> mComponentManager;
 		std::unique_ptr<SystemManager> mSystemManager;
 		std::unique_ptr<ResourceManager> mResourceManager;
+		std::unique_ptr<SpriteManager> mSpriteManager;
 
 		std::array<ComponentSerializer, MAX_COMPONENTS> mSerializers{};
 };
@@ -89,6 +97,13 @@ T& World::getComponent(Entity e) {
 template<typename T>
 ComponentType World::getComponentType() const {
 	return mComponentManager->getComponentType<T>();
+}
+
+template<typename T>
+bool World::hasComponent(Entity e) {
+	ComponentType id = mComponentManager->getComponentType<T>();
+	if (mSerializers[id].has == nullptr) return false;
+	return mSerializers[id].has(mSerializers[id].arrayPtr, e);
 }
 
 template<typename T>

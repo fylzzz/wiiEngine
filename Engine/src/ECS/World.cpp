@@ -6,6 +6,7 @@ void World::init() {
 	mComponentManager = std::make_unique<ComponentManager>();
 	mSystemManager = std::make_unique<SystemManager>();
 	mResourceManager = std::make_unique<ResourceManager>();
+    mSpriteManager = std::make_unique<SpriteManager>();
 }
 
 Entity World::createEntity() {
@@ -28,6 +29,18 @@ Model& World::getModel(ResourceId id) {
 
 void World::unloadAllResources() {
 	return mResourceManager->unloadAll();
+}
+
+SpriteId World::loadSprite(const char* path) {
+    return mSpriteManager->loadSprite(path);
+}
+
+Image& World::getSprite(SpriteId id) {
+    return mSpriteManager->getSprite(id);
+}
+
+void World::unloadAllSprites() {
+    return mSpriteManager->unloadAll();
 }
 
 void World::save(const char* path) {
