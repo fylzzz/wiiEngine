@@ -208,7 +208,6 @@ int main() {
 			physics->updateCollisions(GetFrameTime(), true);
 
 			for (Entity e : entities) {
-				auto& trans = world.getComponent<EngineTransform>(e);
 				auto& col = world.getComponent<Collider2D>(e);
 				auto& rb = world.getComponent<RigidBody2D>(e);
 
