@@ -72,7 +72,8 @@ main.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/main.cpp \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h \
- C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/gccore.h:
 C:/devkitPro/libogc2/wii/include/ogc/dsp.h:
@@ -147,3 +148,4 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h:

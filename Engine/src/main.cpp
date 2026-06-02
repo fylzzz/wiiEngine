@@ -9,6 +9,7 @@
 #include "World.h"
 #include "Components.h"
 #include "RenderSystem.h"
+#include "PhysicsSystem.h"
 
 
 void SetDrawMode2D() {
@@ -94,14 +95,26 @@ int main() {
 	world.registerComponentSerializer<Renderable>();
 	world.registerComponent<Renderable2D>();
 	world.registerComponentSerializer<Renderable2D>();
+	world.registerComponent<Collider2D>();
+	world.registerComponentSerializer<Collider2D>();
+	world.registerComponent<RigidBody2D>();
+	world.registerComponentSerializer<RigidBody2D>();
 
 	auto render = world.registerSystem<RenderSystem>();
 	render->world = &world;
 	render->camera = &camera;
+	auto physics = world.registerSystem<PhysicsSystem>();
+	physics->world = &world;
 
-	Signature sig;
-	sig.set(world.getComponentType<EngineTransform>());
-	world.setSystemSignature<RenderSystem>(sig);
+	Signature renderSig;
+	renderSig.set(world.getComponentType<EngineTransform>());
+	world.setSystemSignature<RenderSystem>(renderSig);
+
+	Signature physicsSig;
+	physicsSig.set(world.getComponentType<EngineTransform>());
+	physicsSig.set(world.getComponentType<Collider2D>());
+	physicsSig.set(world.getComponentType<RigidBody2D>());
+	world.setSystemSignature<PhysicsSystem>(physicsSig);
 
 	/*for (int x = 0; x < 20; x += 2) {
 		for (int y = 0; y < 20; y+=2) {
@@ -130,13 +143,27 @@ int main() {
 	InitWindow(640, 480, "Wii Raylib");
 	SetTargetFPS(60);
 
-	Entity e = world.createEntity();
-	world.addComponent(e, EngineTransform{ Vector3{320.0f, 240.0f, 0.0f}, Vector3{0,0,0}, Vector3{1,1,1} });
-	Renderable2D r;
-	r.spriteId = testimageId;
-	r.color = WHITE;
-	r.texture = LoadTextureFromImage(world.getSprite(testimageId));
-	world.addComponent(e, r);
+	std::vector<Entity> entities;
+	for (int i = 0; i < 10; i++) {
+		Entity e = world.createEntity();
+		world.addComponent(e, EngineTransform{ Vector3{(float)GetRandomValue(0, 640), (float)GetRandomValue(0, 480), 0.0f}, Vector3{0,0,0}, Vector3{1,1,1}});
+		Renderable2D r;
+		r.spriteId = testimageId;
+		r.color = WHITE;
+		r.texture = LoadTextureFromImage(world.getSprite(testimageId));
+		world.addComponent(e, r);
+		Collider2D col;
+		col.entityId = e;
+		col.bounds.width = r.texture.width;
+		col.bounds.height = r.texture.height;
+		world.addComponent(e, col);
+		RigidBody2D rb;
+		rb.mass = 1.0f;
+		rb.velocity.x = 1.0f;
+		rb.velocity.y = 1.0f;
+		world.addComponent(e, rb);
+		entities.push_back(e);
+	}
 
 	float orbitAngleX = 0.0f;  // horizontal angle (around Y axis)
 	float orbitAngleY = 0.5f;  // vertical angle
@@ -177,6 +204,22 @@ int main() {
 		BeginDrawing();
 		ClearBackground(WHITE);
 			glClear(GL_DEPTH_BUFFER_BIT);
+			physics->update(GetFrameTime());
+			physics->updateCollisions(GetFrameTime(), true);
+
+			for (Entity e : entities) {
+				auto& trans = world.getComponent<EngineTransform>(e);
+				auto& col = world.getComponent<Collider2D>(e);
+				auto& rb = world.getComponent<RigidBody2D>(e);
+
+				if (col.bounds.y + col.bounds.height >= 480 || col.bounds.y <= 0) {
+					rb.velocity.y = -rb.velocity.y;
+				}
+				else if (col.bounds.x + col.bounds.width >= 640 || col.bounds.x <= 0) {
+					rb.velocity.x = -rb.velocity.x;
+				}
+			}
+
 			render->update(GetFrameTime());
 			DrawFPS(10, 10);
 		EndDrawing();

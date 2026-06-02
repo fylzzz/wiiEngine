@@ -38,3 +38,17 @@ struct Renderable {
         cube.width = cube.height = cube.length = 1.0f;
     }
 };
+
+// ---------------------
+// Physics Components
+// ---------------------
+
+struct RigidBody2D {
+    float mass;
+    Vector2 velocity;
+};
+
+struct Collider2D {
+    Entity entityId;
+    Rectangle bounds;
+};
