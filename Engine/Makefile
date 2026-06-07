@@ -25,7 +25,7 @@ BUILD		:=	build
 SOURCES		:=	src src/ECS src/Systems
 DATA		:=
 TEXTURES	:=	textures
-INCLUDES	:=	include include/ECS include/Systems
+INCLUDES	:=	include include/ECS include/Systems include/Scenes
 
 #---------------------------------------------------------------------------------
 # options for code generation
