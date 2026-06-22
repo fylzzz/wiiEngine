@@ -5,6 +5,7 @@
 #include <math.h>
 
 #include <wiiuse/wpad.h>
+#include <ogc/lwp_watchdog.h>
 
 #include "World.h"
 #include "Components.h"
@@ -82,17 +83,23 @@ int main() {
 	WPAD_SetDataFormat(WPAD_CHAN_ALL, WPAD_FMT_BTNS_ACC_IR);
 
 	InitWindow(640, 480, "Wii Raylib");
-	SetTargetFPS(60);
+	//SetTargetFPS(60);
 
 	SceneManager scenes;
 	scenes.registerScene<SampleScene>(0);
 	scenes.switchTo(0);
 
+
 	while (!WindowShouldClose()) {
+		static uint64_t lastTime = gettime();
+		uint64_t now = gettime();
+		float dt = (float)diff_usec(lastTime, now) / 1000000.0f;
+		lastTime = now;
+		if (dt > 0.1f) dt = 0.1f;
+
 		WPAD_ScanPads();
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) break;
 
-		float dt = GetFrameTime();
 		scenes.update(dt);
 		scenes.render(dt);
 		

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include <raylib.h>
 #include "ResourceManager.h"
 #include "SpriteManager.h"
@@ -18,6 +20,15 @@ struct Renderable2D {
     SpriteId spriteId;
     Color color;
     Texture2D texture;
+};
+
+struct Animator2D {
+    std::string currentAnim;
+    std::map<std::string, AnimId> animClips;
+    int currentFrame = 0;
+    float frameTimer = 0.0f;
+    bool finished = false;
+    Color color = WHITE;
 };
 
 enum class RenderShape {Cube, Sphere, Cylinder, Capsule, Plane, Model, ModelWires};

@@ -20,9 +20,9 @@ class SceneManager {
 
 			mCurrentId = id;
 			mCurrent = mScenes[id].get();
-			mCurrent->sceneManager = this;
 
 			if (mCurrent) {
+				mCurrent->sceneManager = this;
 				mCurrent->world.init();
 				mCurrent->init();
 			}

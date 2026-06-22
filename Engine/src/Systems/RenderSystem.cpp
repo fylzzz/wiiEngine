@@ -3,7 +3,7 @@
 #include <math.h>
 
 void RenderSystem::update(float dt) {
-    
+
     for (Entity e : mEntities) {
         auto& trans = world->getComponent<EngineTransform>(e);
 
@@ -50,8 +50,22 @@ void RenderSystem::update(float dt) {
         else if (world->hasComponent<Renderable2D>(e)) {
             auto& render2D = world->getComponent<Renderable2D>(e);
 
-            if (render2D.spriteId == INVALID_RESOURCE) continue;
-                DrawTexture(render2D.texture, (int)trans.pos.x, (int)trans.pos.y, render2D.color);
-            }
+            if (render2D.spriteId == INVALID_SPRITE) continue;
+            DrawTexture(render2D.texture, (int)trans.pos.x, (int)trans.pos.y, render2D.color);
         }
+        else if (world->hasComponent<Animator2D>(e)) {
+            auto& anim2D = world->getComponent<Animator2D>(e);
+
+            auto it = anim2D.animClips.find(anim2D.currentAnim);
+            if (it == anim2D.animClips.end() || it->second == INVALID_ANIM) continue;
+
+            AnimationClip& clip = world->getAnim(it->second);
+            if (clip.frames.empty()) continue;
+
+            Rectangle src = clip.frames[anim2D.currentFrame];
+            Rectangle dest = { trans.pos.x, trans.pos.y, src.width, src.height };
+            Vector2 origin = { 0.0f, 0.0f };
+            DrawTexturePro(clip.spritesheet, src, dest, origin, 0.0f, anim2D.color);
+        }
+    }
 }

@@ -7,6 +7,7 @@ void World::init() {
 	mSystemManager = std::make_unique<SystemManager>();
 	mResourceManager = std::make_unique<ResourceManager>();
     mSpriteManager = std::make_unique<SpriteManager>();
+    mAnimationManager = std::make_unique<AnimationManager>();
 }
 
 Entity World::createEntity() {
@@ -41,6 +42,18 @@ Image& World::getSprite(SpriteId id) {
 
 void World::unloadAllSprites() {
     return mSpriteManager->unloadAll();
+}
+
+AnimId World::loadAnim(std::string name, const char* path, int frameCount, int fps) {
+    return mAnimationManager->loadAnim(name, path, frameCount, fps);
+}
+
+AnimationClip& World::getAnim(AnimId id) {
+    return mAnimationManager->getAnim(id);
+}
+
+void World::unloadAllAnims() {
+    return mAnimationManager->unloadAll();
 }
 
 void World::save(const char* path) {

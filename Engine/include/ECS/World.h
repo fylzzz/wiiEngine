@@ -5,6 +5,7 @@
 #include "SystemManager.h"
 #include "ResourceManager.h"
 #include "SpriteManager.h"
+#include "AnimationManager.h"
 #include "Serializer.h"
 #include "Types.h"
 
@@ -48,6 +49,11 @@ class World {
 		Image& getSprite(SpriteId id);
 		void unloadAllSprites();
 
+		// Animation API calls
+		AnimId loadAnim(std::string name, const char* path, int frameCount, int fps);
+		AnimationClip& getAnim(AnimId id);
+		void unloadAllAnims();
+
 		// Serializer API calls
 		template<typename T> void registerComponentSerializer();
 		void save(const char* path);
@@ -59,6 +65,7 @@ class World {
 		std::unique_ptr<SystemManager> mSystemManager;
 		std::unique_ptr<ResourceManager> mResourceManager;
 		std::unique_ptr<SpriteManager> mSpriteManager;
+		std::unique_ptr<AnimationManager> mAnimationManager;
 
 		std::array<ComponentSerializer, MAX_COMPONENTS> mSerializers{};
 };

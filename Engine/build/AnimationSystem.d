@@ -1,6 +1,6 @@
-PhysicsSystem.o: \
- C:/Users/iChoc/Desktop/wiiEngine/Engine/src/Systems/PhysicsSystem.cpp \
- C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h \
+AnimationSystem.o: \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/src/Systems/AnimationSystem.cpp \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/World.h \
@@ -15,7 +15,7 @@ PhysicsSystem.o: \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h
-C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/World.h:

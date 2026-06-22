@@ -12,6 +12,7 @@ RenderSystem.o: \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ResourceManager.h \
  C:/devkitPro/libogc2/wii/include/raylib.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h \
  C:/devkitPro/libogc2/wii/include/GL/gl.h \
@@ -29,6 +30,7 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SystemManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/ResourceManager.h:
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h:
 C:/devkitPro/libogc2/wii/include/GL/gl.h:
