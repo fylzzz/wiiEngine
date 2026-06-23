@@ -16,6 +16,8 @@ struct EngineTransform {
 // Render Components
 // --------------------
 
+enum class RenderShape2D {Rectangle, Circle, Triangle, Ellipse, Sprite};
+
 struct Renderable2D {
     SpriteId spriteId;
     Color color;
