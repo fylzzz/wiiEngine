@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "inheritEnvironments": [
+        "msvc_x64"
+      ],
+      "name": "devkitPPC (Wii)",
+      "includePath": [
+        "${workspaceRoot}\\**",
+        "C:\\devkitPro\\devkitPPC\\powerpc-eabi\\include\\c++\\16.1.0",
+        "C:\\devkitPro\\devkitPPC\\powerpc-eabi\\include\\c++\\16.1.0\\powerpc-eabi",
+        "C:\\devkitPro\\devkitPPC\\powerpc-eabi\\include",
+        "C:\\devkitPro\\devkitPPC\\lib\\gcc\\powerpc-eabi\\16.1.0\\include",
+        "C:\\devkitPro\\libogc2\\wii\\include"
+      ],
+      "defines": [
+        "GEKKO",
+        "HW_RVL",
+        "__wii__",
+        "__powerpc__"
+      ],
+      "compilerSwitches": "-std=c++20",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ]
+}
