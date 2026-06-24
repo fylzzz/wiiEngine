@@ -8,6 +8,7 @@
 #include "GL/gl.h"
 #include <wiiuse/wpad.h>
 #include <math.h>
+#include <cmath>
 
 
 class NeedleGame : public Scene {
@@ -17,8 +18,13 @@ public:
 	std::shared_ptr<AnimationSystem> animation;
 	Camera3D camera = {};
 
-	float ax, ay, az;
+	enum state {START, PLAY, END};
+	state gameState;
+
+	Vector3 rot, drot, prot;
+	Vector3 maxDelta;
 	float timer;
+	bool success;
 
 	// Initialise ECS and camera for scene
 	void init() override {
@@ -27,7 +33,9 @@ public:
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
-		timer = 5.0f;
+		timer = 10.0f;
+		gameState = START;
+		success = false;
 
 		// Setup camera
 		camera.position = Vector3{ 0.0f, 5.0f, 5.0f };
@@ -89,13 +97,45 @@ public:
 
 	void update(float dt, WPADData* data) override {
 		// update inputs, entities, camera etc. here
-		if (data->data_present) {
-			ax = data->accel.x;
-			ay = data->accel.y;
-			az = data->accel.z;
-		}
+		switch (gameState) {
+		case START:
+			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+				gameState = PLAY;
+				timer = 10.0f;
+			}
+			break;
 
-		timer -= dt;
+		case PLAY:
+			if (data->data_present) {
+				rot.x = data->orient.pitch;
+				rot.y = data->orient.roll;
+				rot.z = data->orient.yaw;
+			}
+
+			drot.x = rot.x - prot.x;
+			drot.y = rot.y - prot.y;
+			drot.z = rot.z - prot.z;
+			prot = rot;
+
+			maxDelta.x = std::max(maxDelta.x, std::abs(drot.x));
+			maxDelta.y = std::max(maxDelta.y, std::abs(drot.y));
+			maxDelta.z = std::max(maxDelta.z, std::abs(drot.z));
+
+			timer -= dt;
+
+			if (timer <= 0) {
+				success = (maxDelta.x <= 10 && maxDelta.y <= 10 && maxDelta.z <= 10);
+				gameState = END;
+			}
+			break;
+		case END:
+			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+				gameState = PLAY;
+				timer = 10.0f;
+				maxDelta = Vector3{};
+			}
+			break;
+		}
 
 		// update physics system
 		physics->update(dt);
@@ -111,8 +151,23 @@ public:
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
 
-		DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
-		DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
+		switch (gameState) {
+		case START:
+			DrawText("Press A to start", 10, 30, 20, WHITE);
+			break;
+		case PLAY:
+			DrawText(TextFormat("ROT: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 30, 20, WHITE);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
+			break;
+		case END:
+			if (success) {
+				DrawText("Game Won", 10, 30, 20, WHITE);
+			}
+			else {
+				DrawText("Game Over", 10, 30, 20, WHITE);
+			}
+			break;
+		}
 
 		DrawFPS(10, 10);
 		EndDrawing();
