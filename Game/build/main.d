@@ -85,7 +85,8 @@ main.o: \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/GauzeGame.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BottleGame.h
+ C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BottleGame.h \
+ C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/PatchGame.h
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/gccore.h:
 C:/devkitPro/libogc2/wii/include/ogc/dsp.h:
@@ -172,3 +173,4 @@ C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/Animat
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/GauzeGame.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BottleGame.h:
+C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/PatchGame.h:

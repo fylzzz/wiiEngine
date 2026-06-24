@@ -19,6 +19,7 @@
 #include "NeedleGame.h"
 #include "GauzeGame.h"
 #include "BottleGame.h"
+#include "PatchGame.h"
 
 
 void SetDrawMode2D() {
@@ -88,12 +89,15 @@ int main() {
 	InitWindow(640, 480, "Wii Raylib");
 	//SetTargetFPS(60);
 
+	int currentScene = 1;
+
 	SceneManager scenes;
 	scenes.registerScene<SampleScene>(0);
 	scenes.registerScene<NeedleGame>(1);
 	scenes.registerScene<GauzeGame>(2);
 	scenes.registerScene<BottleGame>(3);
-	scenes.switchTo(3);
+	scenes.registerScene<PatchGame>(4);
+	scenes.switchTo(currentScene);
 
 	bool motionPlusConfirmed = false;
 	bool wasConnected = false;
@@ -124,6 +128,14 @@ int main() {
 		wasConnected = isConnected;
 
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) break;
+		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_PLUS) {
+			currentScene++;
+			scenes.switchTo(currentScene);
+		}
+		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_MINUS) {
+			currentScene--;
+			scenes.switchTo(currentScene);
+		}
 
 		WPADData* data = WPAD_Data(0);
 
