@@ -55,7 +55,7 @@ void RenderSystem::update(float dt) {
                 DrawRectangle(trans.pos.x, trans.pos.y, primrender2D.rectangle.width, primrender2D.rectangle.height, primrender2D.color);
                 break;
             case RenderShape2D::Circle:
-                DrawCircle(trans.pos.x, trans.pos.y, primrender2D.circle.radius, primrender2D.color);
+                DrawCircle(trans.pos.x + primrender2D.circle.radius, trans.pos.y + primrender2D.circle.radius, primrender2D.circle.radius, primrender2D.color);
                 break;
             case RenderShape2D::Triangle:
                 DrawTriangle(primrender2D.triangle.v1, primrender2D.triangle.v2, primrender2D.triangle.v3, primrender2D.color);

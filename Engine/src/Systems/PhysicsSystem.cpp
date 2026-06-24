@@ -109,11 +109,21 @@ class QuadTree {
 
 void PhysicsSystem::update(float dt) {
 	for (Entity e : mEntities) {
+		if (!world->hasComponent<RigidBody2D>(e)) continue;
 		auto& trans = world->getComponent<EngineTransform>(e);
 		auto rb2d = world->getComponent<RigidBody2D>(e);
 
 		trans.pos.x += rb2d.velocity.x;
 		trans.pos.y += rb2d.velocity.y;
+	}
+}
+void PhysicsSystem::drawDebug() {
+	for (Entity e : mEntities) {
+		if (!world->hasComponent<Collider2D>(e)) continue;
+		auto& col = world->getComponent<Collider2D>(e);
+		auto& trans = world->getComponent<EngineTransform>(e);
+
+		DrawRectangleLines(trans.pos.x, trans.pos.y, col.bounds.width, col.bounds.height, GREEN);
 	}
 }
 
@@ -150,6 +160,7 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 				other.bounds.y + other.bounds.height < col.bounds.y);
 
 			if (hit) {
+				if (!world->hasComponent<RigidBody2D>(e)) continue;
 				auto& rb = world->getComponent<RigidBody2D>(e);
 				rb.velocity.x = -rb.velocity.x;
 				rb.velocity.y = -rb.velocity.y;

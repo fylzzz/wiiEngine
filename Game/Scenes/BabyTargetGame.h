@@ -11,12 +11,14 @@
 #include <cmath>
 
 
-class NeedleGame : public Scene {
+class BabyTargetGame : public Scene {
 public:
 	std::shared_ptr<RenderSystem> rendersys;
 	std::shared_ptr<PhysicsSystem> physics;
 	std::shared_ptr<AnimationSystem> animation;
 	Camera3D camera = {};
+
+	Entity pointer;
 
 	enum state { START, PLAY, END };
 	state gameState;
@@ -52,6 +54,8 @@ public:
 		world.registerComponentSerializer<Renderable>();
 		world.registerComponent<Renderable2D>();
 		world.registerComponentSerializer<Renderable2D>();
+		world.registerComponent<PrimitiveRenderable2D>();
+		world.registerComponentSerializer<PrimitiveRenderable2D>();
 		world.registerComponent<Collider2D>();
 		world.registerComponentSerializer<Collider2D>();
 		world.registerComponent<RigidBody2D>();
@@ -74,7 +78,7 @@ public:
 		Signature physicsSig;
 		physicsSig.set(world.getComponentType<EngineTransform>());
 		physicsSig.set(world.getComponentType<Collider2D>());
-		physicsSig.set(world.getComponentType<RigidBody2D>());
+		//physicsSig.set(world.getComponentType<RigidBody2D>());
 		world.setSystemSignature<PhysicsSystem>(physicsSig);
 
 		Signature animationSig;
@@ -84,19 +88,41 @@ public:
 
 
 		// Load entities from file
-		FILE* f = fopen("sd:/samplescene.bin", "rb");
-		if (f) {
-			fclose(f);
-			world.load("sd:/samplescene.bin");
-		}
-		else {
+		//FILE* f = fopen("sd:/babytargetscene.bin", "rb");
+		//if (f) {
+			//fclose(f);
+			//world.load("sd:/babytargetscene.bin");
+		//}
+		//else {
 			// Create new/default entities here
+			pointer = world.createEntity();
+			world.addComponent<EngineTransform>(pointer, EngineTransform(Vector3{ 640 / 2, 480 / 2, 0 }, Vector3{}, Vector3{}));
+
+			Collider2D col;
+			col.entityId = pointer;
+			col.bounds.width = 20;
+			col.bounds.height = 20;
+			world.addComponent<Collider2D>(pointer, col);
+			
+			RigidBody2D rb{};
+			world.addComponent(pointer, rb);
+
+			PrimitiveRenderable2D pointerShape;
+			pointerShape.shape = RenderShape2D::Circle;
+			pointerShape.color = RED;
+			pointerShape.circle.radius = 10.0f;
+			world.addComponent<PrimitiveRenderable2D>(pointer, pointerShape);
 			return;
-		}
+		//}
 	}
 
 	void update(float dt, WPADData* data) override {
 		// update inputs, entities, camera etc. here
+		if (data->data_present) {
+			EngineTransform& transform = world.getComponent<EngineTransform>(pointer);
+			transform.pos.x = data->ir.x;
+			transform.pos.y = data->ir.y;
+		}
 		switch (gameState) {
 		case START:
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
@@ -149,6 +175,7 @@ public:
 		BeginDrawing();
 		ClearBackground(BLACK);
 		glClear(GL_DEPTH_BUFFER_BIT);
+		physics->drawDebug();
 		rendersys->update(dt);
 
 		switch (gameState) {
@@ -169,13 +196,13 @@ public:
 			break;
 		}
 
-		DrawFPS(10, 10);
+		DrawText(TextFormat("%.0f FPS", (1 / dt)), 10, 10, 20, GREEN);
 		EndDrawing();
 	}
 
 	void shutdown() override {
 		// save current scene state
-		world.save("sd:/samplescene.bin");
+		world.save("sd:/babytargetscene.bin");
 		// unload scene resources
 		world.unloadAllResources();
 		world.unloadAllSprites();

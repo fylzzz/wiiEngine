@@ -20,6 +20,7 @@
 #include "GauzeGame.h"
 #include "BottleGame.h"
 #include "PatchGame.h"
+#include "BabyTargetGame.h"
 
 
 void SetDrawMode2D() {
@@ -97,7 +98,8 @@ int main() {
 	scenes.registerScene<GauzeGame>(2);
 	scenes.registerScene<BottleGame>(3);
 	scenes.registerScene<PatchGame>(4);
-	scenes.switchTo(currentScene);
+	scenes.registerScene<BabyTargetGame>(5);
+	scenes.switchTo(5);
 
 	bool motionPlusConfirmed = false;
 	bool wasConnected = false;
