@@ -124,11 +124,18 @@ public:
 			{
 				CompressionBPM();
 				refractoryTimer = 0.0f;
+				isFlicking = true;
 			}
 			else if (!flicking)
 			{
 				isFlicking = false;  // <-- reset once accel drops back down
 			}
+		}
+
+		if (refractoryTimer > 2,0f)
+		{
+			currentBPM = 0.0f;
+			lastFlickTime = gameDuration - timer
 		}
 
 		timer -= dt;
@@ -149,7 +156,7 @@ public:
 		lastFlickTime = gameDuration - timer;
 
 		//ignore flick if too early 
-		if (timeSinceLast <= 0.0f || timeSinceLast <= 0.2f) return;
+		if (timeSinceLast <= 0.0f || timeSinceLast > 0.2f) return;
 
 		currentBPM = 60.0f / timeSinceLast;	 
 	
