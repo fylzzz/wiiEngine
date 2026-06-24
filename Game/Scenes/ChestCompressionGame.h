@@ -30,9 +30,9 @@ public:
 	float lastFlickTime = 0.0f;
 
 	//BPM 
-	float currentBPM = 0.0f
+	float currentBPM = 0.0f;
 	float targetBPM = 120.0f; 
-	float bpmWindow = 10f; 
+	float bpmWindow = 10.0f; 
 	float compressionThresh = 0.5f;
 	float refractory = 0.3f; //min seconds between flicks 
 
@@ -120,10 +120,14 @@ public:
 
 			bool flicking =  normalizedZ > compressionThresh;
 
-			if (flicking && !isflicking && refractoryTimer >= refractory)
+			if (flicking && !isFlicking && refractoryTimer >= refractory)
 			{
 				CompressionBPM();
-				refractoryTimer 0.0f;
+				refractoryTimer = 0.0f;
+			}
+			else if (!flicking)
+			{
+				isFlicking = false;  // <-- reset once accel drops back down
 			}
 		}
 
@@ -138,24 +142,24 @@ public:
 		animation->update(dt);
 	}
 
-	Void CompressionBPM()
+	void CompressionBPM()
 	{
 		float clampedBPM = std::clamp(targetBPM, 100.0f, 120.0f);
-		float timeSinceLast = (gameDuration - Timer) - lastFlickTime;
-		lastFlickTime = gameDuration - Timer;
+		float timeSinceLast = (gameDuration - timer) - lastFlickTime;
+		lastFlickTime = gameDuration - timer;
 
 		//ignore flick if too early 
-		if (timeSinceLast <= 0.0f || timeSinceLast <= 0.2f) return 
+		if (timeSinceLast <= 0.0f || timeSinceLast <= 0.2f) return;
 
 		currentBPM = 60.0f / timeSinceLast;	 
 	
 		clampedBPM = std::clamp(currentBPM, 100.0f, 120.00f);
-		if (std::abs(currnetBPM - targetBPM) <= bpmWindow 
+		if (std::abs(currentBPM - targetBPM) <= bpmWindow)
 		{
 
 		}
 	
-		if else (std:: abs(currentBPM < targetBPM)
+		else if (std:: abs(currentBPM < targetBPM))
 		{
 
 		}
@@ -173,7 +177,7 @@ public:
 
 		DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
 		DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
-		DrawText(TextFormat("CurrentBPM: %f", bpmTimer), 10, 70, 20, WHITE);
+		DrawText(TextFormat("CurrentBPM: %f", currentBPM), 10, 70, 20, WHITE);
 		DrawText(TextFormat("TargetBPM: %f", targetBPM), 10, 90, 20, WHITE);
 
 		DrawFPS(10, 10);

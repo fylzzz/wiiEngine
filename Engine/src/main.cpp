@@ -17,6 +17,7 @@
 // Scenes to include
 #include "SampleScene.h"
 #include "NeedleGame.h"
+#include "ChestCompressionGame.h"
 
 
 void SetDrawMode2D() {
@@ -89,7 +90,8 @@ int main() {
 	SceneManager scenes;
 	scenes.registerScene<SampleScene>(0);
 	scenes.registerScene<NeedleGame>(1);
-	scenes.switchTo(1);
+	scenes.registerScene<ChestCompressionGame>(2);
+	scenes.switchTo(2);
 
 
 	while (!WindowShouldClose()) {
