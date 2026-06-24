@@ -47,6 +47,24 @@ void RenderSystem::update(float dt) {
             }
             }
         }
+        else if (world->hasComponent<PrimitiveRenderable2D>(e)) {
+            auto& primrender2D = world->getComponent<PrimitiveRenderable2D>(e);
+
+            switch (primrender2D.shape) {
+            case RenderShape2D::Rectangle:
+                DrawRectangle(trans.pos.x, trans.pos.y, primrender2D.rectangle.width, primrender2D.rectangle.height, primrender2D.color);
+                break;
+            case RenderShape2D::Circle:
+                DrawCircle(trans.pos.x, trans.pos.y, primrender2D.circle.radius, primrender2D.color);
+                break;
+            case RenderShape2D::Triangle:
+                DrawTriangle(primrender2D.triangle.v1, primrender2D.triangle.v2, primrender2D.triangle.v3, primrender2D.color);
+                break;
+            case RenderShape2D::Ellipse:
+                DrawEllipse(trans.pos.x, trans.pos.y, primrender2D.ellipse.radiusH, primrender2D.ellipse.radiusV, primrender2D.color);
+                break;
+            }
+        }
         else if (world->hasComponent<Renderable2D>(e)) {
             auto& render2D = world->getComponent<Renderable2D>(e);
 

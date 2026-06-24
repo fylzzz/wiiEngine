@@ -16,7 +16,18 @@ struct EngineTransform {
 // Render Components
 // --------------------
 
-enum class RenderShape2D {Rectangle, Circle, Triangle, Ellipse, Sprite};
+enum class RenderShape2D {Rectangle, Circle, Triangle, Ellipse};
+
+struct PrimitiveRenderable2D {
+    RenderShape2D shape = RenderShape2D::Rectangle;
+    Color color = WHITE;
+    union {
+        struct { int width, height; } rectangle;
+        struct { float radius; } circle;
+        struct { Vector2 v1, v2, v3; } triangle;
+        struct { float radiusH, radiusV; } ellipse;
+    };
+};
 
 struct Renderable2D {
     SpriteId spriteId;

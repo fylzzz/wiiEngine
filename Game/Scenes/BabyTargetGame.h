@@ -11,25 +11,15 @@
 #include <cmath>
 
 
-class GauzeGame : public Scene {
+class NeedleGame : public Scene {
 public:
 	std::shared_ptr<RenderSystem> rendersys;
 	std::shared_ptr<PhysicsSystem> physics;
 	std::shared_ptr<AnimationSystem> animation;
 	Camera3D camera = {};
 
-	int exptype;
-
 	enum state { START, PLAY, END };
 	state gameState;
-
-	float gy, totalAngle, angleRad, x, y, localAngle;
-	int rotations;
-
-	float gyroZeroY = 0.0f;
-	bool calibrated = false;
-	int calibFrames = 0;
-	static const int CALIB_FRAME_COUNT = 60;
 
 	Vector3 rot, drot, prot;
 	Vector3 maxDelta;
@@ -44,7 +34,7 @@ public:
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		timer = 10.0f;
-		gameState = PLAY;
+		gameState = START;
 		success = false;
 
 		// Setup camera
@@ -116,34 +106,22 @@ public:
 			break;
 
 		case PLAY:
-			if (!calibrated) {
-				if (data->data_present) {
-					gyroZeroY += data->exp.mp.ry;
-					if (++calibFrames >= CALIB_FRAME_COUNT) {
-						gyroZeroY /= CALIB_FRAME_COUNT;
-						calibrated = true;
-					}
-				}
-				return; // skip game logic while calibrating
-			}
-
 			if (data->data_present) {
-				exptype = data->exp.type;
-				float rawDelta = data->exp.mp.ry - gyroZeroY;
-				gy = rawDelta / 13.768f;
-
-				totalAngle += gy * dt;
-				angleRad = totalAngle * (M_PI / 180.0f);
-
-				x = cosf(angleRad);
-				y = sinf(angleRad);
-
-				rotations = (int)(totalAngle / 360.0f);
-				localAngle = fmodf(totalAngle, 360.0f);
-				if (localAngle < 0) localAngle += 360.0f;
+				rot.x = data->orient.pitch;
+				rot.y = data->orient.roll;
+				rot.z = data->orient.yaw;
 			}
 
-			//timer -= dt;
+			drot.x = rot.x - prot.x;
+			drot.y = rot.y - prot.y;
+			drot.z = rot.z - prot.z;
+			prot = rot;
+
+			maxDelta.x = std::max(maxDelta.x, std::abs(drot.x));
+			maxDelta.y = std::max(maxDelta.y, std::abs(drot.y));
+			maxDelta.z = std::max(maxDelta.z, std::abs(drot.z));
+
+			timer -= dt;
 
 			if (timer <= 0) {
 				success = (maxDelta.x <= 10 && maxDelta.y <= 10 && maxDelta.z <= 10);
@@ -178,13 +156,8 @@ public:
 			DrawText("Press A to start", 10, 30, 20, WHITE);
 			break;
 		case PLAY:
-			DrawText(TextFormat("Gyro Velocity Y: %.0f dps", gy), 10, 30, 20, WHITE);
-			DrawText(TextFormat("Total Angle:     %.0f deg", totalAngle), 10, 50, 20, WHITE);
-			DrawText(TextFormat("Local Angle:     %.0f deg\n", localAngle), 10, 70, 20, WHITE);
-			DrawText(TextFormat("Rotations:       %d", rotations), 10, 90, 20, WHITE);
-			DrawText(TextFormat("Unit Circle (X): %.0f", x), 10, 110, 20, WHITE);
-			DrawText(TextFormat("Unit Circle (Y): %.0f", y), 10, 130, 20, WHITE);
-			DrawText(TextFormat("Expansion: %d", exptype), 10, 150, 20, WHITE);
+			DrawText(TextFormat("ROT: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 30, 20, WHITE);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
 			break;
 		case END:
 			if (success) {
