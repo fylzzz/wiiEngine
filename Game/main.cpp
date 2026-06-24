@@ -16,6 +16,7 @@
 
 // Scenes to include
 #include "SampleScene.h"
+#include "NeedleGame.h"
 
 
 void SetDrawMode2D() {
@@ -87,7 +88,8 @@ int main() {
 
 	SceneManager scenes;
 	scenes.registerScene<SampleScene>(0);
-	scenes.switchTo(0);
+	scenes.registerScene<NeedleGame>(1);
+	scenes.switchTo(1);
 
 
 	while (!WindowShouldClose()) {
@@ -100,7 +102,9 @@ int main() {
 		WPAD_ScanPads();
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) break;
 
-		scenes.update(dt);
+		WPADData* data = WPAD_Data(0);
+
+		scenes.update(dt, data);
 		scenes.render(dt);
 		
 	}

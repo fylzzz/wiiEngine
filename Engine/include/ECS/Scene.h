@@ -13,7 +13,7 @@ class Scene {
 		virtual ~Scene() = default;
 
 		virtual void init() = 0;
-		virtual void update(float dt) = 0;
+		virtual void update(float dt, WPADData* data) = 0;
 		virtual void render(float dt) = 0;
 		virtual void shutdown() = 0;
 };

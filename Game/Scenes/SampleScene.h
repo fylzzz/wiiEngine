@@ -6,6 +6,7 @@
 #include "PhysicsSystem.h"
 #include "AnimationSystem.h"
 #include "GL/gl.h"
+#include <wiiuse/wpad.h>
 #include <math.h>
 
 
@@ -87,7 +88,7 @@ class SampleScene : public Scene {
 			}
 		}
 
-		void update(float dt) override {
+		void update(float dt, WPADData* data) override {
 			// update inputs, entities, camera etc. here
 
 			// update physics system
