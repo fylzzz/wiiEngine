@@ -109,6 +109,19 @@ public:
 
 	void update(float dt, WPADData* data) override {
 		// update inputs, entities, camera etc. here
+		if (timer > 0.0f)
+		{
+			timer -= dt;
+			if (timer < 0.0f)
+			{
+				timer 0.0f;
+			}
+		}
+		if (timer > 0.0f)
+		{
+			refractory +=dt;
+		}
+
 		if (data->data_present) {
 			az = data->accel.z;
 			ax = data->accel.x;
@@ -138,8 +151,7 @@ public:
 			lastFlickTime = gameDuration - timer
 		}
 
-		timer -= dt;
-		refractoryTimer +=dt;
+		
 
 		// update physics system
 		physics->update(dt);
