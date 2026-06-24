@@ -17,6 +17,8 @@
 // Scenes to include
 #include "SampleScene.h"
 #include "NeedleGame.h"
+#include "GauzeGame.h"
+#include "BottleGame.h"
 
 
 void SetDrawMode2D() {
@@ -89,8 +91,12 @@ int main() {
 	SceneManager scenes;
 	scenes.registerScene<SampleScene>(0);
 	scenes.registerScene<NeedleGame>(1);
-	scenes.switchTo(1);
+	scenes.registerScene<GauzeGame>(2);
+	scenes.registerScene<BottleGame>(3);
+	scenes.switchTo(3);
 
+	bool motionPlusConfirmed = false;
+	bool wasConnected = false;
 
 	while (!WindowShouldClose()) {
 		static uint64_t lastTime = gettime();
@@ -100,6 +106,23 @@ int main() {
 		if (dt > 0.1f) dt = 0.1f;
 
 		WPAD_ScanPads();
+		u32 type;
+		bool isConnected = (WPAD_Probe(WPAD_CHAN_0, &type) == WPAD_ERR_NONE);
+
+		if (isConnected && !wasConnected) {
+			motionPlusConfirmed = false; // fresh connection — re-verify it from scratch
+		}
+
+		if (isConnected && !motionPlusConfirmed) {
+			WPAD_SetMotionPlus(WPAD_CHAN_0, 1);
+			expansion_t exp;
+			WPAD_Expansion(WPAD_CHAN_0, &exp);
+			if (exp.type == WPAD_EXP_NONE) {
+				motionPlusConfirmed = true;
+			}
+		}
+		wasConnected = isConnected;
+
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) break;
 
 		WPADData* data = WPAD_Data(0);
