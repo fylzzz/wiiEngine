@@ -154,6 +154,12 @@ public:
 
 		auto& col = world.getComponent<Collider2D>(target);
 		auto& rb = world.getComponent<RigidBody2D>(target);
+		if (col.bounds.y + col.bounds.height >= 480 || col.bounds.y <= 0) {
+			rb.velocity.y = -rb.velocity.y;
+		}
+		else if (col.bounds.x + col.bounds.width >= 640 || col.bounds.x <= 0) {
+			rb.velocity.x = -rb.velocity.x;
+		}
 
 		switch (gameState) {
 		case START:
@@ -173,13 +179,6 @@ public:
 
 			timeElapsed += dt;
 			accuracy = (timeOnTarget / timeElapsed * 100);
-
-			if (col.bounds.y + col.bounds.height >= 480 || col.bounds.y <= 0) {
-				rb.velocity.y = -rb.velocity.y;
-			}
-			else if (col.bounds.x + col.bounds.width >= 640 || col.bounds.x <= 0) {
-				rb.velocity.x = -rb.velocity.x;
-			}
 
 			timer -= dt;
 
@@ -219,9 +218,8 @@ public:
 			DrawText("Press A to start", 10, 30, 20, WHITE);
 			break;
 		case PLAY:
-			DrawText(TextFormat("ROT: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 30, 20, WHITE);
-			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
-			DrawText(TextFormat("Accuracy: %d", accuracy, "%"), 10, 70, 20, WHITE);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 30, 20, WHITE);
+			DrawText(TextFormat("Accuracy: %d", accuracy, "%"), 10, 50, 20, WHITE);
 			break;
 		case END:
 			if (success) {

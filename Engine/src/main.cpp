@@ -21,6 +21,7 @@
 #include "BottleGame.h"
 #include "PatchGame.h"
 #include "BabyTargetGame.h"
+//#include "MainMenu.h"
 
 
 void SetDrawMode2D() {
@@ -86,6 +87,7 @@ int main() {
 	expansion_t data;
 	WPAD_Expansion(WPAD_CHAN_ALL, &data);
 	WPAD_SetDataFormat(WPAD_CHAN_ALL, WPAD_FMT_BTNS_ACC_IR);
+	WPAD_SetVRes(WPAD_CHAN_ALL, 640, 480);
 
 	InitWindow(640, 480, "Wii Raylib");
 	//SetTargetFPS(60);
@@ -99,6 +101,7 @@ int main() {
 	scenes.registerScene<BottleGame>(3);
 	scenes.registerScene<PatchGame>(4);
 	scenes.registerScene<BabyTargetGame>(5);
+	//scenes.registerScene<MainMenu>(6);
 	scenes.switchTo(currentScene);
 
 	bool motionPlusConfirmed = false;
@@ -143,7 +146,6 @@ int main() {
 
 		scenes.update(dt, data);
 		scenes.render(dt);
-
 	}
 
 	if (scenes.current()) {

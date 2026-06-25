@@ -67,7 +67,7 @@ struct Renderable {
 // Physics Components
 // ---------------------
 
-enum RbType { Dynamic, Kinematic, Static};
+enum RbType { Dynamic, Kinematic, Static };
 
 struct RigidBody2D {
     RbType type;
