@@ -21,14 +21,18 @@ public:
 	std::shared_ptr<AnimationSystem> animation;
 	Camera3D camera = {};
 
+	enum gameState {Start, Play, End};
+	gameState currentState;
+
 	//accel
 	float ax, ay, az;
 	//timer
 	float timer = 0.0f;
 	float bpmTimer = 0.0f; 
-	float gameDuration = 60.0f;
+	float gameDuration = 30.0f;
 	float refractoryTimer = 0.0f;
 	float lastFlickTimeStamp = -1.0f; //-1 for no previous flick 
+	float timeElapsedonTarget, timeElapsed = 0.0f;
 
 	//BPM 
 	int currentBPM = 0;
@@ -36,6 +40,8 @@ public:
 	float bpmWindow = 10.0f; 
 	float compressionThresh = 600.0f;
 	float refractory = 0.3f; //min seconds between flicks 
+	int accuracy = 0;
+	bool success = false;
 
 	//average roll
 	int BPMsampleCount = 4;
@@ -53,6 +59,7 @@ public:
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		timer = gameDuration;
+		currentState = Start;
 
 		// Setup camera
 		camera.position = Vector3{ 0.0f, 5.0f, 5.0f };
@@ -116,10 +123,31 @@ public:
 
 	void update(float dt, WPADData* data) override {
 		// update inputs, entities, camera etc. here
+		switch (currentState) {
+		case Start:
+			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+				currentState = Play;
+				timer = gameDuration;
+				timeElapsedonTarget = 0.0f;
+				timeElapsed = 0.0f;
+				currentBPM = 0;
+				accuracy = 0;
+				intervalsFilled = 0;
+				intervalIndex = 0;
+				lastFlickTimeStamp = -1.0f;
+			}
+		break;
+		
+		case Play:
+
 		if (timer > 0.0f)
 		{
 			timer -= dt;
-			if (timer < 0.0f) timer = 0.0f;
+			if (timer < 0.0f) 
+			{
+				timer = 0.0f;
+				currentState = End;
+			}
 		}
 			refractoryTimer += dt;
 
@@ -142,21 +170,36 @@ public:
 			}
 		}
 
+		if (currentBPM >= 100 && currentBPM <= 120) {
+			timeElapsedonTarget += dt;
+		}
+
+		timeElapsed += dt;
+		accuracy =  (int)(timeElapsedonTarget /  timeElapsed * 100);
+
 		if (refractoryTimer > 3.0f)
 		{
-			currentBPM = 0.0f;
+			currentBPM = 0;
 			lastFlickTimeStamp = -1.0f;
 			intervalIndex = 0;
 			intervalsFilled = 0;
 		}
+		break;
+	
+		case End:
+			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A)
+			{
+				currentState = Start;
+				break;
+			}
+		}
 
-		
 		// update physics system
-		physics->update(dt);
-		physics->updateCollisions(dt, false);
+			physics->update(dt);
+			physics->updateCollisions(dt, false);
 
-		// update animation system
-		animation->update(dt);
+			// update animation system
+			animation->update(dt);
 	}
 
 	void CompressionBPM()
@@ -210,11 +253,20 @@ public:
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
 
-		DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
-		DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
-		DrawText(TextFormat("CurrentBPM: %d", currentBPM), 10, 70, 20, WHITE);
-		DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 90, 20, WHITE);
-			
+		if (currentState == End)
+		{
+			DrawText(TextFormat("FinalBPM: %d", currentBPM),10, 30, 20, WHITE);
+			DrawText(TextFormat("accuracy %d", accuracy),10, 70, 20, WHITE);
+			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 50, 20, WHITE);
+		}
+		
+		else 
+		{
+			DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
+			DrawText(TextFormat("CurrentBPM: %d", currentBPM), 10, 70, 20, WHITE);
+			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 90, 20, WHITE);
+		}
 		DrawFPS(10, 10);
 		EndDrawing();
 	}
