@@ -1,5 +1,4 @@
-main.o: \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/src/main.cpp \
+main.o: C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/src/main.cpp \
  C:/devkitPro/libogc2/wii/include/raylib.h \
  C:/devkitPro/libogc2/wii/include/gccore.h \
  C:/devkitPro/libogc2/wii/include/ogc/dsp.h \
@@ -64,27 +63,27 @@ main.o: \
  C:/devkitPro/libogc2/wii/include/ogc/lwp_watchdog.h \
  C:/devkitPro/libogc2/wii/include/ogc/lwp_queue.h \
  C:/devkitPro/libogc2/wii/include/ogc/timesupp.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/World.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/EntityManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Types.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentArray.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/TypeId.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/SystemManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/System.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/ResourceManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/SpriteManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/AnimationManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Serializer.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Components.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/RenderSystem.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/PhysicsSystem.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/SceneManager.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Scene.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/SampleScene.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/ChestCompressionGame.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/World.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/EntityManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/Types.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentArray.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/TypeId.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/SystemManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/System.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/ResourceManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/SpriteManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/AnimationManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/Serializer.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Components.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Systems/RenderSystem.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Systems/PhysicsSystem.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/SceneManager.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/Scene.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Game/Scenes/SampleScene.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Game/Scenes/ChestCompressionGame.h \
  C:/devkitPro/libogc2/wii/include/raymath.h
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/gccore.h:
@@ -150,25 +149,25 @@ C:/devkitPro/libogc2/wii/include/bte/bd_addr.h:
 C:/devkitPro/libogc2/wii/include/ogc/lwp_watchdog.h:
 C:/devkitPro/libogc2/wii/include/ogc/lwp_queue.h:
 C:/devkitPro/libogc2/wii/include/ogc/timesupp.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/World.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/EntityManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Types.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentArray.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/TypeId.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/SystemManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/System.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/ResourceManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/SpriteManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/AnimationManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Serializer.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Components.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/RenderSystem.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/PhysicsSystem.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/SceneManager.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Scene.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/SampleScene.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/ChestCompressionGame.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/World.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/EntityManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/Types.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/ComponentArray.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/TypeId.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/SystemManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/System.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/ResourceManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/SpriteManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/AnimationManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/Serializer.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Components.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Systems/RenderSystem.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Systems/PhysicsSystem.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/SceneManager.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/ECS/Scene.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Game/Scenes/SampleScene.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h:
+C:/Users/eladi/Documents/GitHub/wiiEngine/Game/Scenes/ChestCompressionGame.h:
 C:/devkitPro/libogc2/wii/include/raymath.h:

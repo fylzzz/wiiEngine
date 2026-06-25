@@ -11,6 +11,7 @@
 #include "raymath.h"
 #include <algorithm>
 #include <cmath>
+#include <array>
 
 
 class ChestCompressionGame : public Scene {
@@ -27,16 +28,22 @@ public:
 	float bpmTimer = 0.0f; 
 	float gameDuration = 60.0f;
 	float refractoryTimer = 0.0f;
-	float lastFlickTime = 0.0f;
+	float lastFlickTimeStamp = -1.0f; //-1 for no previous flick 
 
 	//BPM 
 	float currentBPM = 0.0f;
 	float targetBPM = 120.0f; 
 	float bpmWindow = 10.0f; 
-	float compressionThresh = 0.5f;
+	float compressionThresh = 600.0f;
 	float refractory = 0.3f; //min seconds between flicks 
 
-	bool isFlicking = false; 
+	//average roll
+	int BPMsampleCount = 4;
+	std::array<float, 4> flickIntervals = {0.0f, 0.0f, 0.0f, 0.0f};
+	int intervalIndex = 0;
+	int intervalsFilled = 0;
+
+	bool isFlicking = false;
 
 	// Initialise ECS and camera for scene
 	void init() override {
@@ -112,26 +119,16 @@ public:
 		if (timer > 0.0f)
 		{
 			timer -= dt;
-			if (timer < 0.0f)
-			{
-				timer 0.0f;
-			}
+			if (timer < 0.0f) timer = 0.0f;
 		}
-		if (timer > 0.0f)
-		{
-			refractory +=dt;
-		}
+			refractoryTimer += dt;
 
 		if (data->data_present) {
 			az = data->accel.z;
 			ax = data->accel.x;
 			ay = data->accel.y;
 
-			Vector3 rawAccel = {(float)ax, (float)ay, (float)az};
-			Vector3 normalizedAccel = Vector3Normalize(rawAccel);
-			float normalizedZ = normalizedAccel.z; //normalizing the accel using raylib built in vector3 math 
-
-			bool flicking =  normalizedZ > compressionThresh;
+			bool flicking = (float) az > 560.0f;
 
 			if (flicking && !isFlicking && refractoryTimer >= refractory)
 			{
@@ -145,14 +142,15 @@ public:
 			}
 		}
 
-		if (refractoryTimer > 2,0f)
+		if (refractoryTimer > 3.0f)
 		{
 			currentBPM = 0.0f;
-			lastFlickTime = gameDuration - timer
+			lastFlickTimeStamp = -1.0f;
+			intervalIndex = 0;
+			intervalsFilled = 0;
 		}
 
 		
-
 		// update physics system
 		physics->update(dt);
 		physics->updateCollisions(dt, false);
@@ -163,22 +161,40 @@ public:
 
 	void CompressionBPM()
 	{
-		float clampedBPM = std::clamp(targetBPM, 100.0f, 120.0f);
-		float timeSinceLast = (gameDuration - timer) - lastFlickTime;
-		lastFlickTime = gameDuration - timer;
+		float now = gameDuration - timer;
+		
+		if (lastFlickTimeStamp < 0.0f)
+		{
+			lastFlickTimeStamp = now;
+			return;
+		}
+		
+		float timeSinceLast = now - lastFlickTimeStamp;
+		lastFlickTimeStamp = now;
 
 		//ignore flick if too early 
-		if (timeSinceLast <= 0.0f || timeSinceLast > 0.2f) return;
+		if (timeSinceLast <= 0.0f || timeSinceLast > 2.0f) return;
 
-		currentBPM = 60.0f / timeSinceLast;	 
+		//store intervals in a ring buffer
+		flickIntervals[intervalIndex] = timeSinceLast;
+		intervalIndex = (intervalIndex + 1) % BPMsampleCount;
+		if (intervalsFilled < BPMsampleCount) intervalsFilled++;
+
+		float total = 0.0f; 
+		for (int i = 0; i < intervalsFilled; i++)
+		{
+		total += flickIntervals[i];
+		}
+
+		float avgInterval = total/intervalsFilled;
+		currentBPM = 60.0f / avgInterval;	 
 	
-		clampedBPM = std::clamp(currentBPM, 100.0f, 120.00f);
 		if (std::abs(currentBPM - targetBPM) <= bpmWindow)
 		{
 
 		}
 	
-		else if (std:: abs(currentBPM < targetBPM))
+		else if (currentBPM < targetBPM)
 		{
 
 		}
@@ -198,7 +214,7 @@ public:
 		DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
 		DrawText(TextFormat("CurrentBPM: %f", currentBPM), 10, 70, 20, WHITE);
 		DrawText(TextFormat("TargetBPM: %f", targetBPM), 10, 90, 20, WHITE);
-
+			
 		DrawFPS(10, 10);
 		EndDrawing();
 	}

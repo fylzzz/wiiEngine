@@ -1,5 +1,5 @@
 platform_wii.o: \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/src/platform_wii.c \
+ C:/Users/eladi/Documents/GitHub/wiiEngine/Engine/src/platform_wii.c \
  C:/devkitPro/libogc2/wii/include/raylib.h \
  C:/devkitPro/libogc2/wii/include/gccore.h \
  C:/devkitPro/libogc2/wii/include/ogc/dsp.h \
