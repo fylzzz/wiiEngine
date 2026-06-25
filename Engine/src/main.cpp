@@ -99,7 +99,7 @@ int main() {
 	scenes.registerScene<BottleGame>(3);
 	scenes.registerScene<PatchGame>(4);
 	scenes.registerScene<BabyTargetGame>(5);
-	scenes.switchTo(5);
+	scenes.switchTo(currentScene);
 
 	bool motionPlusConfirmed = false;
 	bool wasConnected = false;

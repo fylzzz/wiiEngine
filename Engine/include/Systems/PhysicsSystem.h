@@ -12,5 +12,7 @@ class PhysicsSystem : public System {
 
 		void update(float dt) override;
 		void updateCollisions(float dt, bool drawBounds);
+		bool isColliding(Entity a, Entity b) const;
+
 		void drawDebug();
 };

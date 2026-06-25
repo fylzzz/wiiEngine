@@ -19,13 +19,13 @@ public:
 	Camera3D camera = {};
 
 	Entity pointer;
+	Entity target;
 
 	enum state { START, PLAY, END };
 	state gameState;
 
-	Vector3 rot, drot, prot;
-	Vector3 maxDelta;
-	float timer;
+	float timer, timeElapsed, timeOnTarget;
+	int accuracy;
 	bool success;
 
 	// Initialise ECS and camera for scene
@@ -38,6 +38,10 @@ public:
 		timer = 10.0f;
 		gameState = START;
 		success = false;
+
+		timeElapsed = 0.0f;
+		timeOnTarget = 0.0f;
+		accuracy = 0;
 
 		// Setup camera
 		camera.position = Vector3{ 0.0f, 5.0f, 5.0f };
@@ -96,22 +100,46 @@ public:
 		//else {
 			// Create new/default entities here
 			pointer = world.createEntity();
-			world.addComponent<EngineTransform>(pointer, EngineTransform(Vector3{ 640 / 2, 480 / 2, 0 }, Vector3{}, Vector3{}));
+			world.addComponent<EngineTransform>(pointer, EngineTransform(Vector3{ 640 / 2, 480 / 2, 1 }, Vector3{}, Vector3{}));
 
-			Collider2D col;
-			col.entityId = pointer;
-			col.bounds.width = 20;
-			col.bounds.height = 20;
-			world.addComponent<Collider2D>(pointer, col);
+			Collider2D pcol;
+			pcol.entityId = pointer;
+			pcol.bounds.width = 20;
+			pcol.bounds.height = 20;
+			world.addComponent<Collider2D>(pointer, pcol);
 			
-			RigidBody2D rb{};
-			world.addComponent(pointer, rb);
+			RigidBody2D prb{};
+			prb.type = RbType::Kinematic;
+			world.addComponent<RigidBody2D>(pointer, prb);
 
 			PrimitiveRenderable2D pointerShape;
 			pointerShape.shape = RenderShape2D::Circle;
 			pointerShape.color = RED;
 			pointerShape.circle.radius = 10.0f;
 			world.addComponent<PrimitiveRenderable2D>(pointer, pointerShape);
+
+
+			target = world.createEntity();
+			world.addComponent<EngineTransform>(target, EngineTransform(Vector3{ 640 / 2, 480 / 2, 0 }, Vector3{}, Vector3{}));
+
+			Collider2D tcol;
+			tcol.entityId = target;
+			tcol.bounds.width = 40;
+			tcol.bounds.height = 40;
+			world.addComponent<Collider2D>(target, tcol);
+
+			RigidBody2D trb{};
+			trb.type = RbType::Kinematic;
+			trb.velocity = { 1, 1 };
+			world.addComponent<RigidBody2D>(target, trb);
+
+			PrimitiveRenderable2D targetShape;
+			targetShape.shape = RenderShape2D::Rectangle;
+			pointerShape.color = YELLOW;
+			targetShape.rectangle.width = 40;
+			targetShape.rectangle.height = 40;
+			world.addComponent<PrimitiveRenderable2D>(target, targetShape);
+
 			return;
 		//}
 	}
@@ -123,34 +151,40 @@ public:
 			transform.pos.x = data->ir.x;
 			transform.pos.y = data->ir.y;
 		}
+
+		auto& col = world.getComponent<Collider2D>(target);
+		auto& rb = world.getComponent<RigidBody2D>(target);
+
 		switch (gameState) {
 		case START:
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
 				gameState = PLAY;
 				timer = 10.0f;
+				timeElapsed = 0.0f;
+				timeOnTarget = 0.0f;
+				accuracy = 0;
 			}
 			break;
 
 		case PLAY:
-			if (data->data_present) {
-				rot.x = data->orient.pitch;
-				rot.y = data->orient.roll;
-				rot.z = data->orient.yaw;
+			if (physics->isColliding(pointer, target)) {
+				timeOnTarget += dt;
 			}
 
-			drot.x = rot.x - prot.x;
-			drot.y = rot.y - prot.y;
-			drot.z = rot.z - prot.z;
-			prot = rot;
+			timeElapsed += dt;
+			accuracy = (timeOnTarget / timeElapsed * 100);
 
-			maxDelta.x = std::max(maxDelta.x, std::abs(drot.x));
-			maxDelta.y = std::max(maxDelta.y, std::abs(drot.y));
-			maxDelta.z = std::max(maxDelta.z, std::abs(drot.z));
+			if (col.bounds.y + col.bounds.height >= 480 || col.bounds.y <= 0) {
+				rb.velocity.y = -rb.velocity.y;
+			}
+			else if (col.bounds.x + col.bounds.width >= 640 || col.bounds.x <= 0) {
+				rb.velocity.x = -rb.velocity.x;
+			}
 
 			timer -= dt;
 
 			if (timer <= 0) {
-				success = (maxDelta.x <= 10 && maxDelta.y <= 10 && maxDelta.z <= 10);
+				success = (accuracy >= 80);
 				gameState = END;
 			}
 			break;
@@ -158,7 +192,9 @@ public:
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
 				gameState = PLAY;
 				timer = 10.0f;
-				maxDelta = Vector3{};
+				timeElapsed = 0.0f;
+				timeOnTarget = 0.0f;
+				accuracy = 0;
 			}
 			break;
 		}
@@ -185,6 +221,7 @@ public:
 		case PLAY:
 			DrawText(TextFormat("ROT: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 30, 20, WHITE);
 			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
+			DrawText(TextFormat("Accuracy: %d", accuracy, "%"), 10, 70, 20, WHITE);
 			break;
 		case END:
 			if (success) {

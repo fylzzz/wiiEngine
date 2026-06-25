@@ -107,6 +107,13 @@ class QuadTree {
 		}
 };
 
+static bool aabbOverlap(const Rectangle& a, const Rectangle& b) {
+	return !(a.x + a.width < b.x ||
+		b.x + b.width < a.x ||
+		a.y + a.height < b.y ||
+		b.y + b.height < a.y);
+}
+
 void PhysicsSystem::update(float dt) {
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<RigidBody2D>(e)) continue;
@@ -117,6 +124,7 @@ void PhysicsSystem::update(float dt) {
 		trans.pos.y += rb2d.velocity.y;
 	}
 }
+
 void PhysicsSystem::drawDebug() {
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<Collider2D>(e)) continue;
@@ -154,17 +162,33 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 		for (const auto& other : candidates) {
 			if (other.entityId == col.entityId) continue;
 
-			bool hit = !(col.bounds.x + col.bounds.width < other.bounds.x ||
-				other.bounds.x + other.bounds.width < col.bounds.x ||
-				col.bounds.y + col.bounds.height < other.bounds.y ||
-				other.bounds.y + other.bounds.height < col.bounds.y);
+			bool hit = aabbOverlap(col.bounds, other.bounds);
 
 			if (hit) {
 				if (!world->hasComponent<RigidBody2D>(e)) continue;
 				auto& rb = world->getComponent<RigidBody2D>(e);
-				rb.velocity.x = -rb.velocity.x;
-				rb.velocity.y = -rb.velocity.y;
+				if (rb.type == RbType::Dynamic) {
+					rb.velocity.x = -rb.velocity.x;
+					rb.velocity.y = -rb.velocity.y;
+				}
 			}
 		}  
 	}
+}
+
+bool PhysicsSystem::isColliding(Entity a, Entity b) const {
+	if (a == b) return false;
+
+	if (!world->hasComponent<Collider2D>(a) || !world->hasComponent<Collider2D>(b)) return false;
+	if (!world->hasComponent<EngineTransform>(a) || !world->hasComponent<EngineTransform>(b)) return false;
+
+	auto& colA = world->getComponent<Collider2D>(a);
+	auto& colB = world->getComponent<Collider2D>(b);
+	auto& transA = world->getComponent<EngineTransform>(a);
+	auto& transB = world->getComponent<EngineTransform>(b);
+
+	Rectangle boundsA{ transA.pos.x, transA.pos.y, colA.bounds.width, colA.bounds.height };
+	Rectangle boundsB{ transB.pos.x, transB.pos.y, colB.bounds.width, colB.bounds.height };
+
+	return aabbOverlap(boundsA, boundsB);
 }
