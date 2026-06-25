@@ -5,7 +5,7 @@
 void RenderSystem::onEntityAdded(Entity e) {
     System::onEntityAdded(e);
 
-    bool wants2D = world->hasComponent<PrimitiveRenderable2D>(e) || world->hasComponent<Renderable2D>(e);
+    bool wants2D = world->hasComponent<PrimitiveRenderable2D>(e) || world->hasComponent<Renderable2D>(e) || world->hasComponent<Animator2D>(e);
     bool alreadyInZMap = mEntityZIndex.count(e) > 0;
 
     if (wants2D && !alreadyInZMap) {
@@ -76,20 +76,6 @@ void RenderSystem::update(float dt) {
             }
             }
         }
-        else if (world->hasComponent<Animator2D>(e)) {
-            auto& anim2D = world->getComponent<Animator2D>(e);
-
-            auto it = anim2D.animClips.find(anim2D.currentAnim);
-            if (it == anim2D.animClips.end() || it->second == INVALID_ANIM) continue;
-
-            AnimationClip& clip = world->getAnim(it->second);
-            if (clip.frames.empty()) continue;
-
-            Rectangle src = clip.frames[anim2D.currentFrame];
-            Rectangle dest = { trans.pos.x, trans.pos.y, src.width, src.height };
-            Vector2 origin = { 0.0f, 0.0f };
-            DrawTexturePro(clip.spritesheet, src, dest, origin, 0.0f, anim2D.color);
-        }
     }
 
     for (auto& [z, e] : mEntityZMap) {
@@ -118,6 +104,20 @@ void RenderSystem::update(float dt) {
 
             if (render2D.spriteId == INVALID_SPRITE) continue;
             DrawTexture(render2D.texture, (int)trans.pos.x, (int)trans.pos.y, render2D.color);
+        }
+        else if (world->hasComponent<Animator2D>(e)) {
+            auto& anim2D = world->getComponent<Animator2D>(e);
+
+            auto it = anim2D.animClips.find(anim2D.currentAnim);
+            if (it == anim2D.animClips.end() || it->second == INVALID_ANIM) continue;
+
+            AnimationClip& clip = world->getAnim(it->second);
+            if (clip.frames.empty()) continue;
+
+            Rectangle src = clip.frames[anim2D.currentFrame];
+            Rectangle dest = { trans.pos.x, trans.pos.y, src.width, src.height };
+            Vector2 origin = { 0.0f, 0.0f };
+            DrawTexturePro(clip.spritesheet, src, dest, origin, 0.0f, anim2D.color);
         }
     }
 }

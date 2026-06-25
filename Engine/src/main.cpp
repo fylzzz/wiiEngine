@@ -93,9 +93,10 @@ int main() {
 	//SetTargetFPS(60);
 
 	int currentScene = 1;
+	int totalScenes = 5;
 
 	SceneManager scenes;
-	scenes.registerScene<SampleScene>(0);
+	//scenes.registerScene<SampleScene>(0);
 	scenes.registerScene<NeedleGame>(1);
 	scenes.registerScene<ChestCompressionGame>(2);
 	scenes.registerScene<BottleGame>(3);
@@ -135,10 +136,12 @@ int main() {
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) break;
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_PLUS) {
 			currentScene++;
+			if (currentScene > totalScenes) currentScene = 1;
 			scenes.switchTo(currentScene);
 		}
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_MINUS) {
 			currentScene--;
+			if (currentScene < 1) currentScene = totalScenes;
 			scenes.switchTo(currentScene);
 		}
 

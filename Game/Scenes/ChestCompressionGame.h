@@ -56,7 +56,7 @@ public:
 		// load scene resources/sprites
 		//ResourceId teapotId = world.loadModel("sd:/teapot.obj");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
-		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
+		AnimId compressionAnim = world.loadAnim("compression", "sd:/ChestCompressionGame/cprspritesheets.png", 2, 4);
 
 		timer = gameDuration;
 		currentState = Start;
@@ -108,17 +108,25 @@ public:
 
 
 		// Load entities from file
-		FILE* f = fopen("sd:/samplescene.bin", "rb");
+		/*FILE* f = fopen("sd:/samplescene.bin", "rb");
 		if (f) 
 		{
 			fclose(f);
 			world.load("sd:/samplescene.bin");
 		}
 		else
-		{
+		{*/
 			// Create new/default entities here
+			Entity compressionanimation = world.createEntity();
+			world.addComponent<EngineTransform>(compressionanimation, EngineTransform(Vector3{ 64, -16, 0 }, Vector3{}, Vector3{}));
+
+			Animator2D animator;
+			animator.animClips.insert({ "compression", compressionAnim });
+			animator.currentAnim = "compression";
+			world.addComponent<Animator2D>(compressionanimation, animator);
+
 			return;
-		}
+		//}
 	}
 
 	void update(float dt, WPADData* data) override {
@@ -235,34 +243,39 @@ public:
 
 	void render(float dt) override {
 		BeginDrawing();
-		ClearBackground(BLACK);
+		ClearBackground((Color) { 228, 214, 198 });
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
 
 		switch (currentState) {
-		case Start:
-			DrawText("Press A to start", 10, 30, 20, WHITE);
+		case Start: {
+			DrawText("Hold the Wiimote", 10, 30, 20, BLACK);
+			DrawText("horizontally and", 10, 50, 20, BLACK);
+			DrawText("pump up and down", 10, 70, 20, BLACK);
+			DrawText("Press A to start", 10, 110, 20, BLACK);
 			break;
+		}
 		case Play:
-			DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
-			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
-			DrawText(TextFormat("CurrentBPM: %d", currentBPM), 10, 70, 20, WHITE);
-			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 90, 20, WHITE);
+			//DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, BLACK);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 30, 20, BLACK);
+			DrawText(TextFormat("Current BPM: %d", currentBPM), 10, 70, 20, BLACK);
+			DrawText("Target BPM: 100 - 120", 10, 90, 20, BLACK);
 			break;
 		case End:
-			DrawText(TextFormat("FinalBPM: %d", currentBPM), 10, 30, 20, WHITE);
-			DrawText(TextFormat("accuracy %d", accuracy), 10, 70, 20, WHITE);
-			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 50, 20, WHITE);
+			DrawText(TextFormat("Final BPM: %d", currentBPM), 10, 30, 20, BLACK);
+			DrawText(TextFormat("Accuracy %d", accuracy), 10, 50, 20, BLACK);
+			//DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 50, 20, BLACK);
+			DrawText("Press A to restart, or + to continue", 10, 460, 20, BLACK);
 			break;
 		}
 
-		DrawFPS(10, 10);
+		DrawText(TextFormat("%.0f FPS", (1 / dt)), 10, 10, 20, GREEN);
 		EndDrawing();
 	}
 
 	void shutdown() override {
 		// save current scene state
-		world.save("sd:/samplescene.bin");
+		//world.save("sd:/samplescene.bin");
 		// unload scene resources
 		world.unloadAllResources();
 		world.unloadAllSprites();

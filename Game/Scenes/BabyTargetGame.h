@@ -19,7 +19,7 @@ public:
 	Camera3D camera = {};
 
 	Entity pointer;
-	Entity target;
+	Entity targetEntity;
 
 	enum state { START, PLAY, END };
 	state gameState;
@@ -34,6 +34,9 @@ public:
 		//ResourceId teapotId = world.loadModel("sd:/teapot.obj");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
+
+		SpriteId target = world.loadSprite("sd:/BabyTargetGame/armtarget128.png");
+		SpriteId needle = world.loadSprite("sd:/BabyTargetGame/needle256.png");
 
 		timer = 10.0f;
 		gameState = START;
@@ -112,33 +115,50 @@ public:
 			prb.type = RbType::Kinematic;
 			world.addComponent<RigidBody2D>(pointer, prb);
 
+			Renderable2D pointerSprite;
+			pointerSprite.spriteId = needle;
+			pointerSprite.color = WHITE;
+			pointerSprite.texture = LoadTextureFromImage(world.getSprite(needle));
+			world.addComponent<Renderable2D>(pointer, pointerSprite);
+
+			/*
 			PrimitiveRenderable2D pointerShape;
 			pointerShape.shape = RenderShape2D::Circle;
 			pointerShape.color = RED;
 			pointerShape.circle.radius = 10.0f;
 			world.addComponent<PrimitiveRenderable2D>(pointer, pointerShape);
+			*/
 
 
-			target = world.createEntity();
-			world.addComponent<EngineTransform>(target, EngineTransform(Vector3{ 640 / 2, 480 / 2, 0 }, Vector3{}, Vector3{}));
+			targetEntity = world.createEntity();
+			world.addComponent<EngineTransform>(targetEntity, EngineTransform(Vector3{ 640 / 2, 480 / 2, 0 }, Vector3{}, Vector3{}));
 
 			Collider2D tcol;
 			tcol.entityId = target;
-			tcol.bounds.width = 40;
-			tcol.bounds.height = 40;
-			world.addComponent<Collider2D>(target, tcol);
+			tcol.offset = { 32, 32 };
+			tcol.bounds.width = 64;
+			tcol.bounds.height = 64;
+			world.addComponent<Collider2D>(targetEntity, tcol);
 
 			RigidBody2D trb{};
 			trb.type = RbType::Kinematic;
 			trb.velocity = { 1, 1 };
-			world.addComponent<RigidBody2D>(target, trb);
+			world.addComponent<RigidBody2D>(targetEntity, trb);
 
+			Renderable2D targetSprite;
+			targetSprite.spriteId = target;
+			targetSprite.color = WHITE;
+			targetSprite.texture = LoadTextureFromImage(world.getSprite(target));
+			world.addComponent<Renderable2D>(targetEntity, targetSprite);
+
+			/*
 			PrimitiveRenderable2D targetShape;
 			targetShape.shape = RenderShape2D::Rectangle;
-			pointerShape.color = YELLOW;
+			targetShape.color = YELLOW;
 			targetShape.rectangle.width = 40;
 			targetShape.rectangle.height = 40;
 			world.addComponent<PrimitiveRenderable2D>(target, targetShape);
+			*/
 
 			return;
 		//}
@@ -152,8 +172,8 @@ public:
 			transform.pos.y = data->ir.y;
 		}
 
-		auto& col = world.getComponent<Collider2D>(target);
-		auto& rb = world.getComponent<RigidBody2D>(target);
+		auto& col = world.getComponent<Collider2D>(targetEntity);
+		auto& rb = world.getComponent<RigidBody2D>(targetEntity);
 		if (col.bounds.y + col.bounds.height >= 480 || col.bounds.y <= 0) {
 			rb.velocity.y = -rb.velocity.y;
 		}
@@ -173,7 +193,7 @@ public:
 			break;
 
 		case PLAY:
-			if (physics->isColliding(pointer, target)) {
+			if (physics->isColliding(pointer, targetEntity)) {
 				timeOnTarget += dt;
 			}
 
@@ -208,26 +228,29 @@ public:
 
 	void render(float dt) override {
 		BeginDrawing();
-		ClearBackground(BLACK);
+		ClearBackground((Color) { 228, 214, 198 });
 		glClear(GL_DEPTH_BUFFER_BIT);
-		physics->drawDebug();
+		//physics->drawDebug();
 		rendersys->update(dt);
 
 		switch (gameState) {
 		case START:
-			DrawText("Press A to start", 10, 30, 20, WHITE);
+			DrawText("Point the Wiimote at the screen and track the target", 10, 30, 20, BLACK);
+			DrawText("Press A to start", 10, 70, 20, BLACK);
 			break;
 		case PLAY:
-			DrawText(TextFormat("Timer: %.0f", timer), 10, 30, 20, WHITE);
-			DrawText(TextFormat("Accuracy: %d", accuracy, "%"), 10, 50, 20, WHITE);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 30, 20, BLACK);
+			DrawText(TextFormat("Accuracy: %d", accuracy, "%"), 10, 50, 20, BLACK);
 			break;
 		case END:
 			if (success) {
-				DrawText("Game Won", 10, 30, 20, WHITE);
+				DrawText("Game Won", 10, 30, 20, BLACK);
 			}
 			else {
-				DrawText("Game Over", 10, 30, 20, WHITE);
+				DrawText("Game Over", 10, 30, 20, BLACK);
 			}
+			DrawText(TextFormat("Accuracy: %d", accuracy, "%"), 10, 50, 20, BLACK);
+			DrawText("Press A to restart, or + to continue", 10, 460, 20, BLACK);
 			break;
 		}
 

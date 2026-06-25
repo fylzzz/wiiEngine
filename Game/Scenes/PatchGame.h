@@ -33,6 +33,9 @@ public:
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
+		SpriteId arm = world.loadSprite("sd:/PatchGame/armmanpatch512.png");
+		AnimId patchAnim = world.loadAnim("patchanim", "sd:/PatchGame/patchspritesheet.png", 2, 2);
+
 		completion = 0;
 		gameState = START;
 		success = false;
@@ -84,15 +87,34 @@ public:
 
 
 		// Load entities from file
-		FILE* f = fopen("sd:/samplescene.bin", "rb");
+		/*FILE* f = fopen("sd:/samplescene.bin", "rb");
 		if (f) {
 			fclose(f);
 			world.load("sd:/samplescene.bin");
 		}
-		else {
+		else {*/
 			// Create new/default entities here
-			return;
-		}
+		
+		Entity man = world.createEntity();
+		world.addComponent<EngineTransform>(man, EngineTransform(Vector3{ 64, -16, 0 }, Vector3{}, Vector3{}));
+
+		Renderable2D sprite;
+		sprite.spriteId = arm;
+		sprite.color = WHITE;
+		sprite.texture = LoadTextureFromImage(world.getSprite(arm));
+		world.addComponent<Renderable2D>(man, sprite);
+
+
+		Entity patch = world.createEntity();
+		world.addComponent<EngineTransform>(patch, EngineTransform(Vector3{ 287, 93, 1 }, Vector3{}, Vector3{}));
+
+		Animator2D anim;
+		anim.animClips.insert({ "patchanim", patchAnim });
+		anim.color = WHITE;
+		anim.currentAnim = "patchanim";
+		world.addComponent<Animator2D>(patch, anim);
+		
+		return;
 	}
 
 	void update(float dt, WPADData* data) override {
@@ -101,7 +123,8 @@ public:
 		case START:
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
 				gameState = PLAY;
-				completion = 0;;
+				completion = 0;
+				success = false;
 			}
 			break;
 
@@ -124,6 +147,7 @@ public:
 			}
 
 			if (completion >= 100) {
+				success = true;
 				gameState = END;
 			}
 			break;
@@ -146,29 +170,33 @@ public:
 
 	void render(float dt) override {
 		BeginDrawing();
-		ClearBackground(BLACK);
+		ClearBackground((Color) { 228, 214, 198 });
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
 
 		switch (gameState) {
 		case START:
-			DrawText("Press A to start", 10, 30, 20, WHITE);
+			DrawText("Point the Wiimote", 10, 30, 20, BLACK);
+			DrawText("at the screen", 10, 50, 20, BLACK);
+			DrawText("and wiggle", 10, 70, 20, BLACK);
+			DrawText("Press A to start", 10, 110, 20, BLACK);
 			break;
 		case PLAY:
-			DrawText(TextFormat("IR: %.0f, %.0f", ir.x, ir.y), 10, 30, 20, WHITE);
-			DrawText(TextFormat("Completion: %d", completion), 10, 50, 20, WHITE);
+			//DrawText(TextFormat("IR: %.0f, %.0f", ir.x, ir.y), 10, 30, 20, BLACK);
+			DrawText(TextFormat("Completion: %d", completion), 10, 30, 20, BLACK);
 			break;
 		case END:
 			if (success) {
-				DrawText("Game Won", 10, 30, 20, WHITE);
+				DrawText("Game Won", 10, 30, 20, BLACK);
 			}
 			else {
-				DrawText("Game Over", 10, 30, 20, WHITE);
+				DrawText("Game Over", 10, 30, 20, BLACK);
 			}
+			DrawText("Press A to restart, or + to continue", 10, 460, 20, BLACK);
 			break;
 		}
 
-		DrawFPS(10, 10);
+		DrawText(TextFormat("%.0f FPS", (1 / dt)), 10, 10, 20, GREEN);
 		EndDrawing();
 	}
 

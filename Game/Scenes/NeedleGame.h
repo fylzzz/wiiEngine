@@ -33,6 +33,9 @@ public:
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
+		SpriteId bottle = world.loadSprite("sd:/NeedleGame/eyedrops256.png");
+		//AnimId faceAnim = world.loadAnim("face", "sd:/NeedleGame/eyedropchildspritesheet.png", 2, 4);
+
 		timer = 10.0f;
 		gameState = START;
 		success = false;
@@ -84,15 +87,34 @@ public:
 
 
 		// Load entities from file
-		FILE* f = fopen("sd:/samplescene.bin", "rb");
+		/*FILE* f = fopen("sd:/samplescene.bin", "rb");
 		if (f) {
 			fclose(f);
 			world.load("sd:/samplescene.bin");
 		}
-		else {
+		else {*/
 			// Create new/default entities here
-			return;
-		}
+		
+		Entity bottleEntity = world.createEntity();
+		world.addComponent<EngineTransform>(bottleEntity, EngineTransform(Vector3{ 192, 112, 1 }, Vector3{}, Vector3{}));
+
+		Renderable2D sprite;
+		sprite.spriteId = bottle;
+		sprite.color = WHITE;
+		sprite.texture = LoadTextureFromImage(world.getSprite(bottle));
+		world.addComponent<Renderable2D>(bottleEntity, sprite);
+
+
+		/*Entity faceEntity = world.createEntity();
+		world.addComponent<EngineTransform>(faceEntity, EngineTransform(Vector3{ 192, 122, 0 }, Vector3{}, Vector3{}));
+
+		Animator2D anim;
+		anim.animClips.insert({ "face", faceAnim });
+		anim.currentAnim = "face";
+		world.addComponent<Animator2D>(faceEntity, anim);
+		*/
+
+		return;
 	}
 
 	void update(float dt, WPADData* data) override {
@@ -147,29 +169,31 @@ public:
 
 	void render(float dt) override {
 		BeginDrawing();
-		ClearBackground(BLACK);
+		ClearBackground((Color) { 228, 214, 198 });
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
 
 		switch (gameState) {
 		case START:
-			DrawText("Press A to start", 10, 30, 20, WHITE);
+			DrawText("Hold the Wiimote as still as possible in the neutral position", 10, 30, 20, BLACK);
+			DrawText("Press A to start", 10, 70, 20, BLACK);
 			break;
 		case PLAY:
-			DrawText(TextFormat("ROT: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 30, 20, WHITE);
-			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
+			DrawText(TextFormat("Stability: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 50, 20, BLACK);
+			DrawText(TextFormat("Timer: %.0f", timer), 10, 30, 20, BLACK);
 			break;
 		case END:
 			if (success) {
-				DrawText("Game Won", 10, 30, 20, WHITE);
+				DrawText("Game Won", 10, 30, 20, BLACK);
 			}
 			else {
-				DrawText("Game Over", 10, 30, 20, WHITE);
+				DrawText("Game Lost", 10, 30, 20, BLACK);
 			}
+			DrawText("Press A to restart, or + to continue", 10, 460, 20, BLACK);
 			break;
 		}
 
-		DrawFPS(10, 10);
+		DrawText(TextFormat("%.0f FPS", (1 / dt)), 10, 10, 20, GREEN);
 		EndDrawing();
 	}
 

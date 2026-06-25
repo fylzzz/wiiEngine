@@ -78,4 +78,5 @@ struct RigidBody2D {
 struct Collider2D {
     Entity entityId;
     Rectangle bounds;
+    Vector2 offset;
 };

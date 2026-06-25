@@ -129,9 +129,9 @@ void PhysicsSystem::drawDebug() {
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<Collider2D>(e)) continue;
 		auto& col = world->getComponent<Collider2D>(e);
-		auto& trans = world->getComponent<EngineTransform>(e);
+		//auto& trans = world->getComponent<EngineTransform>(e);
 
-		DrawRectangleLines(trans.pos.x, trans.pos.y, col.bounds.width, col.bounds.height, GREEN);
+		DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
 	}
 }
 
@@ -143,11 +143,11 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 		auto& col = world->getComponent<Collider2D>(e);
 		auto& trans = world->getComponent<EngineTransform>(e);
 
-		col.bounds.x = trans.pos.x;
-		col.bounds.y = trans.pos.y;
+		col.bounds.x = trans.pos.x + col.offset.x;
+		col.bounds.y = trans.pos.y + col.offset.y;
 		col.entityId = e;
 		if (drawBounds) {
-			DrawRectangleLines(trans.pos.x, trans.pos.y, col.bounds.width, col.bounds.height, GREEN);
+			DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
 		}
 		qt.insert(col);
 	}
@@ -184,11 +184,11 @@ bool PhysicsSystem::isColliding(Entity a, Entity b) const {
 
 	auto& colA = world->getComponent<Collider2D>(a);
 	auto& colB = world->getComponent<Collider2D>(b);
-	auto& transA = world->getComponent<EngineTransform>(a);
-	auto& transB = world->getComponent<EngineTransform>(b);
+	//auto& transA = world->getComponent<EngineTransform>(a);
+	//auto& transB = world->getComponent<EngineTransform>(b);
 
-	Rectangle boundsA{ transA.pos.x, transA.pos.y, colA.bounds.width, colA.bounds.height };
-	Rectangle boundsB{ transB.pos.x, transB.pos.y, colB.bounds.width, colB.bounds.height };
+	Rectangle boundsA{ colA.bounds.x, colA.bounds.y, colA.bounds.width, colA.bounds.height };
+	Rectangle boundsB{ colB.bounds.x, colB.bounds.y, colB.bounds.width, colB.bounds.height };
 
 	return aabbOverlap(boundsA, boundsB);
 }
