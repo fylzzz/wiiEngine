@@ -31,8 +31,8 @@ public:
 	float lastFlickTimeStamp = -1.0f; //-1 for no previous flick 
 
 	//BPM 
-	float currentBPM = 0.0f;
-	float targetBPM = 120.0f; 
+	int currentBPM = 0;
+	int targetBPM = 120; 
 	float bpmWindow = 10.0f; 
 	float compressionThresh = 600.0f;
 	float refractory = 0.3f; //min seconds between flicks 
@@ -187,7 +187,7 @@ public:
 		}
 
 		float avgInterval = total/intervalsFilled;
-		currentBPM = 60.0f / avgInterval;	 
+		currentBPM = (int)(60.0f / avgInterval);	 
 	
 		if (std::abs(currentBPM - targetBPM) <= bpmWindow)
 		{
@@ -212,8 +212,8 @@ public:
 
 		DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
 		DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
-		DrawText(TextFormat("CurrentBPM: %f", currentBPM), 10, 70, 20, WHITE);
-		DrawText(TextFormat("TargetBPM: %f", targetBPM), 10, 90, 20, WHITE);
+		DrawText(TextFormat("CurrentBPM: %d", currentBPM), 10, 70, 20, WHITE);
+		DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 90, 20, WHITE);
 			
 		DrawFPS(10, 10);
 		EndDrawing();

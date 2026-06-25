@@ -7446,400 +7446,400 @@ Linker script and memory map
                 0x800045a8                exit
  *(.text.startup .text.startup.*)
  .text.startup.main
-                0x800045e4      0x514 main.o
+                0x800045e4      0x510 main.o
                 0x800045e4                main
  .text.startup._GLOBAL__sub_I__ogx_bytes_to_texture
-                0x80004af8       0x24 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixels.o)
+                0x80004af4       0x24 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixels.o)
  .text.startup.__MMCE_Init
-                0x80004b1c       0x40 C:/devkitPro/libogc2/wii/lib\libogc.a(mmce.o)
+                0x80004b18       0x40 C:/devkitPro/libogc2/wii/lib\libogc.a(mmce.o)
  .text.startup.__N64_Init
-                0x80004b5c       0x58 C:/devkitPro/libogc2/wii/lib\libogc.a(n64.o)
+                0x80004b58       0x58 C:/devkitPro/libogc2/wii/lib\libogc.a(n64.o)
  .text.startup._GLOBAL__sub_I__ZN9__gnu_cxx9__freeresEv
-                0x80004bb4      0x258 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib\libstdc++.a(eh_alloc.o)
+                0x80004bb0      0x258 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib\libstdc++.a(eh_alloc.o)
  .text.startup._GLOBAL__sub_I__ZN17__eh_globals_init7_S_initE
-                0x80004e0c       0x40 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib\libstdc++.a(eh_globals.o)
+                0x80004e08       0x40 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib\libstdc++.a(eh_globals.o)
  .text.startup.register_fini
-                0x80004e4c        0xc C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib\libc.a(libc_a-__call_atexit.o)
+                0x80004e48        0xc C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib\libc.a(libc_a-__call_atexit.o)
  *(.text.hot .text.hot.*)
  *(SORT_BY_NAME(.text.sorted.*))
  *(.text .iplt .stub .text.* .gnu.linkonce.t.*)
  .text.__do_global_dtors_aux
-                0x80004e58       0xcc C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/crtbegin.o
+                0x80004e54       0xcc C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/crtbegin.o
  .text.frame_dummy
-                0x80004f24       0x24 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/crtbegin.o
- *fill*         0x80004f48        0x0 00000000
- .iplt          0x80004f48        0x0 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/crtbegin.o
+                0x80004f20       0x24 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/crtbegin.o
+ *fill*         0x80004f44        0x0 00000000
+ .iplt          0x80004f44        0x0 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/crtbegin.o
  .text.__crtmain
-                0x80004f48       0x40 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib/crtmain.o
-                0x80004f4c                __crtmain
+                0x80004f44       0x40 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0/../../../../powerpc-eabi/lib/crtmain.o
+                0x80004f48                __crtmain
  .text._ZN16AnimationManager8loadAnimENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPKcii
-                0x80004f88      0x588 AnimationManager.o
-                0x80004f88                AnimationManager::loadAnim(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char const*, int, int)
+                0x80004f84      0x588 AnimationManager.o
+                0x80004f84                AnimationManager::loadAnim(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char const*, int, int)
  .text._ZN16AnimationManager7getAnimEt
-                0x80005510        0xc AnimationManager.o
-                0x80005510                AnimationManager::getAnim(unsigned short)
+                0x8000550c        0xc AnimationManager.o
+                0x8000550c                AnimationManager::getAnim(unsigned short)
  .text._ZN13EntityManager6createEv
-                0x8000551c       0xd4 EntityManager.o
-                0x8000551c                EntityManager::create()
+                0x80005518       0xd4 EntityManager.o
+                0x80005518                EntityManager::create()
  .text._ZN13EntityManager12setSignatureEjSt6bitsetILj32EE
-                0x800055f0       0x14 EntityManager.o
-                0x800055f0                EntityManager::setSignature(unsigned int, std::bitset<32u>)
+                0x800055ec       0x14 EntityManager.o
+                0x800055ec                EntityManager::setSignature(unsigned int, std::bitset<32u>)
  .text._ZNK13EntityManager12getSignatureEj
-                0x80005604       0x10 EntityManager.o
-                0x80005604                EntityManager::getSignature(unsigned int) const
+                0x80005600       0x10 EntityManager.o
+                0x80005600                EntityManager::getSignature(unsigned int) const
  .text._ZN13EntityManager13restoreEntityEjSt6bitsetILj32EE
-                0x80005614       0x20 EntityManager.o
-                0x80005614                EntityManager::restoreEntity(unsigned int, std::bitset<32u>)
+                0x80005610       0x20 EntityManager.o
+                0x80005610                EntityManager::restoreEntity(unsigned int, std::bitset<32u>)
  .text._ZNSt5dequeIjSaIjEE17_M_reallocate_mapEjb
-                0x80005634      0x248 EntityManager.o
-                0x80005634                std::deque<unsigned int, std::allocator<unsigned int> >::_M_reallocate_map(unsigned int, bool)
+                0x80005630      0x248 EntityManager.o
+                0x80005630                std::deque<unsigned int, std::allocator<unsigned int> >::_M_reallocate_map(unsigned int, bool)
  .text._ZNSt5dequeIjSaIjEE16_M_push_back_auxIJRKjEEEvDpOT_
-                0x8000587c       0xf8 EntityManager.o
-                0x8000587c                void std::deque<unsigned int, std::allocator<unsigned int> >::_M_push_back_aux<unsigned int const&>(unsigned int const&)
+                0x80005878       0xf8 EntityManager.o
+                0x80005878                void std::deque<unsigned int, std::allocator<unsigned int> >::_M_push_back_aux<unsigned int const&>(unsigned int const&)
  .text._ZN13EntityManagerC2Ev
-                0x80005974      0x110 EntityManager.o
-                0x80005974                EntityManager::EntityManager()
-                0x80005974                EntityManager::EntityManager()
+                0x80005970      0x110 EntityManager.o
+                0x80005970                EntityManager::EntityManager()
+                0x80005970                EntityManager::EntityManager()
  .text._ZN13EntityManager21rebuildAvailableQueueEv
-                0x80005a84      0x110 EntityManager.o
-                0x80005a84                EntityManager::rebuildAvailableQueue()
+                0x80005a80      0x110 EntityManager.o
+                0x80005a80                EntityManager::rebuildAvailableQueue()
  .text._ZN15ResourceManager8getModelEt
-                0x80005b94        0xc ResourceManager.o
-                0x80005b94                ResourceManager::getModel(unsigned short)
+                0x80005b90        0xc ResourceManager.o
+                0x80005b90                ResourceManager::getModel(unsigned short)
  .text._ZN15ResourceManager9unloadAllEv
-                0x80005ba0       0x54 ResourceManager.o
-                0x80005ba0                ResourceManager::unloadAll()
+                0x80005b9c       0x54 ResourceManager.o
+                0x80005b9c                ResourceManager::unloadAll()
  .text._ZN13SpriteManager9unloadAllEv
-                0x80005bf4       0x6c SpriteManager.o
-                0x80005bf4                SpriteManager::unloadAll()
+                0x80005bf0       0x6c SpriteManager.o
+                0x80005bf0                SpriteManager::unloadAll()
  .text._ZNSt8_Rb_treeIjjSt9_IdentityIjESt4lessIjESaIjEE15_M_erase_uniqueERKj.isra.0
-                0x80005c60       0xa4 SystemManager.o
+                0x80005c5c       0xa4 SystemManager.o
  .text._ZN13SystemManager22entitySignatureChangedEjSt6bitsetILj32EE
-                0x80005d04      0x1a8 SystemManager.o
-                0x80005d04                SystemManager::entitySignatureChanged(unsigned int, std::bitset<32u>)
+                0x80005d00      0x1a8 SystemManager.o
+                0x80005d00                SystemManager::entitySignatureChanged(unsigned int, std::bitset<32u>)
  .text._ZNSt15_Sp_counted_ptrIDnLN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x80005eac        0x4 World.o
-                0x80005eac                std::_Sp_counted_ptr<decltype(nullptr), (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x80005ea8        0x4 World.o
+                0x80005ea8                std::_Sp_counted_ptr<decltype(nullptr), (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt16_Sp_counted_baseILN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x80005eb0       0x10 World.o
-                0x80005eb0                std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x80005eac       0x10 World.o
+                0x80005eac                std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZN5World4initEv
-                0x80005ec0      0x478 World.o
-                0x80005ec0                World::init()
+                0x80005ebc      0x478 World.o
+                0x80005ebc                World::init()
  .text._ZN5World12createEntityEv
-                0x80006338        0x8 World.o
-                0x80006338                World::createEntity()
+                0x80006334        0x8 World.o
+                0x80006334                World::createEntity()
  .text._ZN5World8getModelEt
-                0x80006340        0x8 World.o
-                0x80006340                World::getModel(unsigned short)
+                0x8000633c        0x8 World.o
+                0x8000633c                World::getModel(unsigned short)
  .text._ZN5World18unloadAllResourcesEv
-                0x80006348        0x8 World.o
-                0x80006348                World::unloadAllResources()
+                0x80006344        0x8 World.o
+                0x80006344                World::unloadAllResources()
  .text._ZN5World16unloadAllSpritesEv
-                0x80006350        0x8 World.o
-                0x80006350                World::unloadAllSprites()
+                0x8000634c        0x8 World.o
+                0x8000634c                World::unloadAllSprites()
  .text._ZN5World8loadAnimENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPKcii
-                0x80006358       0xf8 World.o
-                0x80006358                World::loadAnim(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char const*, int, int)
+                0x80006354       0xf8 World.o
+                0x80006354                World::loadAnim(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char const*, int, int)
  .text._ZN5World7getAnimEt
-                0x80006450        0x8 World.o
-                0x80006450                World::getAnim(unsigned short)
+                0x8000644c        0x8 World.o
+                0x8000644c                World::getAnim(unsigned short)
  .text._ZN5World4saveEPKc
-                0x80006458      0x174 World.o
-                0x80006458                World::save(char const*)
+                0x80006454      0x174 World.o
+                0x80006454                World::save(char const*)
  .text._ZN5World4loadEPKc
-                0x800065cc      0x178 World.o
-                0x800065cc                World::load(char const*)
+                0x800065c8      0x178 World.o
+                0x800065c8                World::load(char const*)
  .text._ZNSt8_Rb_treeIjjSt9_IdentityIjESt4lessIjESaIjEE8_M_eraseEPSt13_Rb_tree_nodeIjE.isra.0
-                0x80006744      0x1ac AnimationSystem.o
+                0x80006740      0x1ac AnimationSystem.o
  .text._ZN15AnimationSystemD2Ev
-                0x800068f0       0x50 AnimationSystem.o
-                0x800068f0                AnimationSystem::~AnimationSystem()
-                0x800068f0                AnimationSystem::~AnimationSystem()
+                0x800068ec       0x50 AnimationSystem.o
+                0x800068ec                AnimationSystem::~AnimationSystem()
+                0x800068ec                AnimationSystem::~AnimationSystem()
  .text._ZN15AnimationSystemD0Ev
-                0x80006940       0x64 AnimationSystem.o
-                0x80006940                AnimationSystem::~AnimationSystem()
+                0x8000693c       0x64 AnimationSystem.o
+                0x8000693c                AnimationSystem::~AnimationSystem()
  .text._ZNSt8_Rb_treeINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESt4pairIKS5_tESt10_Select1stIS8_ESt4lessIS5_ESaIS8_EE4findERS7_
-                0x800069a4      0x15c AnimationSystem.o
-                0x800069a4                std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, unsigned short>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, unsigned short> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, unsigned short> > >::find(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+                0x800069a0      0x15c AnimationSystem.o
+                0x800069a0                std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, unsigned short>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, unsigned short> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, unsigned short> > >::find(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
  .text._ZN15AnimationSystem6updateEf
-                0x80006b00      0x6d8 AnimationSystem.o
-                0x80006b00                AnimationSystem::update(float)
+                0x80006afc      0x6d8 AnimationSystem.o
+                0x80006afc                AnimationSystem::update(float)
  .text._ZNK16ComponentManager8getArrayI15EngineTransformEESt10shared_ptrI14ComponentArrayIT_EEv.part.0
-                0x800071d8       0x2c PhysicsSystem.o
+                0x800071d4       0x2c PhysicsSystem.o
  .text._ZNK16ComponentManager8getArrayI11RigidBody2DEESt10shared_ptrI14ComponentArrayIT_EEv.part.0
-                0x80007204       0x2c PhysicsSystem.o
+                0x80007200       0x2c PhysicsSystem.o
  .text._ZNK16ComponentManager8getArrayI10Collider2DEESt10shared_ptrI14ComponentArrayIT_EEv.part.0
-                0x80007230       0x2c PhysicsSystem.o
+                0x8000722c       0x2c PhysicsSystem.o
  .text._ZNSt8__detail9_Map_baseIjSt4pairIKjjESaIS3_ENS_10_Select1stESt8equal_toIjESt4hashIjENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixERS2_.isra.0
-                0x8000725c      0x2d0 PhysicsSystem.o
+                0x80007258      0x2d0 PhysicsSystem.o
  .text._ZNSt6vectorI10Collider2DSaIS0_EE15_M_range_insertIN9__gnu_cxx17__normal_iteratorIPKS0_S2_EEEEvNS5_IPS0_S2_EET_SB_St20forward_iterator_tag.isra.0
-                0x8000752c      0x48c PhysicsSystem.o
+                0x80007528      0x48c PhysicsSystem.o
  .text._ZNSt8_Rb_treeIjjSt9_IdentityIjESt4lessIjESaIjEE8_M_eraseEPSt13_Rb_tree_nodeIjE.isra.0
-                0x800079b8      0x1ac PhysicsSystem.o
+                0x800079b4      0x1ac PhysicsSystem.o
  .text._ZN13PhysicsSystemD2Ev
-                0x80007b64       0x50 PhysicsSystem.o
-                0x80007b64                PhysicsSystem::~PhysicsSystem()
-                0x80007b64                PhysicsSystem::~PhysicsSystem()
+                0x80007b60       0x50 PhysicsSystem.o
+                0x80007b60                PhysicsSystem::~PhysicsSystem()
+                0x80007b60                PhysicsSystem::~PhysicsSystem()
  .text._ZN13PhysicsSystemD0Ev
-                0x80007bb4       0x64 PhysicsSystem.o
-                0x80007bb4                PhysicsSystem::~PhysicsSystem()
+                0x80007bb0       0x64 PhysicsSystem.o
+                0x80007bb0                PhysicsSystem::~PhysicsSystem()
  .text._ZNKSt14default_deleteI8QuadTreeEclEPS0_.part.0
-                0x80007c18      0x128 PhysicsSystem.o
+                0x80007c14      0x128 PhysicsSystem.o
  .text._ZN8QuadTree5splitEv
-                0x80007d40      0x360 PhysicsSystem.o
-                0x80007d40                QuadTree::split()
+                0x80007d3c      0x360 PhysicsSystem.o
+                0x80007d3c                QuadTree::split()
  .text._ZN8QuadTree6insertERK10Collider2D
-                0x800080a0      0x404 PhysicsSystem.o
-                0x800080a0                QuadTree::insert(Collider2D const&)
+                0x8000809c      0x404 PhysicsSystem.o
+                0x8000809c                QuadTree::insert(Collider2D const&)
  .text._ZNK8QuadTree8retrieveERSt6vectorI10Collider2DSaIS1_EERK9Rectangle
-                0x800084a4      0xa04 PhysicsSystem.o
-                0x800084a4                QuadTree::retrieve(std::vector<Collider2D, std::allocator<Collider2D> >&, Rectangle const&) const
+                0x800084a0      0xa04 PhysicsSystem.o
+                0x800084a0                QuadTree::retrieve(std::vector<Collider2D, std::allocator<Collider2D> >&, Rectangle const&) const
  .text._ZNSt10_HashtableIjSt4pairIKjjESaIS2_ENSt8__detail10_Select1stESt8equal_toIjESt4hashIjENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_
-                0x80008ea8       0xb0 PhysicsSystem.o
-                0x80008ea8                std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::find(unsigned int const&)
+                0x80008ea4       0xb0 PhysicsSystem.o
+                0x80008ea4                std::_Hashtable<unsigned int, std::pair<unsigned int const, unsigned int>, std::allocator<std::pair<unsigned int const, unsigned int> >, std::__detail::_Select1st, std::equal_to<unsigned int>, std::hash<unsigned int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::find(unsigned int const&)
  .text._ZN16ComponentManager12getComponentI11RigidBody2DEERT_j
-                0x80008f58      0x288 PhysicsSystem.o
-                0x80008f58                RigidBody2D& ComponentManager::getComponent<RigidBody2D>(unsigned int)
+                0x80008f54      0x288 PhysicsSystem.o
+                0x80008f54                RigidBody2D& ComponentManager::getComponent<RigidBody2D>(unsigned int)
  .text._ZN13PhysicsSystem6updateEf
-                0x800091e0      0x4e4 PhysicsSystem.o
-                0x800091e0                PhysicsSystem::update(float)
+                0x800091dc      0x4e4 PhysicsSystem.o
+                0x800091dc                PhysicsSystem::update(float)
  .text._ZN13PhysicsSystem16updateCollisionsEfb
-                0x800096c4     0x10d8 PhysicsSystem.o
-                0x800096c4                PhysicsSystem::updateCollisions(float, bool)
+                0x800096c0     0x10d8 PhysicsSystem.o
+                0x800096c0                PhysicsSystem::updateCollisions(float, bool)
  .text._ZNSt8__detail9_Map_baseIjSt4pairIKjjESaIS3_ENS_10_Select1stESt8equal_toIjESt4hashIjENS_18_Mod_range_hashingENS_20_Default_ranged_hashENS_20_Prime_rehash_policyENS_17_Hashtable_traitsILb0ELb0ELb1EEELb1EEixERS2_.isra.0
-                0x8000a79c      0x2d0 RenderSystem.o
+                0x8000a798      0x2d0 RenderSystem.o
  .text._ZNSt8_Rb_treeIjjSt9_IdentityIjESt4lessIjESaIjEE8_M_eraseEPSt13_Rb_tree_nodeIjE.isra.0
-                0x8000aa6c      0x1ac RenderSystem.o
+                0x8000aa68      0x1ac RenderSystem.o
  .text._ZN12RenderSystemD2Ev
-                0x8000ac18       0x50 RenderSystem.o
-                0x8000ac18                RenderSystem::~RenderSystem()
-                0x8000ac18                RenderSystem::~RenderSystem()
+                0x8000ac14       0x50 RenderSystem.o
+                0x8000ac14                RenderSystem::~RenderSystem()
+                0x8000ac14                RenderSystem::~RenderSystem()
  .text._ZN12RenderSystemD0Ev
-                0x8000ac68       0x64 RenderSystem.o
-                0x8000ac68                RenderSystem::~RenderSystem()
+                0x8000ac64       0x64 RenderSystem.o
+                0x8000ac64                RenderSystem::~RenderSystem()
  .text._ZN12RenderSystem6updateEf
-                0x8000accc      0xef4 RenderSystem.o
-                0x8000accc                RenderSystem::update(float)
+                0x8000acc8      0xef4 RenderSystem.o
+                0x8000acc8                RenderSystem::update(float)
  .text._ZNSt23_Sp_counted_ptr_inplaceI15AnimationSystemSaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bbc0        0x4 main.o
-                0x8000bbc0                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bbc0                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bbbc        0x4 main.o
+                0x8000bbbc                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bbbc                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI15AnimationSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bbc4       0x14 main.o
-                0x8000bbc4                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bbc0       0x14 main.o
+                0x8000bbc0                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI13PhysicsSystemSaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bbd8        0x4 main.o
-                0x8000bbd8                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bbd8                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bbd4        0x4 main.o
+                0x8000bbd4                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bbd4                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI13PhysicsSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bbdc       0x14 main.o
-                0x8000bbdc                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bbd8       0x14 main.o
+                0x8000bbd8                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI12RenderSystemSaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bbf0        0x4 main.o
-                0x8000bbf0                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bbf0                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bbec        0x4 main.o
+                0x8000bbec                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bbec                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI12RenderSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bbf4       0x14 main.o
-                0x8000bbf4                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bbf0       0x14 main.o
+                0x8000bbf0                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Animator2DESaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc08        0x4 main.o
-                0x8000bc08                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc08                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc04        0x4 main.o
+                0x8000bc04                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc04                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Animator2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc0c       0x14 main.o
-                0x8000bc0c                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc08       0x14 main.o
+                0x8000bc08                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI11RigidBody2DESaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc20        0x4 main.o
-                0x8000bc20                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc20                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc1c        0x4 main.o
+                0x8000bc1c                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc1c                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI11RigidBody2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc24       0x14 main.o
-                0x8000bc24                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc20       0x14 main.o
+                0x8000bc20                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Collider2DESaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc38        0x4 main.o
-                0x8000bc38                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc38                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc34        0x4 main.o
+                0x8000bc34                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc34                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Collider2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc3c       0x14 main.o
-                0x8000bc3c                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc38       0x14 main.o
+                0x8000bc38                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI12Renderable2DESaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc50        0x4 main.o
-                0x8000bc50                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc50                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc4c        0x4 main.o
+                0x8000bc4c                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc4c                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI12Renderable2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc54       0x14 main.o
-                0x8000bc54                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc50       0x14 main.o
+                0x8000bc50                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10RenderableESaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc68        0x4 main.o
-                0x8000bc68                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc68                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc64        0x4 main.o
+                0x8000bc64                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc64                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10RenderableESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc6c       0x14 main.o
-                0x8000bc6c                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc68       0x14 main.o
+                0x8000bc68                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI15EngineTransformESaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc80        0x4 main.o
-                0x8000bc80                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc80                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc7c        0x4 main.o
+                0x8000bc7c                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc7c                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI15EngineTransformESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc84       0x14 main.o
-                0x8000bc84                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc80       0x14 main.o
+                0x8000bc80                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI20ChestCompressionGameSaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bc98        0x4 main.o
-                0x8000bc98                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bc98                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc94        0x4 main.o
+                0x8000bc94                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bc94                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI20ChestCompressionGameSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bc9c       0x14 main.o
-                0x8000bc9c                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bc98       0x14 main.o
+                0x8000bc98                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI10NeedleGameSaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bcb0        0x4 main.o
-                0x8000bcb0                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bcb0                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bcac        0x4 main.o
+                0x8000bcac                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bcac                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI10NeedleGameSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bcb4       0x14 main.o
-                0x8000bcb4                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bcb0       0x14 main.o
+                0x8000bcb0                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZNSt23_Sp_counted_ptr_inplaceI11SampleSceneSaIvELN9__gnu_cxx12_Lock_policyE2EED2Ev
-                0x8000bcc8        0x4 main.o
-                0x8000bcc8                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
-                0x8000bcc8                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bcc4        0x4 main.o
+                0x8000bcc4                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000bcc4                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI11SampleSceneSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_disposeEv
-                0x8000bccc       0x14 main.o
-                0x8000bccc                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
+                0x8000bcc8       0x14 main.o
+                0x8000bcc8                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()
  .text._ZN20ChestCompressionGame8shutdownEv
-                0x8000bce0       0x44 main.o
-                0x8000bce0                ChestCompressionGame::shutdown()
+                0x8000bcdc       0x44 main.o
+                0x8000bcdc                ChestCompressionGame::shutdown()
  .text._ZN10NeedleGame8shutdownEv
-                0x8000bd24       0x44 main.o
-                0x8000bd24                NeedleGame::shutdown()
+                0x8000bd20       0x44 main.o
+                0x8000bd20                NeedleGame::shutdown()
  .text._ZN11SampleScene8shutdownEv
-                0x8000bd68       0x44 main.o
-                0x8000bd68                SampleScene::shutdown()
+                0x8000bd64       0x44 main.o
+                0x8000bd64                SampleScene::shutdown()
  .text._ZNSt23_Sp_counted_ptr_inplaceI11SampleSceneSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000bdac       0x50 main.o
-                0x8000bdac                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000bda8       0x50 main.o
+                0x8000bda8                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI10NeedleGameSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000bdfc       0x50 main.o
-                0x8000bdfc                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000bdf8       0x50 main.o
+                0x8000bdf8                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI20ChestCompressionGameSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000be4c       0x50 main.o
-                0x8000be4c                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000be48       0x50 main.o
+                0x8000be48                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI15EngineTransformESaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000be9c       0x50 main.o
-                0x8000be9c                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000be98       0x50 main.o
+                0x8000be98                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10RenderableESaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000beec       0x50 main.o
-                0x8000beec                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000bee8       0x50 main.o
+                0x8000bee8                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI12Renderable2DESaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000bf3c       0x50 main.o
-                0x8000bf3c                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000bf38       0x50 main.o
+                0x8000bf38                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Collider2DESaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000bf8c       0x50 main.o
-                0x8000bf8c                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000bf88       0x50 main.o
+                0x8000bf88                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI11RigidBody2DESaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000bfdc       0x50 main.o
-                0x8000bfdc                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000bfd8       0x50 main.o
+                0x8000bfd8                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Animator2DESaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000c02c       0x50 main.o
-                0x8000c02c                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000c028       0x50 main.o
+                0x8000c028                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI12RenderSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000c07c       0x50 main.o
-                0x8000c07c                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000c078       0x50 main.o
+                0x8000c078                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI13PhysicsSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000c0cc       0x50 main.o
-                0x8000c0cc                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000c0c8       0x50 main.o
+                0x8000c0c8                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZNSt23_Sp_counted_ptr_inplaceI15AnimationSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info
-                0x8000c11c       0x50 main.o
-                0x8000c11c                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+                0x8000c118       0x50 main.o
+                0x8000c118                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
  .text._ZN11SampleScene6renderEf
-                0x8000c16c       0x6c main.o
-                0x8000c16c                SampleScene::render(float)
+                0x8000c168       0x6c main.o
+                0x8000c168                SampleScene::render(float)
  .text._ZN11SampleScene6updateEfP10_wpad_data
-                0x8000c1d8       0x6c main.o
-                0x8000c1d8                SampleScene::update(float, _wpad_data*)
+                0x8000c1d4       0x6c main.o
+                0x8000c1d4                SampleScene::update(float, _wpad_data*)
  .text._ZN10NeedleGame6updateEfP10_wpad_data
-                0x8000c244      0x208 main.o
-                0x8000c244                NeedleGame::update(float, _wpad_data*)
+                0x8000c240      0x208 main.o
+                0x8000c240                NeedleGame::update(float, _wpad_data*)
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI15EngineTransformESaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c44c        0xc main.o
-                0x8000c44c                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c448        0xc main.o
+                0x8000c448                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI15AnimationSystemSaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c458        0x8 main.o
-                0x8000c458                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c454        0x8 main.o
+                0x8000c454                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI13PhysicsSystemSaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c460        0x8 main.o
-                0x8000c460                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c45c        0x8 main.o
+                0x8000c45c                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI12RenderSystemSaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c468        0x8 main.o
-                0x8000c468                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c464        0x8 main.o
+                0x8000c464                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Animator2DESaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c470        0xc main.o
-                0x8000c470                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c46c        0xc main.o
+                0x8000c46c                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI11RigidBody2DESaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c47c        0xc main.o
-                0x8000c47c                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c478        0xc main.o
+                0x8000c478                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Collider2DESaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c488        0xc main.o
-                0x8000c488                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c484        0xc main.o
+                0x8000c484                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI12Renderable2DESaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c494        0xc main.o
-                0x8000c494                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c490        0xc main.o
+                0x8000c490                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10RenderableESaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c4a0        0xc main.o
-                0x8000c4a0                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c49c        0xc main.o
+                0x8000c49c                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI20ChestCompressionGameSaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c4ac        0x8 main.o
-                0x8000c4ac                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c4a8        0x8 main.o
+                0x8000c4a8                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI10NeedleGameSaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c4b4        0x8 main.o
-                0x8000c4b4                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c4b0        0x8 main.o
+                0x8000c4b0                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI11SampleSceneSaIvELN9__gnu_cxx12_Lock_policyE2EED0Ev
-                0x8000c4bc        0x8 main.o
-                0x8000c4bc                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
+                0x8000c4b8        0x8 main.o
+                0x8000c4b8                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::~_Sp_counted_ptr_inplace()
  .text._ZNSt23_Sp_counted_ptr_inplaceI11SampleSceneSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c4c4        0x8 main.o
-                0x8000c4c4                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4c0        0x8 main.o
+                0x8000c4c0                std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI10NeedleGameSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c4cc        0x8 main.o
-                0x8000c4cc                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4c8        0x8 main.o
+                0x8000c4c8                std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI20ChestCompressionGameSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c4d4        0x8 main.o
-                0x8000c4d4                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4d0        0x8 main.o
+                0x8000c4d0                std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI15EngineTransformESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c4dc        0xc main.o
-                0x8000c4dc                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4d8        0xc main.o
+                0x8000c4d8                std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10RenderableESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c4e8        0xc main.o
-                0x8000c4e8                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4e4        0xc main.o
+                0x8000c4e4                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI12Renderable2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c4f4        0xc main.o
-                0x8000c4f4                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4f0        0xc main.o
+                0x8000c4f0                std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Collider2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c500        0xc main.o
-                0x8000c500                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c4fc        0xc main.o
+                0x8000c4fc                std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI11RigidBody2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c50c        0xc main.o
-                0x8000c50c                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c508        0xc main.o
+                0x8000c508                std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Animator2DESaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c518        0xc main.o
-                0x8000c518                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c514        0xc main.o
+                0x8000c514                std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI12RenderSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c524        0x8 main.o
-                0x8000c524                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c520        0x8 main.o
+                0x8000c520                std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI13PhysicsSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c52c        0x8 main.o
-                0x8000c52c                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c528        0x8 main.o
+                0x8000c528                std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZNSt23_Sp_counted_ptr_inplaceI15AnimationSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE10_M_destroyEv
-                0x8000c534        0x8 main.o
-                0x8000c534                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
+                0x8000c530        0x8 main.o
+                0x8000c530                std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_destroy()
  .text._ZN20ChestCompressionGame6renderEf
-                0x8000c53c      0x130 main.o
-                0x8000c53c                ChestCompressionGame::render(float)
+                0x8000c538      0x130 main.o
+                0x8000c538                ChestCompressionGame::render(float)
  .text._ZN10NeedleGame6renderEf
-                0x8000c66c      0x160 main.o
-                0x8000c66c                NeedleGame::render(float)
+                0x8000c668      0x160 main.o
+                0x8000c668                NeedleGame::render(float)
  .text._ZN20ChestCompressionGame6updateEfP10_wpad_data
-                0x8000c7cc      0x264 main.o
-                0x8000c7cc                ChestCompressionGame::update(float, _wpad_data*)
+                0x8000c7c8      0x268 main.o
+                0x8000c7c8                ChestCompressionGame::update(float, _wpad_data*)
  .text._ZN13SystemManager12setSignatureI12RenderSystemEEvSt6bitsetILj32EE.part.0
                 0x8000ca30       0x2c main.o
  .text._ZN13SystemManager12setSignatureI13PhysicsSystemEEvSt6bitsetILj32EE.part.0
@@ -14456,250 +14456,251 @@ Linker script and memory map
                 0x801be1a0     0x3c4d AnimationManager.o
                                  0x2a (size before relaxing)
  *fill*         0x801c1ded        0x3 00000000
- .rodata.cst4   0x801c1df0      0x2d8 AnimationManager.o
+ .rodata.cst4   0x801c1df0      0x2d4 AnimationManager.o
                                   0x8 (size before relaxing)
  .rodata._ZN13EntityManager6createEv.str1.4
-                0x801c20c8        0x0 EntityManager.o
+                0x801c20c4        0x0 EntityManager.o
                                  0x9b (size before relaxing)
  .rodata._ZNSt5dequeIjSaIjEE16_M_push_back_auxIJRKjEEEvDpOT_.str1.4
-                0x801c20c8        0x0 EntityManager.o
+                0x801c20c4        0x0 EntityManager.o
                                  0x30 (size before relaxing)
  .rodata._ZN5World4saveEPKc.str1.4
-                0x801c20c8        0x0 World.o
+                0x801c20c4        0x0 World.o
                                   0x3 (size before relaxing)
  .rodata._ZN5World4loadEPKc.str1.4
-                0x801c20c8        0x0 World.o
+                0x801c20c4        0x0 World.o
                                   0x3 (size before relaxing)
  .rodata._ZN15AnimationSystem6updateEf.str1.4
-                0x801c20c8        0x0 AnimationSystem.o
+                0x801c20c4        0x0 AnimationSystem.o
                                 0x1e6 (size before relaxing)
  .rodata._ZTV15AnimationSystem
-                0x801c20c8       0x14 AnimationSystem.o
-                0x801c20c8                vtable for AnimationSystem
- .rodata.cst4   0x801c20dc        0x0 AnimationSystem.o
+                0x801c20c4       0x14 AnimationSystem.o
+                0x801c20c4                vtable for AnimationSystem
+ .rodata.cst4   0x801c20d8        0x0 AnimationSystem.o
                                   0xc (size before relaxing)
  .rodata._ZNK16ComponentManager8getArrayI15EngineTransformEESt10shared_ptrI14ComponentArrayIT_EEv.part.0.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0xe4 (size before relaxing)
  .rodata._ZNK16ComponentManager8getArrayI11RigidBody2DEESt10shared_ptrI14ComponentArrayIT_EEv.part.0.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0x5e (size before relaxing)
  .rodata._ZNK16ComponentManager8getArrayI10Collider2DEESt10shared_ptrI14ComponentArrayIT_EEv.part.0.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0x5d (size before relaxing)
  .rodata._ZNSt6vectorI10Collider2DSaIS0_EE15_M_range_insertIN9__gnu_cxx17__normal_iteratorIPKS0_S2_EEEEvNS5_IPS0_S2_EET_SB_St20forward_iterator_tag.isra.0.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0x18 (size before relaxing)
  .rodata._ZN8QuadTree6insertERK10Collider2D.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0x1a (size before relaxing)
  .rodata._ZN16ComponentManager12getComponentI11RigidBody2DEERT_j.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                 0x10a (size before relaxing)
  .rodata._ZN13PhysicsSystem6updateEf.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0x5d (size before relaxing)
  .rodata._ZN13PhysicsSystem16updateCollisionsEfb.str1.4
-                0x801c20dc        0x0 PhysicsSystem.o
+                0x801c20d8        0x0 PhysicsSystem.o
                                  0x58 (size before relaxing)
  .rodata._ZTV13PhysicsSystem
-                0x801c20dc       0x14 PhysicsSystem.o
-                0x801c20dc                vtable for PhysicsSystem
- .rodata.cst4   0x801c20f0        0x0 PhysicsSystem.o
+                0x801c20d8       0x14 PhysicsSystem.o
+                0x801c20d8                vtable for PhysicsSystem
+ .rodata.cst4   0x801c20ec        0x0 PhysicsSystem.o
                                   0x4 (size before relaxing)
- .rodata        0x801c20f0       0x10 PhysicsSystem.o
+ .rodata        0x801c20ec       0x10 PhysicsSystem.o
  .rodata._ZN12RenderSystem6updateEf.str1.4
-                0x801c2100        0x0 RenderSystem.o
+                0x801c20fc        0x0 RenderSystem.o
                                 0x420 (size before relaxing)
  .rodata._ZN12RenderSystem6updateEf
-                0x801c2100       0x1c RenderSystem.o
+                0x801c20fc       0x1c RenderSystem.o
  .rodata._ZTV12RenderSystem
-                0x801c211c       0x14 RenderSystem.o
-                0x801c211c                vtable for RenderSystem
- .rodata.cst4   0x801c2130        0x0 RenderSystem.o
+                0x801c2118       0x14 RenderSystem.o
+                0x801c2118                vtable for RenderSystem
+ .rodata.cst4   0x801c212c        0x0 RenderSystem.o
                                   0x4 (size before relaxing)
  .rodata._ZN20ChestCompressionGame8shutdownEv.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x14 (size before relaxing)
  .rodata._ZN20ChestCompressionGame6renderEf.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x42 (size before relaxing)
  .rodata._ZN10NeedleGame6renderEf.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x42 (size before relaxing)
  .rodata._ZN13SystemManager12setSignatureI12RenderSystemEEvSt6bitsetILj32EE.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0xe5 (size before relaxing)
  .rodata._ZN13SystemManager12setSignatureI13PhysicsSystemEEvSt6bitsetILj32EE.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x62 (size before relaxing)
  .rodata._ZN13SystemManager12setSignatureI15AnimationSystemEEvSt6bitsetILj32EE.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x64 (size before relaxing)
  .rodata._ZN16ComponentManager17registerComponentI15EngineTransformEEvv.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0xcc (size before relaxing)
  .rodata._ZN16ComponentManager17registerComponentI12Renderable2DEEvv.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x43 (size before relaxing)
  .rodata._ZN16ComponentManager17registerComponentI10Collider2DEEvv.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x41 (size before relaxing)
  .rodata._ZN16ComponentManager17registerComponentI11RigidBody2DEEvv.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x42 (size before relaxing)
  .rodata._ZN13SystemManager14registerSystemI12RenderSystemEESt10shared_ptrIT_Ev.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x79 (size before relaxing)
  .rodata._ZN13SystemManager14registerSystemI13PhysicsSystemEESt10shared_ptrIT_Ev.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x4e (size before relaxing)
  .rodata._ZN13SystemManager14registerSystemI15AnimationSystemEESt10shared_ptrIT_Ev.part.0.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x50 (size before relaxing)
  .rodata.main.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                   0xb (size before relaxing)
  .rodata._ZN16ComponentManager17registerComponentI10RenderableEEvv.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x41 (size before relaxing)
  .rodata._ZN16ComponentManager17registerComponentI10Animator2DEEvv.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x41 (size before relaxing)
  .rodata._ZN20ChestCompressionGame4initEv.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x43 (size before relaxing)
  .rodata._ZN14ComponentArrayI15EngineTransformE15insertComponentEjS0_.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                 0x116 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI15EngineTransformEEvvENUlR6WriterPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0xbd (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI10RenderableEEvvENUlR6ReaderPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x60 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI10RenderableEEvvENUlR6WriterPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x58 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI12Renderable2DEEvvENUlR6ReaderPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x62 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI12Renderable2DEEvvENUlR6WriterPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x5a (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI10Collider2DEEvvENUlR6ReaderPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x60 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI10Collider2DEEvvENUlR6WriterPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x58 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI11RigidBody2DEEvvENUlR6ReaderPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x61 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI11RigidBody2DEEvvENUlR6WriterPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x59 (size before relaxing)
  .rodata._ZN14ComponentArrayI10Animator2DE15insertComponentEjS0_.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x60 (size before relaxing)
  .rodata._ZN5World12addComponentI10Animator2DEEvjT_.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x8d (size before relaxing)
  .rodata._ZN11SampleScene4initEv.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x78 (size before relaxing)
  .rodata._ZZN5World27registerComponentSerializerI10Animator2DEEvvENUlR6WriterPvjE_4_FUNES3_S4_j.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x58 (size before relaxing)
  .rodata._ZN14ComponentArrayI10Animator2DE15removeComponentEj.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x5d (size before relaxing)
  .rodata._ZN14ComponentArrayI11RigidBody2DE15removeComponentEj.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x5e (size before relaxing)
  .rodata._ZN14ComponentArrayI10Collider2DE15removeComponentEj.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x5d (size before relaxing)
  .rodata._ZN14ComponentArrayI12Renderable2DE15removeComponentEj.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x5f (size before relaxing)
  .rodata._ZN14ComponentArrayI10RenderableE15removeComponentEj.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x5d (size before relaxing)
  .rodata._ZN14ComponentArrayI15EngineTransformE15removeComponentEj.str1.4
-                0x801c2130        0x0 main.o
+                0x801c212c        0x0 main.o
                                  0x62 (size before relaxing)
  .rodata._ZTV5Scene
-                0x801c2130       0x20 main.o
-                0x801c2130                vtable for Scene
+                0x801c212c       0x20 main.o
+                0x801c212c                vtable for Scene
  .rodata._ZTV11SampleScene
-                0x801c2150       0x20 main.o
-                0x801c2150                vtable for SampleScene
+                0x801c214c       0x20 main.o
+                0x801c214c                vtable for SampleScene
  .rodata._ZTV10NeedleGame
-                0x801c2170       0x20 main.o
-                0x801c2170                vtable for NeedleGame
+                0x801c216c       0x20 main.o
+                0x801c216c                vtable for NeedleGame
  .rodata._ZTV20ChestCompressionGame
-                0x801c2190       0x20 main.o
-                0x801c2190                vtable for ChestCompressionGame
+                0x801c218c       0x20 main.o
+                0x801c218c                vtable for ChestCompressionGame
  .rodata._ZTV14ComponentArrayI15EngineTransformE
-                0x801c21b0       0x14 main.o
-                0x801c21b0                vtable for ComponentArray<EngineTransform>
+                0x801c21ac       0x14 main.o
+                0x801c21ac                vtable for ComponentArray<EngineTransform>
  .rodata._ZTV14ComponentArrayI10RenderableE
-                0x801c21c4       0x14 main.o
-                0x801c21c4                vtable for ComponentArray<Renderable>
+                0x801c21c0       0x14 main.o
+                0x801c21c0                vtable for ComponentArray<Renderable>
  .rodata._ZTV14ComponentArrayI12Renderable2DE
-                0x801c21d8       0x14 main.o
-                0x801c21d8                vtable for ComponentArray<Renderable2D>
+                0x801c21d4       0x14 main.o
+                0x801c21d4                vtable for ComponentArray<Renderable2D>
  .rodata._ZTV14ComponentArrayI10Collider2DE
-                0x801c21ec       0x14 main.o
-                0x801c21ec                vtable for ComponentArray<Collider2D>
+                0x801c21e8       0x14 main.o
+                0x801c21e8                vtable for ComponentArray<Collider2D>
  .rodata._ZTV14ComponentArrayI11RigidBody2DE
-                0x801c2200       0x14 main.o
-                0x801c2200                vtable for ComponentArray<RigidBody2D>
+                0x801c21fc       0x14 main.o
+                0x801c21fc                vtable for ComponentArray<RigidBody2D>
  .rodata._ZTV14ComponentArrayI10Animator2DE
-                0x801c2214       0x14 main.o
-                0x801c2214                vtable for ComponentArray<Animator2D>
+                0x801c2210       0x14 main.o
+                0x801c2210                vtable for ComponentArray<Animator2D>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI11SampleSceneSaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2228       0x1c main.o
-                0x801c2228                vtable for std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c2224       0x1c main.o
+                0x801c2224                vtable for std::_Sp_counted_ptr_inplace<SampleScene, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI10NeedleGameSaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2244       0x1c main.o
-                0x801c2244                vtable for std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c2240       0x1c main.o
+                0x801c2240                vtable for std::_Sp_counted_ptr_inplace<NeedleGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI20ChestCompressionGameSaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2260       0x1c main.o
-                0x801c2260                vtable for std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c225c       0x1c main.o
+                0x801c225c                vtable for std::_Sp_counted_ptr_inplace<ChestCompressionGame, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI14ComponentArrayI15EngineTransformESaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c227c       0x1c main.o
-                0x801c227c                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c2278       0x1c main.o
+                0x801c2278                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<EngineTransform>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10RenderableESaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2298       0x1c main.o
-                0x801c2298                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c2294       0x1c main.o
+                0x801c2294                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Renderable>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI14ComponentArrayI12Renderable2DESaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c22b4       0x1c main.o
-                0x801c22b4                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c22b0       0x1c main.o
+                0x801c22b0                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Renderable2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Collider2DESaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c22d0       0x1c main.o
-                0x801c22d0                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c22cc       0x1c main.o
+                0x801c22cc                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Collider2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI14ComponentArrayI11RigidBody2DESaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c22ec       0x1c main.o
-                0x801c22ec                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c22e8       0x1c main.o
+                0x801c22e8                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<RigidBody2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI14ComponentArrayI10Animator2DESaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2308       0x1c main.o
-                0x801c2308                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c2304       0x1c main.o
+                0x801c2304                vtable for std::_Sp_counted_ptr_inplace<ComponentArray<Animator2D>, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI12RenderSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2324       0x1c main.o
-                0x801c2324                vtable for std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c2320       0x1c main.o
+                0x801c2320                vtable for std::_Sp_counted_ptr_inplace<RenderSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI13PhysicsSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c2340       0x1c main.o
-                0x801c2340                vtable for std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+                0x801c233c       0x1c main.o
+                0x801c233c                vtable for std::_Sp_counted_ptr_inplace<PhysicsSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
  .rodata._ZTVSt23_Sp_counted_ptr_inplaceI15AnimationSystemSaIvELN9__gnu_cxx12_Lock_policyE2EE
-                0x801c235c       0x1c main.o
-                0x801c235c                vtable for std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
- .rodata.cst4   0x801c2378        0x0 main.o
-                                 0x5c (size before relaxing)
- .rodata        0x801c2378       0x30 main.o
- .rodata.cst4   0x801c23a8        0x0 platform_wii.o
+                0x801c2358       0x1c main.o
+                0x801c2358                vtable for std::_Sp_counted_ptr_inplace<AnimationSystem, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>
+ .rodata.cst4   0x801c2374        0x0 main.o
+                                 0x58 (size before relaxing)
+ .rodata        0x801c2374       0x30 main.o
+ .rodata.cst4   0x801c23a4        0x0 platform_wii.o
                                  0x10 (size before relaxing)
+ *fill*         0x801c23a4        0x4 00000000
  .rodata        0x801c23a8     0x1ce8 C:/devkitPro/libogc2/wii/lib\libraylib.a(rcore.o)
  .rodata        0x801c4090       0x80 C:/devkitPro/libogc2/wii/lib\libraylib.a(rshapes.o)
  .rodata        0x801c4110     0x2300 C:/devkitPro/libogc2/wii/lib\libraylib.a(rtextures.o)
@@ -19057,7 +19058,7 @@ Linker script and memory map
  .debug_abbrev  0x00029e93      0x19b C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_divdi3.o)
  .debug_abbrev  0x0002a02e       0x28 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(crtresxfpr.o)
 
-.debug_line     0x00000000    0xcf96f
+.debug_line     0x00000000    0xcf969
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000     0x100c AnimationManager.o
  .debug_line    0x0000100c      0x59f ComponentManager.o
@@ -19069,132 +19070,132 @@ Linker script and memory map
  .debug_line    0x00005bb0     0x2064 AnimationSystem.o
  .debug_line    0x00007c14     0x6bfc PhysicsSystem.o
  .debug_line    0x0000e810     0x2894 RenderSystem.o
- .debug_line    0x000110a4    0x1559b main.o
- .debug_line    0x0002663f      0x43c platform_wii.o
- .debug_line    0x00026a7b     0x5df6 C:/devkitPro/libogc2/wii/lib\libopengx.a(gc_gl.o)
- .debug_line    0x0002c871      0xc6a C:/devkitPro/libogc2/wii/lib\libopengx.a(getters.o)
- .debug_line    0x0002d4db      0x1e8 C:/devkitPro/libogc2/wii/lib\libopengx.a(gpu_resources.o)
- .debug_line    0x0002d6c3     0x4cf3 C:/devkitPro/libogc2/wii/lib\libopengx.a(raster.o)
- .debug_line    0x000323b6      0x85c C:/devkitPro/libogc2/wii/lib\libopengx.a(selection.o)
- .debug_line    0x00032c12     0x13c3 C:/devkitPro/libogc2/wii/lib\libopengx.a(stencil.o)
- .debug_line    0x00033fd5     0x1a4c C:/devkitPro/libogc2/wii/lib\libopengx.a(texture.o)
- .debug_line    0x00035a21      0x2f1 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_gen_sw.o)
- .debug_line    0x00035d12      0xe21 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_unit.o)
- .debug_line    0x00036b33     0x118d C:/devkitPro/libogc2/wii/lib\libopengx.a(vbo.o)
- .debug_line    0x00037cc0     0x5087 C:/devkitPro/libogc2/wii/lib\libopengx.a(vertex.o)
- .debug_line    0x0003cd47      0x9c7 C:/devkitPro/libogc2/wii/lib\libopengx.a(accum.o)
- .debug_line    0x0003d70e     0x3edc C:/devkitPro/libogc2/wii/lib\libopengx.a(arrays.o)
- .debug_line    0x000415ea     0x19da C:/devkitPro/libogc2/wii/lib\libopengx.a(call_lists.o)
- .debug_line    0x00042fc4      0x75e C:/devkitPro/libogc2/wii/lib\libopengx.a(clip.o)
- .debug_line    0x00043722      0x139 C:/devkitPro/libogc2/wii/lib\libopengx.a(debug.o)
- .debug_line    0x0004385b      0x69e C:/devkitPro/libogc2/wii/lib\libopengx.a(efb.o)
- .debug_line    0x00043ef9      0x420 C:/devkitPro/libogc2/wii/lib\libopengx.a(functions.o)
- .debug_line    0x00044319      0xa5b C:/devkitPro/libogc2/wii/lib\libopengx.a(image_DXT.o)
- .debug_line    0x00044d74      0x3d9 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixel_stream.o)
- .debug_line    0x0004514d     0x6dd8 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixels.o)
- .debug_line    0x0004bf25     0x2ba8 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wpad.o)
- .debug_line    0x0004eacd      0x6c9 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(motion_plus.o)
- .debug_line    0x0004f196      0x9a1 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(dynamics.o)
- .debug_line    0x0004fb37      0x870 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io.o)
- .debug_line    0x000503a7      0x759 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io_wii.o)
- .debug_line    0x00050b00     0x1667 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(ir.o)
- .debug_line    0x00052167      0x5f0 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(nunchuk.o)
- .debug_line    0x00052757      0x41b C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiboard.o)
- .debug_line    0x00052b72      0xd3c C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiuse.o)
- .debug_line    0x000538ae      0x514 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(speaker.o)
- .debug_line    0x00053dc2      0x648 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(classic.o)
- .debug_line    0x0005440a      0xc75 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(events.o)
- .debug_line    0x0005507f      0x3bb C:/devkitPro/libogc2/wii/lib\libwiiuse.a(guitar_hero_3.o)
- .debug_line    0x0005543a     0x22dc C:/devkitPro/libogc2/wii/lib\libbte.a(bte.o)
- .debug_line    0x00057716     0x3347 C:/devkitPro/libogc2/wii/lib\libbte.a(hci.o)
- .debug_line    0x0005aa5d     0x2ce4 C:/devkitPro/libogc2/wii/lib\libbte.a(l2cap.o)
- .debug_line    0x0005d741      0x354 C:/devkitPro/libogc2/wii/lib\libbte.a(btmemb.o)
- .debug_line    0x0005da95      0x683 C:/devkitPro/libogc2/wii/lib\libbte.a(btmemr.o)
- .debug_line    0x0005e118      0xa9b C:/devkitPro/libogc2/wii/lib\libbte.a(btpbuf.o)
- .debug_line    0x0005ebb3      0x95b C:/devkitPro/libogc2/wii/lib\libbte.a(physbusif.o)
- .debug_line    0x0005f50e      0x3d5 C:/devkitPro/libogc2/wii/lib\libfat.a(fat_wrappers.o)
- .debug_line    0x0005f8e3     0x23e3 C:/devkitPro/libogc2/wii/lib\libfat.a(fat_driver.o)
- .debug_line    0x00061cc6      0x3d6 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_disc.o)
- .debug_line    0x0006209c      0xd52 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_cache.o)
- .debug_line    0x00062dee      0x64e C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_volume.o)
- .debug_line    0x0006343c      0x569 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_libogc2.o)
- .debug_line    0x000639a5     0xd529 C:/devkitPro/libogc2/wii/lib\libfat.a(ff.o)
- .debug_line    0x00070ece      0x344 C:/devkitPro/libogc2/wii/lib\libfat.a(ffunicode.o)
- .debug_line    0x00071212      0x8a1 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_prober.o)
- .debug_line    0x00071ab3      0x47f C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_queue.o)
- .debug_line    0x00071f32     0x2096 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threads.o)
- .debug_line    0x00073fc8     0x204a C:/devkitPro/libogc2/wii/lib\libogc.a(lwp.o)
- .debug_line    0x00076012      0x33a C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_stack.o)
- .debug_line    0x0007634c      0x9fc C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_watchdog.o)
- .debug_line    0x00076d48      0x2eb C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_wkspace.o)
- .debug_line    0x00077033      0x6bd C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_objmgr.o)
- .debug_line    0x000776f0      0x958 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_heap.o)
- .debug_line    0x00078048      0x18e C:/devkitPro/libogc2/wii/lib\libogc.a(sys_state.o)
- .debug_line    0x000781d6      0xa67 C:/devkitPro/libogc2/wii/lib\libogc.a(irq.o)
- .debug_line    0x00078c3d     0x350d C:/devkitPro/libogc2/wii/lib\libogc.a(video.o)
- .debug_line    0x0007c14a     0x3ec4 C:/devkitPro/libogc2/wii/lib\libogc.a(system.o)
- .debug_line    0x0008000e      0xb28 C:/devkitPro/libogc2/wii/lib\libogc.a(system_alarm.o)
- .debug_line    0x00080b36      0xa88 C:/devkitPro/libogc2/wii/lib\libogc.a(cond.o)
- .debug_line    0x000815be     0xaa9c C:/devkitPro/libogc2/wii/lib\libogc.a(gx.o)
- .debug_line    0x0008c05a     0x2ee9 C:/devkitPro/libogc2/wii/lib\libogc.a(gu.o)
- .debug_line    0x0008ef43      0x1f5 C:/devkitPro/libogc2/wii/lib\libogc.a(decrementer.o)
- .debug_line    0x0008f138      0xd49 C:/devkitPro/libogc2/wii/lib\libogc.a(message.o)
- .debug_line    0x0008fe81     0x18db C:/devkitPro/libogc2/wii/lib\libogc.a(si.o)
- .debug_line    0x0009175c     0x2745 C:/devkitPro/libogc2/wii/lib\libogc.a(ipc.o)
- .debug_line    0x00093ea1      0x94a C:/devkitPro/libogc2/wii/lib\libogc.a(timesupp.o)
- .debug_line    0x000947eb      0x968 C:/devkitPro/libogc2/wii/lib\libogc.a(lock_supp.o)
- .debug_line    0x00095153      0x35b C:/devkitPro/libogc2/wii/lib\libogc.a(newlibc.o)
- .debug_line    0x000954ae      0x423 C:/devkitPro/libogc2/wii/lib\libogc.a(sbrk.o)
- .debug_line    0x000958d1      0x5f9 C:/devkitPro/libogc2/wii/lib\libogc.a(stm.o)
- .debug_line    0x00095eca      0x9db C:/devkitPro/libogc2/wii/lib\libogc.a(ios.o)
- .debug_line    0x000968a5     0x24da C:/devkitPro/libogc2/wii/lib\libogc.a(es.o)
- .debug_line    0x00098d7f     0x1c7f C:/devkitPro/libogc2/wii/lib\libogc.a(isfs.o)
- .debug_line    0x0009a9fe     0x31af C:/devkitPro/libogc2/wii/lib\libogc.a(usb.o)
- .debug_line    0x0009dbad      0x755 C:/devkitPro/libogc2/wii/lib\libogc.a(gcsd.o)
- .debug_line    0x0009e302      0x23c C:/devkitPro/libogc2/wii/lib\libogc.a(argv.o)
- .debug_line    0x0009e53e     0x15d3 C:/devkitPro/libogc2/wii/lib\libogc.a(wiisd.o)
- .debug_line    0x0009fb11     0x1223 C:/devkitPro/libogc2/wii/lib\libogc.a(conf.o)
- .debug_line    0x000a0d34     0x1add C:/devkitPro/libogc2/wii/lib\libogc.a(usbstorage.o)
- .debug_line    0x000a2811      0xc13 C:/devkitPro/libogc2/wii/lib\libogc.a(wiilaunch.o)
- .debug_line    0x000a3424     0x13cf C:/devkitPro/libogc2/wii/lib\libogc.a(mmce.o)
- .debug_line    0x000a47f3      0x30f C:/devkitPro/libogc2/wii/lib\libogc.a(threads_supp.o)
- .debug_line    0x000a4b02     0x6aa0 C:/devkitPro/libogc2/wii/lib\libogc.a(malloc.o)
- .debug_line    0x000ab5a2      0x334 C:/devkitPro/libogc2/wii/lib\libogc.a(mallocr.o)
- .debug_line    0x000ab8d6      0x17f C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_priority.o)
- .debug_line    0x000aba55     0x16fe C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threadq.o)
- .debug_line    0x000ad153      0xdd9 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_messages.o)
- .debug_line    0x000adf2c      0x876 C:/devkitPro/libogc2/wii/lib\libogc.a(exception.o)
- .debug_line    0x000ae7a2      0x94e C:/devkitPro/libogc2/wii/lib\libogc.a(semaphore.o)
- .debug_line    0x000af0f0     0x219b C:/devkitPro/libogc2/wii/lib\libogc.a(pad.o)
- .debug_line    0x000b128b     0x2784 C:/devkitPro/libogc2/wii/lib\libogc.a(exi.o)
- .debug_line    0x000b3a0f      0xac5 C:/devkitPro/libogc2/wii/lib\libogc.a(mutex.o)
- .debug_line    0x000b44d4     0x6fe3 C:/devkitPro/libogc2/wii/lib\libogc.a(card.o)
- .debug_line    0x000bb4b7     0x1543 C:/devkitPro/libogc2/wii/lib\libogc.a(dsp.o)
- .debug_line    0x000bc9fa      0xb57 C:/devkitPro/libogc2/wii/lib\libogc.a(kprintf.o)
- .debug_line    0x000bd551     0x33b3 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_io.o)
- .debug_line    0x000c0904      0x228 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_buf.o)
- .debug_line    0x000c0b2c     0x23d7 C:/devkitPro/libogc2/wii/lib\libogc.a(network_wii.o)
- .debug_line    0x000c2f03      0x862 C:/devkitPro/libogc2/wii/lib\libogc.a(n64.o)
- .debug_line    0x000c3765     0x159a C:/devkitPro/libogc2/wii/lib\libogc.a(console.o)
- .debug_line    0x000c4cff      0x441 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_sema.o)
- .debug_line    0x000c5140      0x628 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_mutex.o)
- .debug_line    0x000c5768       0x71 C:/devkitPro/libogc2/wii/lib\libogc.a(console_font_8x16.o)
- .debug_line    0x000c57d9     0x1481 C:/devkitPro/libogc2/wii/lib\libogc.a(usbgecko.o)
- .debug_line    0x000c6c5a      0x5de C:/devkitPro/libogc2/wii/lib\libogc.a(network_common.o)
- .debug_line    0x000c7238       0xff C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixunsdfdi.o)
- .debug_line    0x000c7337      0x10a C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdisf.o)
- .debug_line    0x000c7441       0xd1 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatundidf.o)
- .debug_line    0x000c7512      0x5fb C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_moddi3.o)
- .debug_line    0x000c7b0d      0x5f8 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_udivdi3.o)
- .debug_line    0x000c8105      0x587 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_umoddi3.o)
- .debug_line    0x000c868c       0x5e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(eabi.o)
- .debug_line    0x000c86ea       0x5e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(crtresxgpr.o)
- .debug_line    0x000c8748     0x4398 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2.o)
- .debug_line    0x000ccae0     0x2626 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2-fde.o)
- .debug_line    0x000cf106       0xce C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixdfdi.o)
- .debug_line    0x000cf1d4       0xde C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdidf.o)
- .debug_line    0x000cf2b2      0x65f C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_divdi3.o)
- .debug_line    0x000cf911       0x5e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(crtresxfpr.o)
+ .debug_line    0x000110a4    0x15595 main.o
+ .debug_line    0x00026639      0x43c platform_wii.o
+ .debug_line    0x00026a75     0x5df6 C:/devkitPro/libogc2/wii/lib\libopengx.a(gc_gl.o)
+ .debug_line    0x0002c86b      0xc6a C:/devkitPro/libogc2/wii/lib\libopengx.a(getters.o)
+ .debug_line    0x0002d4d5      0x1e8 C:/devkitPro/libogc2/wii/lib\libopengx.a(gpu_resources.o)
+ .debug_line    0x0002d6bd     0x4cf3 C:/devkitPro/libogc2/wii/lib\libopengx.a(raster.o)
+ .debug_line    0x000323b0      0x85c C:/devkitPro/libogc2/wii/lib\libopengx.a(selection.o)
+ .debug_line    0x00032c0c     0x13c3 C:/devkitPro/libogc2/wii/lib\libopengx.a(stencil.o)
+ .debug_line    0x00033fcf     0x1a4c C:/devkitPro/libogc2/wii/lib\libopengx.a(texture.o)
+ .debug_line    0x00035a1b      0x2f1 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_gen_sw.o)
+ .debug_line    0x00035d0c      0xe21 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_unit.o)
+ .debug_line    0x00036b2d     0x118d C:/devkitPro/libogc2/wii/lib\libopengx.a(vbo.o)
+ .debug_line    0x00037cba     0x5087 C:/devkitPro/libogc2/wii/lib\libopengx.a(vertex.o)
+ .debug_line    0x0003cd41      0x9c7 C:/devkitPro/libogc2/wii/lib\libopengx.a(accum.o)
+ .debug_line    0x0003d708     0x3edc C:/devkitPro/libogc2/wii/lib\libopengx.a(arrays.o)
+ .debug_line    0x000415e4     0x19da C:/devkitPro/libogc2/wii/lib\libopengx.a(call_lists.o)
+ .debug_line    0x00042fbe      0x75e C:/devkitPro/libogc2/wii/lib\libopengx.a(clip.o)
+ .debug_line    0x0004371c      0x139 C:/devkitPro/libogc2/wii/lib\libopengx.a(debug.o)
+ .debug_line    0x00043855      0x69e C:/devkitPro/libogc2/wii/lib\libopengx.a(efb.o)
+ .debug_line    0x00043ef3      0x420 C:/devkitPro/libogc2/wii/lib\libopengx.a(functions.o)
+ .debug_line    0x00044313      0xa5b C:/devkitPro/libogc2/wii/lib\libopengx.a(image_DXT.o)
+ .debug_line    0x00044d6e      0x3d9 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixel_stream.o)
+ .debug_line    0x00045147     0x6dd8 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixels.o)
+ .debug_line    0x0004bf1f     0x2ba8 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wpad.o)
+ .debug_line    0x0004eac7      0x6c9 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(motion_plus.o)
+ .debug_line    0x0004f190      0x9a1 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(dynamics.o)
+ .debug_line    0x0004fb31      0x870 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io.o)
+ .debug_line    0x000503a1      0x759 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io_wii.o)
+ .debug_line    0x00050afa     0x1667 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(ir.o)
+ .debug_line    0x00052161      0x5f0 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(nunchuk.o)
+ .debug_line    0x00052751      0x41b C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiboard.o)
+ .debug_line    0x00052b6c      0xd3c C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiuse.o)
+ .debug_line    0x000538a8      0x514 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(speaker.o)
+ .debug_line    0x00053dbc      0x648 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(classic.o)
+ .debug_line    0x00054404      0xc75 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(events.o)
+ .debug_line    0x00055079      0x3bb C:/devkitPro/libogc2/wii/lib\libwiiuse.a(guitar_hero_3.o)
+ .debug_line    0x00055434     0x22dc C:/devkitPro/libogc2/wii/lib\libbte.a(bte.o)
+ .debug_line    0x00057710     0x3347 C:/devkitPro/libogc2/wii/lib\libbte.a(hci.o)
+ .debug_line    0x0005aa57     0x2ce4 C:/devkitPro/libogc2/wii/lib\libbte.a(l2cap.o)
+ .debug_line    0x0005d73b      0x354 C:/devkitPro/libogc2/wii/lib\libbte.a(btmemb.o)
+ .debug_line    0x0005da8f      0x683 C:/devkitPro/libogc2/wii/lib\libbte.a(btmemr.o)
+ .debug_line    0x0005e112      0xa9b C:/devkitPro/libogc2/wii/lib\libbte.a(btpbuf.o)
+ .debug_line    0x0005ebad      0x95b C:/devkitPro/libogc2/wii/lib\libbte.a(physbusif.o)
+ .debug_line    0x0005f508      0x3d5 C:/devkitPro/libogc2/wii/lib\libfat.a(fat_wrappers.o)
+ .debug_line    0x0005f8dd     0x23e3 C:/devkitPro/libogc2/wii/lib\libfat.a(fat_driver.o)
+ .debug_line    0x00061cc0      0x3d6 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_disc.o)
+ .debug_line    0x00062096      0xd52 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_cache.o)
+ .debug_line    0x00062de8      0x64e C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_volume.o)
+ .debug_line    0x00063436      0x569 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_libogc2.o)
+ .debug_line    0x0006399f     0xd529 C:/devkitPro/libogc2/wii/lib\libfat.a(ff.o)
+ .debug_line    0x00070ec8      0x344 C:/devkitPro/libogc2/wii/lib\libfat.a(ffunicode.o)
+ .debug_line    0x0007120c      0x8a1 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_prober.o)
+ .debug_line    0x00071aad      0x47f C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_queue.o)
+ .debug_line    0x00071f2c     0x2096 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threads.o)
+ .debug_line    0x00073fc2     0x204a C:/devkitPro/libogc2/wii/lib\libogc.a(lwp.o)
+ .debug_line    0x0007600c      0x33a C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_stack.o)
+ .debug_line    0x00076346      0x9fc C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_watchdog.o)
+ .debug_line    0x00076d42      0x2eb C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_wkspace.o)
+ .debug_line    0x0007702d      0x6bd C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_objmgr.o)
+ .debug_line    0x000776ea      0x958 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_heap.o)
+ .debug_line    0x00078042      0x18e C:/devkitPro/libogc2/wii/lib\libogc.a(sys_state.o)
+ .debug_line    0x000781d0      0xa67 C:/devkitPro/libogc2/wii/lib\libogc.a(irq.o)
+ .debug_line    0x00078c37     0x350d C:/devkitPro/libogc2/wii/lib\libogc.a(video.o)
+ .debug_line    0x0007c144     0x3ec4 C:/devkitPro/libogc2/wii/lib\libogc.a(system.o)
+ .debug_line    0x00080008      0xb28 C:/devkitPro/libogc2/wii/lib\libogc.a(system_alarm.o)
+ .debug_line    0x00080b30      0xa88 C:/devkitPro/libogc2/wii/lib\libogc.a(cond.o)
+ .debug_line    0x000815b8     0xaa9c C:/devkitPro/libogc2/wii/lib\libogc.a(gx.o)
+ .debug_line    0x0008c054     0x2ee9 C:/devkitPro/libogc2/wii/lib\libogc.a(gu.o)
+ .debug_line    0x0008ef3d      0x1f5 C:/devkitPro/libogc2/wii/lib\libogc.a(decrementer.o)
+ .debug_line    0x0008f132      0xd49 C:/devkitPro/libogc2/wii/lib\libogc.a(message.o)
+ .debug_line    0x0008fe7b     0x18db C:/devkitPro/libogc2/wii/lib\libogc.a(si.o)
+ .debug_line    0x00091756     0x2745 C:/devkitPro/libogc2/wii/lib\libogc.a(ipc.o)
+ .debug_line    0x00093e9b      0x94a C:/devkitPro/libogc2/wii/lib\libogc.a(timesupp.o)
+ .debug_line    0x000947e5      0x968 C:/devkitPro/libogc2/wii/lib\libogc.a(lock_supp.o)
+ .debug_line    0x0009514d      0x35b C:/devkitPro/libogc2/wii/lib\libogc.a(newlibc.o)
+ .debug_line    0x000954a8      0x423 C:/devkitPro/libogc2/wii/lib\libogc.a(sbrk.o)
+ .debug_line    0x000958cb      0x5f9 C:/devkitPro/libogc2/wii/lib\libogc.a(stm.o)
+ .debug_line    0x00095ec4      0x9db C:/devkitPro/libogc2/wii/lib\libogc.a(ios.o)
+ .debug_line    0x0009689f     0x24da C:/devkitPro/libogc2/wii/lib\libogc.a(es.o)
+ .debug_line    0x00098d79     0x1c7f C:/devkitPro/libogc2/wii/lib\libogc.a(isfs.o)
+ .debug_line    0x0009a9f8     0x31af C:/devkitPro/libogc2/wii/lib\libogc.a(usb.o)
+ .debug_line    0x0009dba7      0x755 C:/devkitPro/libogc2/wii/lib\libogc.a(gcsd.o)
+ .debug_line    0x0009e2fc      0x23c C:/devkitPro/libogc2/wii/lib\libogc.a(argv.o)
+ .debug_line    0x0009e538     0x15d3 C:/devkitPro/libogc2/wii/lib\libogc.a(wiisd.o)
+ .debug_line    0x0009fb0b     0x1223 C:/devkitPro/libogc2/wii/lib\libogc.a(conf.o)
+ .debug_line    0x000a0d2e     0x1add C:/devkitPro/libogc2/wii/lib\libogc.a(usbstorage.o)
+ .debug_line    0x000a280b      0xc13 C:/devkitPro/libogc2/wii/lib\libogc.a(wiilaunch.o)
+ .debug_line    0x000a341e     0x13cf C:/devkitPro/libogc2/wii/lib\libogc.a(mmce.o)
+ .debug_line    0x000a47ed      0x30f C:/devkitPro/libogc2/wii/lib\libogc.a(threads_supp.o)
+ .debug_line    0x000a4afc     0x6aa0 C:/devkitPro/libogc2/wii/lib\libogc.a(malloc.o)
+ .debug_line    0x000ab59c      0x334 C:/devkitPro/libogc2/wii/lib\libogc.a(mallocr.o)
+ .debug_line    0x000ab8d0      0x17f C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_priority.o)
+ .debug_line    0x000aba4f     0x16fe C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threadq.o)
+ .debug_line    0x000ad14d      0xdd9 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_messages.o)
+ .debug_line    0x000adf26      0x876 C:/devkitPro/libogc2/wii/lib\libogc.a(exception.o)
+ .debug_line    0x000ae79c      0x94e C:/devkitPro/libogc2/wii/lib\libogc.a(semaphore.o)
+ .debug_line    0x000af0ea     0x219b C:/devkitPro/libogc2/wii/lib\libogc.a(pad.o)
+ .debug_line    0x000b1285     0x2784 C:/devkitPro/libogc2/wii/lib\libogc.a(exi.o)
+ .debug_line    0x000b3a09      0xac5 C:/devkitPro/libogc2/wii/lib\libogc.a(mutex.o)
+ .debug_line    0x000b44ce     0x6fe3 C:/devkitPro/libogc2/wii/lib\libogc.a(card.o)
+ .debug_line    0x000bb4b1     0x1543 C:/devkitPro/libogc2/wii/lib\libogc.a(dsp.o)
+ .debug_line    0x000bc9f4      0xb57 C:/devkitPro/libogc2/wii/lib\libogc.a(kprintf.o)
+ .debug_line    0x000bd54b     0x33b3 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_io.o)
+ .debug_line    0x000c08fe      0x228 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_buf.o)
+ .debug_line    0x000c0b26     0x23d7 C:/devkitPro/libogc2/wii/lib\libogc.a(network_wii.o)
+ .debug_line    0x000c2efd      0x862 C:/devkitPro/libogc2/wii/lib\libogc.a(n64.o)
+ .debug_line    0x000c375f     0x159a C:/devkitPro/libogc2/wii/lib\libogc.a(console.o)
+ .debug_line    0x000c4cf9      0x441 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_sema.o)
+ .debug_line    0x000c513a      0x628 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_mutex.o)
+ .debug_line    0x000c5762       0x71 C:/devkitPro/libogc2/wii/lib\libogc.a(console_font_8x16.o)
+ .debug_line    0x000c57d3     0x1481 C:/devkitPro/libogc2/wii/lib\libogc.a(usbgecko.o)
+ .debug_line    0x000c6c54      0x5de C:/devkitPro/libogc2/wii/lib\libogc.a(network_common.o)
+ .debug_line    0x000c7232       0xff C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixunsdfdi.o)
+ .debug_line    0x000c7331      0x10a C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdisf.o)
+ .debug_line    0x000c743b       0xd1 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatundidf.o)
+ .debug_line    0x000c750c      0x5fb C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_moddi3.o)
+ .debug_line    0x000c7b07      0x5f8 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_udivdi3.o)
+ .debug_line    0x000c80ff      0x587 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_umoddi3.o)
+ .debug_line    0x000c8686       0x5e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(eabi.o)
+ .debug_line    0x000c86e4       0x5e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(crtresxgpr.o)
+ .debug_line    0x000c8742     0x4398 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2.o)
+ .debug_line    0x000ccada     0x2626 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2-fde.o)
+ .debug_line    0x000cf100       0xce C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixdfdi.o)
+ .debug_line    0x000cf1ce       0xde C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdidf.o)
+ .debug_line    0x000cf2ac      0x65f C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_divdi3.o)
+ .debug_line    0x000cf90b       0x5e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(crtresxfpr.o)
 
 .debug_frame
  *(.debug_frame)
@@ -19521,7 +19522,7 @@ Linker script and memory map
                                  0xca (size before relaxing)
 
 .debug_loclists
-                0x00000000    0xe8c43
+                0x00000000    0xe8c6e
  *(.debug_loclists)
  .debug_loclists
                 0x00000000     0x101e AnimationManager.o
@@ -19544,243 +19545,243 @@ Linker script and memory map
  .debug_loclists
                 0x00012100     0x3307 RenderSystem.o
  .debug_loclists
-                0x00015407    0x20e8c main.o
+                0x00015407    0x20eb7 main.o
  .debug_loclists
-                0x00036293       0x45 platform_wii.o
+                0x000362be       0x45 platform_wii.o
  .debug_loclists
-                0x000362d8     0x3e81 C:/devkitPro/libogc2/wii/lib\libopengx.a(gc_gl.o)
+                0x00036303     0x3e81 C:/devkitPro/libogc2/wii/lib\libopengx.a(gc_gl.o)
  .debug_loclists
-                0x0003a159      0x498 C:/devkitPro/libogc2/wii/lib\libopengx.a(getters.o)
+                0x0003a184      0x498 C:/devkitPro/libogc2/wii/lib\libopengx.a(getters.o)
  .debug_loclists
-                0x0003a5f1       0x22 C:/devkitPro/libogc2/wii/lib\libopengx.a(gpu_resources.o)
+                0x0003a61c       0x22 C:/devkitPro/libogc2/wii/lib\libopengx.a(gpu_resources.o)
  .debug_loclists
-                0x0003a613     0x5641 C:/devkitPro/libogc2/wii/lib\libopengx.a(raster.o)
+                0x0003a63e     0x5641 C:/devkitPro/libogc2/wii/lib\libopengx.a(raster.o)
  .debug_loclists
-                0x0003fc54      0x249 C:/devkitPro/libogc2/wii/lib\libopengx.a(selection.o)
+                0x0003fc7f      0x249 C:/devkitPro/libogc2/wii/lib\libopengx.a(selection.o)
  .debug_loclists
-                0x0003fe9d      0xf8f C:/devkitPro/libogc2/wii/lib\libopengx.a(stencil.o)
+                0x0003fec8      0xf8f C:/devkitPro/libogc2/wii/lib\libopengx.a(stencil.o)
  .debug_loclists
-                0x00040e2c     0x2345 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture.o)
+                0x00040e57     0x2345 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture.o)
  .debug_loclists
-                0x00043171       0xfe C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_gen_sw.o)
+                0x0004319c       0xfe C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_gen_sw.o)
  .debug_loclists
-                0x0004326f     0x1117 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_unit.o)
+                0x0004329a     0x1117 C:/devkitPro/libogc2/wii/lib\libopengx.a(texture_unit.o)
  .debug_loclists
-                0x00044386      0xe5c C:/devkitPro/libogc2/wii/lib\libopengx.a(vbo.o)
+                0x000443b1      0xe5c C:/devkitPro/libogc2/wii/lib\libopengx.a(vbo.o)
  .debug_loclists
-                0x000451e2     0x75f2 C:/devkitPro/libogc2/wii/lib\libopengx.a(vertex.o)
+                0x0004520d     0x75f2 C:/devkitPro/libogc2/wii/lib\libopengx.a(vertex.o)
  .debug_loclists
-                0x0004c7d4      0x5be C:/devkitPro/libogc2/wii/lib\libopengx.a(accum.o)
+                0x0004c7ff      0x5be C:/devkitPro/libogc2/wii/lib\libopengx.a(accum.o)
  .debug_loclists
-                0x0004cd92     0x544a C:/devkitPro/libogc2/wii/lib\libopengx.a(arrays.o)
+                0x0004cdbd     0x544a C:/devkitPro/libogc2/wii/lib\libopengx.a(arrays.o)
  .debug_loclists
-                0x000521dc     0x14f0 C:/devkitPro/libogc2/wii/lib\libopengx.a(call_lists.o)
+                0x00052207     0x14f0 C:/devkitPro/libogc2/wii/lib\libopengx.a(call_lists.o)
  .debug_loclists
-                0x000536cc      0x363 C:/devkitPro/libogc2/wii/lib\libopengx.a(clip.o)
+                0x000536f7      0x363 C:/devkitPro/libogc2/wii/lib\libopengx.a(clip.o)
  .debug_loclists
-                0x00053a2f       0x29 C:/devkitPro/libogc2/wii/lib\libopengx.a(debug.o)
+                0x00053a5a       0x29 C:/devkitPro/libogc2/wii/lib\libopengx.a(debug.o)
  .debug_loclists
-                0x00053a58      0x489 C:/devkitPro/libogc2/wii/lib\libopengx.a(efb.o)
+                0x00053a83      0x489 C:/devkitPro/libogc2/wii/lib\libopengx.a(efb.o)
  .debug_loclists
-                0x00053ee1      0x153 C:/devkitPro/libogc2/wii/lib\libopengx.a(functions.o)
+                0x00053f0c      0x153 C:/devkitPro/libogc2/wii/lib\libopengx.a(functions.o)
  .debug_loclists
-                0x00054034      0x9a6 C:/devkitPro/libogc2/wii/lib\libopengx.a(image_DXT.o)
+                0x0005405f      0x9a6 C:/devkitPro/libogc2/wii/lib\libopengx.a(image_DXT.o)
  .debug_loclists
-                0x000549da     0xe1b5 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixels.o)
+                0x00054a05     0xe1b5 C:/devkitPro/libogc2/wii/lib\libopengx.a(pixels.o)
  .debug_loclists
-                0x00062b8f     0x2bd6 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wpad.o)
+                0x00062bba     0x2bd6 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wpad.o)
  .debug_loclists
-                0x00065765      0x4f1 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(motion_plus.o)
+                0x00065790      0x4f1 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(motion_plus.o)
  .debug_loclists
-                0x00065c56      0x450 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(dynamics.o)
+                0x00065c81      0x450 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(dynamics.o)
  .debug_loclists
-                0x000660a6      0x711 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io.o)
+                0x000660d1      0x711 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io.o)
  .debug_loclists
-                0x000667b7      0x5ee C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io_wii.o)
+                0x000667e2      0x5ee C:/devkitPro/libogc2/wii/lib\libwiiuse.a(io_wii.o)
  .debug_loclists
-                0x00066da5      0xded C:/devkitPro/libogc2/wii/lib\libwiiuse.a(ir.o)
+                0x00066dd0      0xded C:/devkitPro/libogc2/wii/lib\libwiiuse.a(ir.o)
  .debug_loclists
-                0x00067b92      0x144 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(nunchuk.o)
+                0x00067bbd      0x144 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(nunchuk.o)
  .debug_loclists
-                0x00067cd6      0x159 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiboard.o)
+                0x00067d01      0x159 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiboard.o)
  .debug_loclists
-                0x00067e2f      0xf59 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiuse.o)
+                0x00067e5a      0xf59 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(wiiuse.o)
  .debug_loclists
-                0x00068d88      0x23a C:/devkitPro/libogc2/wii/lib\libwiiuse.a(speaker.o)
+                0x00068db3      0x23a C:/devkitPro/libogc2/wii/lib\libwiiuse.a(speaker.o)
  .debug_loclists
-                0x00068fc2      0x2a4 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(classic.o)
+                0x00068fed      0x2a4 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(classic.o)
  .debug_loclists
-                0x00069266      0xc8d C:/devkitPro/libogc2/wii/lib\libwiiuse.a(events.o)
+                0x00069291      0xc8d C:/devkitPro/libogc2/wii/lib\libwiiuse.a(events.o)
  .debug_loclists
-                0x00069ef3       0xa0 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(guitar_hero_3.o)
+                0x00069f1e       0xa0 C:/devkitPro/libogc2/wii/lib\libwiiuse.a(guitar_hero_3.o)
  .debug_loclists
-                0x00069f93     0x4c97 C:/devkitPro/libogc2/wii/lib\libbte.a(bte.o)
+                0x00069fbe     0x4c97 C:/devkitPro/libogc2/wii/lib\libbte.a(bte.o)
  .debug_loclists
-                0x0006ec2a     0x26e3 C:/devkitPro/libogc2/wii/lib\libbte.a(hci.o)
+                0x0006ec55     0x26e3 C:/devkitPro/libogc2/wii/lib\libbte.a(hci.o)
  .debug_loclists
-                0x0007130d     0x1b9c C:/devkitPro/libogc2/wii/lib\libbte.a(l2cap.o)
+                0x00071338     0x1b9c C:/devkitPro/libogc2/wii/lib\libbte.a(l2cap.o)
  .debug_loclists
-                0x00072ea9      0x1fb C:/devkitPro/libogc2/wii/lib\libbte.a(btmemb.o)
+                0x00072ed4      0x1fb C:/devkitPro/libogc2/wii/lib\libbte.a(btmemb.o)
  .debug_loclists
-                0x000730a4      0x466 C:/devkitPro/libogc2/wii/lib\libbte.a(btmemr.o)
+                0x000730cf      0x466 C:/devkitPro/libogc2/wii/lib\libbte.a(btmemr.o)
  .debug_loclists
-                0x0007350a      0x797 C:/devkitPro/libogc2/wii/lib\libbte.a(btpbuf.o)
+                0x00073535      0x797 C:/devkitPro/libogc2/wii/lib\libbte.a(btpbuf.o)
  .debug_loclists
-                0x00073ca1      0x8c8 C:/devkitPro/libogc2/wii/lib\libbte.a(physbusif.o)
+                0x00073ccc      0x8c8 C:/devkitPro/libogc2/wii/lib\libbte.a(physbusif.o)
  .debug_loclists
-                0x00074569      0x2ea C:/devkitPro/libogc2/wii/lib\libfat.a(fat_wrappers.o)
+                0x00074594      0x2ea C:/devkitPro/libogc2/wii/lib\libfat.a(fat_wrappers.o)
  .debug_loclists
-                0x00074853     0x2d00 C:/devkitPro/libogc2/wii/lib\libfat.a(fat_driver.o)
+                0x0007487e     0x2d00 C:/devkitPro/libogc2/wii/lib\libfat.a(fat_driver.o)
  .debug_loclists
-                0x00077553      0x302 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_disc.o)
+                0x0007757e      0x302 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_disc.o)
  .debug_loclists
-                0x00077855     0x15f2 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_cache.o)
+                0x00077880     0x15f2 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_cache.o)
  .debug_loclists
-                0x00078e47      0x530 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_volume.o)
+                0x00078e72      0x530 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_volume.o)
  .debug_loclists
-                0x00079377      0x1c5 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_libogc2.o)
+                0x000793a2      0x1c5 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_libogc2.o)
  .debug_loclists
-                0x0007953c     0xcaa4 C:/devkitPro/libogc2/wii/lib\libfat.a(ff.o)
+                0x00079567     0xcaa4 C:/devkitPro/libogc2/wii/lib\libfat.a(ff.o)
  .debug_loclists
-                0x00085fe0      0x2c3 C:/devkitPro/libogc2/wii/lib\libfat.a(ffunicode.o)
+                0x0008600b      0x2c3 C:/devkitPro/libogc2/wii/lib\libfat.a(ffunicode.o)
  .debug_loclists
-                0x000862a3      0xe73 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_prober.o)
+                0x000862ce      0xe73 C:/devkitPro/libogc2/wii/lib\libfat.a(dvm_prober.o)
  .debug_loclists
-                0x00087116      0x32b C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_queue.o)
+                0x00087141      0x32b C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_queue.o)
  .debug_loclists
-                0x00087441     0x1222 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threads.o)
+                0x0008746c     0x1222 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threads.o)
  .debug_loclists
-                0x00088663     0x1cb1 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp.o)
+                0x0008868e     0x1cb1 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp.o)
  .debug_loclists
-                0x0008a314       0xc5 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_stack.o)
+                0x0008a33f       0xc5 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_stack.o)
  .debug_loclists
-                0x0008a3d9      0x73e C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_watchdog.o)
+                0x0008a404      0x73e C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_watchdog.o)
  .debug_loclists
-                0x0008ab17       0x76 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_wkspace.o)
+                0x0008ab42       0x76 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_wkspace.o)
  .debug_loclists
-                0x0008ab8d      0x4e1 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_objmgr.o)
+                0x0008abb8      0x4e1 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_objmgr.o)
  .debug_loclists
-                0x0008b06e      0x69e C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_heap.o)
+                0x0008b099      0x69e C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_heap.o)
  .debug_loclists
-                0x0008b70c      0x5ac C:/devkitPro/libogc2/wii/lib\libogc.a(irq.o)
+                0x0008b737      0x5ac C:/devkitPro/libogc2/wii/lib\libogc.a(irq.o)
  .debug_loclists
-                0x0008bcb8     0x3219 C:/devkitPro/libogc2/wii/lib\libogc.a(video.o)
+                0x0008bce3     0x3219 C:/devkitPro/libogc2/wii/lib\libogc.a(video.o)
  .debug_loclists
-                0x0008eed1     0x30be C:/devkitPro/libogc2/wii/lib\libogc.a(system.o)
+                0x0008eefc     0x30be C:/devkitPro/libogc2/wii/lib\libogc.a(system.o)
  .debug_loclists
-                0x00091f8f      0x88a C:/devkitPro/libogc2/wii/lib\libogc.a(system_alarm.o)
+                0x00091fba      0x88a C:/devkitPro/libogc2/wii/lib\libogc.a(system_alarm.o)
  .debug_loclists
-                0x00092819      0x8d1 C:/devkitPro/libogc2/wii/lib\libogc.a(cond.o)
+                0x00092844      0x8d1 C:/devkitPro/libogc2/wii/lib\libogc.a(cond.o)
  .debug_loclists
-                0x000930ea     0xa443 C:/devkitPro/libogc2/wii/lib\libogc.a(gx.o)
+                0x00093115     0xa443 C:/devkitPro/libogc2/wii/lib\libogc.a(gx.o)
  .debug_loclists
-                0x0009d52d     0x11c5 C:/devkitPro/libogc2/wii/lib\libogc.a(gu.o)
+                0x0009d558     0x11c5 C:/devkitPro/libogc2/wii/lib\libogc.a(gu.o)
  .debug_loclists
-                0x0009e6f2       0x29 C:/devkitPro/libogc2/wii/lib\libogc.a(decrementer.o)
+                0x0009e71d       0x29 C:/devkitPro/libogc2/wii/lib\libogc.a(decrementer.o)
  .debug_loclists
-                0x0009e71b     0x14e9 C:/devkitPro/libogc2/wii/lib\libogc.a(message.o)
+                0x0009e746     0x14e9 C:/devkitPro/libogc2/wii/lib\libogc.a(message.o)
  .debug_loclists
-                0x0009fc04     0x13fe C:/devkitPro/libogc2/wii/lib\libogc.a(si.o)
+                0x0009fc2f     0x13fe C:/devkitPro/libogc2/wii/lib\libogc.a(si.o)
  .debug_loclists
-                0x000a1002     0x2e1e C:/devkitPro/libogc2/wii/lib\libogc.a(ipc.o)
+                0x000a102d     0x2e1e C:/devkitPro/libogc2/wii/lib\libogc.a(ipc.o)
  .debug_loclists
-                0x000a3e20      0x626 C:/devkitPro/libogc2/wii/lib\libogc.a(timesupp.o)
+                0x000a3e4b      0x626 C:/devkitPro/libogc2/wii/lib\libogc.a(timesupp.o)
  .debug_loclists
-                0x000a4446      0x7f8 C:/devkitPro/libogc2/wii/lib\libogc.a(lock_supp.o)
+                0x000a4471      0x7f8 C:/devkitPro/libogc2/wii/lib\libogc.a(lock_supp.o)
  .debug_loclists
-                0x000a4c3e       0x8b C:/devkitPro/libogc2/wii/lib\libogc.a(newlibc.o)
+                0x000a4c69       0x8b C:/devkitPro/libogc2/wii/lib\libogc.a(newlibc.o)
  .debug_loclists
-                0x000a4cc9      0x32e C:/devkitPro/libogc2/wii/lib\libogc.a(sbrk.o)
+                0x000a4cf4      0x32e C:/devkitPro/libogc2/wii/lib\libogc.a(sbrk.o)
  .debug_loclists
-                0x000a4ff7      0x176 C:/devkitPro/libogc2/wii/lib\libogc.a(stm.o)
+                0x000a5022      0x176 C:/devkitPro/libogc2/wii/lib\libogc.a(stm.o)
  .debug_loclists
-                0x000a516d      0x6c8 C:/devkitPro/libogc2/wii/lib\libogc.a(ios.o)
+                0x000a5198      0x6c8 C:/devkitPro/libogc2/wii/lib\libogc.a(ios.o)
  .debug_loclists
-                0x000a5835     0x31e0 C:/devkitPro/libogc2/wii/lib\libogc.a(es.o)
+                0x000a5860     0x31e0 C:/devkitPro/libogc2/wii/lib\libogc.a(es.o)
  .debug_loclists
-                0x000a8a15     0x33cb C:/devkitPro/libogc2/wii/lib\libogc.a(isfs.o)
+                0x000a8a40     0x33cb C:/devkitPro/libogc2/wii/lib\libogc.a(isfs.o)
  .debug_loclists
-                0x000abde0     0x3ff7 C:/devkitPro/libogc2/wii/lib\libogc.a(usb.o)
+                0x000abe0b     0x3ff7 C:/devkitPro/libogc2/wii/lib\libogc.a(usb.o)
  .debug_loclists
-                0x000afdd7      0x4de C:/devkitPro/libogc2/wii/lib\libogc.a(gcsd.o)
+                0x000afe02      0x4de C:/devkitPro/libogc2/wii/lib\libogc.a(gcsd.o)
  .debug_loclists
-                0x000b02b5       0x21 C:/devkitPro/libogc2/wii/lib\libogc.a(argv.o)
+                0x000b02e0       0x21 C:/devkitPro/libogc2/wii/lib\libogc.a(argv.o)
  .debug_loclists
-                0x000b02d6     0x16ce C:/devkitPro/libogc2/wii/lib\libogc.a(wiisd.o)
+                0x000b0301     0x16ce C:/devkitPro/libogc2/wii/lib\libogc.a(wiisd.o)
  .debug_loclists
-                0x000b19a4      0x873 C:/devkitPro/libogc2/wii/lib\libogc.a(conf.o)
+                0x000b19cf      0x873 C:/devkitPro/libogc2/wii/lib\libogc.a(conf.o)
  .debug_loclists
-                0x000b2217     0x1b47 C:/devkitPro/libogc2/wii/lib\libogc.a(usbstorage.o)
+                0x000b2242     0x1b47 C:/devkitPro/libogc2/wii/lib\libogc.a(usbstorage.o)
  .debug_loclists
-                0x000b3d5e      0x71a C:/devkitPro/libogc2/wii/lib\libogc.a(wiilaunch.o)
+                0x000b3d89      0x71a C:/devkitPro/libogc2/wii/lib\libogc.a(wiilaunch.o)
  .debug_loclists
-                0x000b4478     0x137c C:/devkitPro/libogc2/wii/lib\libogc.a(mmce.o)
+                0x000b44a3     0x137c C:/devkitPro/libogc2/wii/lib\libogc.a(mmce.o)
  .debug_loclists
-                0x000b57f4      0x19a C:/devkitPro/libogc2/wii/lib\libogc.a(threads_supp.o)
+                0x000b581f      0x19a C:/devkitPro/libogc2/wii/lib\libogc.a(threads_supp.o)
  .debug_loclists
-                0x000b598e     0x7b58 C:/devkitPro/libogc2/wii/lib\libogc.a(malloc.o)
+                0x000b59b9     0x7b58 C:/devkitPro/libogc2/wii/lib\libogc.a(malloc.o)
  .debug_loclists
-                0x000bd4e6      0x215 C:/devkitPro/libogc2/wii/lib\libogc.a(mallocr.o)
+                0x000bd511      0x215 C:/devkitPro/libogc2/wii/lib\libogc.a(mallocr.o)
  .debug_loclists
-                0x000bd6fb     0x167a C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threadq.o)
+                0x000bd726     0x167a C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_threadq.o)
  .debug_loclists
-                0x000bed75     0x1009 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_messages.o)
+                0x000beda0     0x1009 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_messages.o)
  .debug_loclists
-                0x000bfd7e      0x485 C:/devkitPro/libogc2/wii/lib\libogc.a(exception.o)
+                0x000bfda9      0x485 C:/devkitPro/libogc2/wii/lib\libogc.a(exception.o)
  .debug_loclists
-                0x000c0203      0x77c C:/devkitPro/libogc2/wii/lib\libogc.a(semaphore.o)
+                0x000c022e      0x77c C:/devkitPro/libogc2/wii/lib\libogc.a(semaphore.o)
  .debug_loclists
-                0x000c097f     0x17b9 C:/devkitPro/libogc2/wii/lib\libogc.a(pad.o)
+                0x000c09aa     0x17b9 C:/devkitPro/libogc2/wii/lib\libogc.a(pad.o)
  .debug_loclists
-                0x000c2138     0x3c42 C:/devkitPro/libogc2/wii/lib\libogc.a(exi.o)
+                0x000c2163     0x3c42 C:/devkitPro/libogc2/wii/lib\libogc.a(exi.o)
  .debug_loclists
-                0x000c5d7a      0x7a3 C:/devkitPro/libogc2/wii/lib\libogc.a(mutex.o)
+                0x000c5da5      0x7a3 C:/devkitPro/libogc2/wii/lib\libogc.a(mutex.o)
  .debug_loclists
-                0x000c651d     0xbe5a C:/devkitPro/libogc2/wii/lib\libogc.a(card.o)
+                0x000c6548     0xbe5a C:/devkitPro/libogc2/wii/lib\libogc.a(card.o)
  .debug_loclists
-                0x000d2377      0x501 C:/devkitPro/libogc2/wii/lib\libogc.a(dsp.o)
+                0x000d23a2      0x501 C:/devkitPro/libogc2/wii/lib\libogc.a(dsp.o)
  .debug_loclists
-                0x000d2878     0x134c C:/devkitPro/libogc2/wii/lib\libogc.a(kprintf.o)
+                0x000d28a3     0x134c C:/devkitPro/libogc2/wii/lib\libogc.a(kprintf.o)
  .debug_loclists
-                0x000d3bc4     0x3767 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_io.o)
+                0x000d3bef     0x3767 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_io.o)
  .debug_loclists
-                0x000d732b       0x73 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_buf.o)
+                0x000d7356       0x73 C:/devkitPro/libogc2/wii/lib\libogc.a(sdgecko_buf.o)
  .debug_loclists
-                0x000d739e     0x2cad C:/devkitPro/libogc2/wii/lib\libogc.a(network_wii.o)
+                0x000d73c9     0x2cad C:/devkitPro/libogc2/wii/lib\libogc.a(network_wii.o)
  .debug_loclists
-                0x000da04b      0xb91 C:/devkitPro/libogc2/wii/lib\libogc.a(n64.o)
+                0x000da076      0xb91 C:/devkitPro/libogc2/wii/lib\libogc.a(n64.o)
  .debug_loclists
-                0x000dabdc     0x11c2 C:/devkitPro/libogc2/wii/lib\libogc.a(console.o)
+                0x000dac07     0x11c2 C:/devkitPro/libogc2/wii/lib\libogc.a(console.o)
  .debug_loclists
-                0x000dbd9e      0x2ac C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_sema.o)
+                0x000dbdc9      0x2ac C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_sema.o)
  .debug_loclists
-                0x000dc04a      0x342 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_mutex.o)
+                0x000dc075      0x342 C:/devkitPro/libogc2/wii/lib\libogc.a(lwp_mutex.o)
  .debug_loclists
-                0x000dc38c     0x1f15 C:/devkitPro/libogc2/wii/lib\libogc.a(usbgecko.o)
+                0x000dc3b7     0x1f15 C:/devkitPro/libogc2/wii/lib\libogc.a(usbgecko.o)
  .debug_loclists
-                0x000de2a1      0x41d C:/devkitPro/libogc2/wii/lib\libogc.a(network_common.o)
+                0x000de2cc      0x41d C:/devkitPro/libogc2/wii/lib\libogc.a(network_common.o)
  .debug_loclists
-                0x000de6be       0x54 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixunsdfdi.o)
+                0x000de6e9       0x54 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixunsdfdi.o)
  .debug_loclists
-                0x000de712       0x51 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdisf.o)
+                0x000de73d       0x51 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdisf.o)
  .debug_loclists
-                0x000de763       0x30 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatundidf.o)
+                0x000de78e       0x30 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatundidf.o)
  .debug_loclists
-                0x000de793      0x6f4 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_moddi3.o)
+                0x000de7be      0x6f4 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_moddi3.o)
  .debug_loclists
-                0x000dee87      0xa6d C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_udivdi3.o)
+                0x000deeb2      0xa6d C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_udivdi3.o)
  .debug_loclists
-                0x000df8f4      0x82e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_umoddi3.o)
+                0x000df91f      0x82e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_umoddi3.o)
  .debug_loclists
-                0x000e0122     0x571b C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2.o)
+                0x000e014d     0x571b C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2.o)
  .debug_loclists
-                0x000e583d     0x29bb C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2-fde.o)
+                0x000e5868     0x29bb C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(unwind-dw2-fde.o)
  .debug_loclists
-                0x000e81f8       0x3a C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixdfdi.o)
+                0x000e8223       0x3a C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_fixdfdi.o)
  .debug_loclists
-                0x000e8232       0x4e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdidf.o)
+                0x000e825d       0x4e C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_floatdidf.o)
  .debug_loclists
-                0x000e8280      0x9c3 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_divdi3.o)
+                0x000e82ab      0x9c3 C:/devkitPro/devkitPPC/bin/../lib/gcc/powerpc-eabi/16.1.0\libgcc.a(_divdi3.o)
 
 .debug_macro
  *(.debug_macro)
