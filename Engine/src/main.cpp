@@ -17,7 +17,7 @@
 // Scenes to include
 #include "SampleScene.h"
 #include "NeedleGame.h"
-#include "GauzeGame.h"
+#include "ChestCompressionGame.h"
 #include "BottleGame.h"
 #include "PatchGame.h"
 #include "BabyTargetGame.h"
@@ -97,7 +97,7 @@ int main() {
 	SceneManager scenes;
 	scenes.registerScene<SampleScene>(0);
 	scenes.registerScene<NeedleGame>(1);
-	scenes.registerScene<GauzeGame>(2);
+	scenes.registerScene<ChestCompressionGame>(2);
 	scenes.registerScene<BottleGame>(3);
 	scenes.registerScene<PatchGame>(4);
 	scenes.registerScene<BabyTargetGame>(5);

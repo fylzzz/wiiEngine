@@ -84,7 +84,8 @@ main.o: \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/SampleScene.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h \
- C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/GauzeGame.h \
+ C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/ChestCompressionGame.h \
+ C:/devkitPro/libogc2/wii/include/raymath.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BottleGame.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/PatchGame.h \
  C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BabyTargetGame.h
@@ -172,7 +173,8 @@ C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/ECS/Scene.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/SampleScene.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Engine/include/Systems/AnimationSystem.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/NeedleGame.h:
-C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/GauzeGame.h:
+C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/ChestCompressionGame.h:
+C:/devkitPro/libogc2/wii/include/raymath.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BottleGame.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/PatchGame.h:
 C:/Users/iChoc/OneDrive/Documents/GitHub/wiiEngine/Game/Scenes/BabyTargetGame.h:

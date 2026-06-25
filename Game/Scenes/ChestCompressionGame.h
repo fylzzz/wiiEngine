@@ -231,42 +231,31 @@ public:
 
 		float avgInterval = total/intervalsFilled;
 		currentBPM = (int)(60.0f / avgInterval);	 
-	
-		if (std::abs(currentBPM - targetBPM) <= bpmWindow)
-		{
-
-		}
-	
-		else if (currentBPM < targetBPM)
-		{
-
-		}
-	
-		else 
-		{
-
-		}
 	}
+
 	void render(float dt) override {
 		BeginDrawing();
 		ClearBackground(BLACK);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
 
-		if (currentState == End)
-		{
-			DrawText(TextFormat("FinalBPM: %d", currentBPM),10, 30, 20, WHITE);
-			DrawText(TextFormat("accuracy %d", accuracy),10, 70, 20, WHITE);
-			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 50, 20, WHITE);
-		}
-		
-		else 
-		{
+		switch (currentState) {
+		case Start:
+			DrawText("Press A to start", 10, 30, 20, WHITE);
+			break;
+		case Play:
 			DrawText(TextFormat("ACCEL: %.0f, %.0f, %.0f", ax, ay, az), 10, 30, 20, WHITE);
 			DrawText(TextFormat("Timer: %.0f", timer), 10, 50, 20, WHITE);
 			DrawText(TextFormat("CurrentBPM: %d", currentBPM), 10, 70, 20, WHITE);
 			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 90, 20, WHITE);
+			break;
+		case End:
+			DrawText(TextFormat("FinalBPM: %d", currentBPM), 10, 30, 20, WHITE);
+			DrawText(TextFormat("accuracy %d", accuracy), 10, 70, 20, WHITE);
+			DrawText(TextFormat("TargetBPM: %d", targetBPM), 10, 50, 20, WHITE);
+			break;
 		}
+
 		DrawFPS(10, 10);
 		EndDrawing();
 	}
