@@ -34,7 +34,7 @@ public:
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		SpriteId bottle = world.loadSprite("sd:/NeedleGame/eyedrops256.png");
-		//AnimId faceAnim = world.loadAnim("face", "sd:/NeedleGame/eyedropchildspritesheet.png", 2, 4);
+		AnimId faceAnim = world.loadAnim("face", "sd:/NeedleGame/eyedropschildspritesheet2.png", 2, 2);
 
 		timer = 10.0f;
 		gameState = START;
@@ -96,7 +96,7 @@ public:
 			// Create new/default entities here
 		
 		Entity bottleEntity = world.createEntity();
-		world.addComponent<EngineTransform>(bottleEntity, EngineTransform(Vector3{ 192, 112, 1 }, Vector3{}, Vector3{}));
+		world.addComponent<EngineTransform>(bottleEntity, EngineTransform(Vector3{ 310, 20, 1 }, Vector3{}, Vector3{}));
 
 		Renderable2D sprite;
 		sprite.spriteId = bottle;
@@ -105,14 +105,15 @@ public:
 		world.addComponent<Renderable2D>(bottleEntity, sprite);
 
 
-		/*Entity faceEntity = world.createEntity();
-		world.addComponent<EngineTransform>(faceEntity, EngineTransform(Vector3{ 192, 122, 0 }, Vector3{}, Vector3{}));
+		Entity faceEntity = world.createEntity();
+		world.addComponent<EngineTransform>(faceEntity, EngineTransform(Vector3{ 120, -10, 0 }, Vector3{}, Vector3{}));
 
 		Animator2D anim;
 		anim.animClips.insert({ "face", faceAnim });
+		anim.color = WHITE;
 		anim.currentAnim = "face";
 		world.addComponent<Animator2D>(faceEntity, anim);
-		*/
+		
 
 		return;
 	}
@@ -175,8 +176,10 @@ public:
 
 		switch (gameState) {
 		case START:
-			DrawText("Hold the Wiimote as still as possible in the neutral position", 10, 30, 20, BLACK);
-			DrawText("Press A to start", 10, 70, 20, BLACK);
+			DrawText("Hold the Wiimote", 10, 30, 20, BLACK);
+			DrawText("as still as possible", 10, 50, 20, BLACK);
+			DrawText("in the neutral position", 10, 70, 20, BLACK);
+			DrawText("Press A to start", 10, 110, 20, BLACK);
 			break;
 		case PLAY:
 			DrawText(TextFormat("Stability: %.0f, %.0f, %.0f", rot.x, rot.y, rot.z), 10, 50, 20, BLACK);
