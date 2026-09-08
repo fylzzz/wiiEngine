@@ -17,8 +17,11 @@ class ResourceManager {
 		Model& getModel(ResourceId id);
 		void unloadAll();
 
+		BoundingBox& getModelBoundingBox(ResourceId id) { return mBoundingBoxes[id]; }
+
 	private:
 		std::array<Model, MAX_RESOURCES> mModels{};
+		std::array<BoundingBox, MAX_RESOURCES> mBoundingBoxes{};
 		std::array<const char*, MAX_RESOURCES> mPaths{};
 		uint16_t mSize = 0;
 };

@@ -2,6 +2,27 @@
 #include <math.h>
 
 
+class OctTree {
+	private:
+		int mLevel;
+		BoundingBox mBounds;
+		std::vector<BoxCollider> mObjects;
+		std::array<std::unique_ptr<OctTree>, 8> mNodes;
+
+		const size_t MAX_OBJECTS = 4;
+		const int MAX_LEVELS = 5;
+
+		void split() {
+			
+		}
+
+		int getIndex(const BoundingBox& bounds) const {
+			int index = -1;
+
+		}
+};
+
+
 class QuadTree {
 	private:
 		int mLevel;
@@ -127,11 +148,13 @@ void PhysicsSystem::update(float dt) {
 
 void PhysicsSystem::drawDebug() {
 	for (Entity e : mEntities) {
-		if (!world->hasComponent<Collider2D>(e)) continue;
+		if (!world->hasComponent<Collider2D>(e) || !world->hasComponent<BoxCollider>(e)) continue;
 		auto& col = world->getComponent<Collider2D>(e);
+		auto& col3D = world->getComponent<BoxCollider>(e);
 		//auto& trans = world->getComponent<EngineTransform>(e);
 
 		DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
+		DrawBoundingBox(col3D.bounds, GREEN);
 	}
 }
 
@@ -139,8 +162,9 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 	QuadTree qt(0, Rectangle{ 0, 0, 640, 480 });
 
 	for (Entity e : mEntities) {
-		if (!world->hasComponent<Collider2D>(e)) continue;
+		if (!world->hasComponent<Collider2D>(e) | !world->hasComponent<BoxCollider>(e)) continue;
 		auto& col = world->getComponent<Collider2D>(e);
+		auto& col3D = world->getComponent<BoxCollider>(e);
 		auto& trans = world->getComponent<EngineTransform>(e);
 
 		col.bounds.x = trans.pos.x + col.offset.x;
@@ -148,6 +172,7 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 		col.entityId = e;
 		if (drawBounds) {
 			DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
+			DrawBoundingBox(col3D.bounds, GREEN);
 		}
 		qt.insert(col);
 	}

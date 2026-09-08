@@ -15,7 +15,7 @@
 
 
 // Scenes to include
-#include "WeightTest.h"
+#include "PhysicsTest.h"
 
 
 void SetDrawMode2D() {
@@ -27,7 +27,7 @@ void SetDrawMode2D() {
 	return;
 }
 
-void SetDrawMode3D(Camera3D* camera) {
+/*void SetDrawMode3D(Camera3D* camera) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	float aspect = 640.0f / 480.0f;
@@ -72,7 +72,7 @@ void SetDrawMode3D(Camera3D* camera) {
 
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
-}
+}*/
 
 int main() {
 	fatInitDefault();
@@ -89,7 +89,7 @@ int main() {
 	int currentScene = 0;
 
 	SceneManager scenes;
-	scenes.registerScene<WeightTest>(0);
+	scenes.registerScene<PhysicsTest>(0);
 	scenes.switchTo(currentScene);
 
 

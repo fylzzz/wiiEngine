@@ -80,7 +80,7 @@ main.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/main.cpp \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SceneManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Scene.h \
- C:/Users/iChoc/Desktop/wiiEngine/GFSAcademyGame/Scenes/WeightTest.h \
+ C:/Users/iChoc/Desktop/wiiEngine/XPracDemo/Scenes/PhysicsTest.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/gccore.h:
@@ -163,5 +163,5 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SceneManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Scene.h:
-C:/Users/iChoc/Desktop/wiiEngine/GFSAcademyGame/Scenes/WeightTest.h:
+C:/Users/iChoc/Desktop/wiiEngine/XPracDemo/Scenes/PhysicsTest.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h:

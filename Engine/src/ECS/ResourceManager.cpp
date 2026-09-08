@@ -11,6 +11,7 @@ ResourceId ResourceManager::loadModel(const char* path) {
 
 	ResourceId id = mSize++;
 	mModels[id] = LoadModel(path);
+	mBoundingBoxes[id] = GetModelBoundingBox(mModels[id]);
 	mPaths[id] = path;
 	return id;
 }

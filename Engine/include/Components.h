@@ -80,3 +80,8 @@ struct Collider2D {
     Rectangle bounds;
     Vector2 offset;
 };
+
+struct BoxCollider {
+    Entity entityId;
+    BoundingBox bounds;
+};

@@ -42,6 +42,7 @@ class World {
 		// Resouce API calls
 		ResourceId loadModel(const char* path);
 		Model& getModel(ResourceId id);
+		BoundingBox& getModelBoundingBox(ResourceId id);
 		void unloadAllResources();
 
 		// Sprite API calls

@@ -28,6 +28,10 @@ Model& World::getModel(ResourceId id) {
 	return mResourceManager->getModel(id);
 }
 
+BoundingBox& World::getModelBoundingBox(ResourceId id) {
+    return mResourceManager->getModelBoundingBox(id);
+}
+
 void World::unloadAllResources() {
 	return mResourceManager->unloadAll();
 }
