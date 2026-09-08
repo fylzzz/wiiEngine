@@ -13,12 +13,69 @@ class OctTree {
 		const int MAX_LEVELS = 5;
 
 		void split() {
-			
+			Vector3 min = mBounds.min;
+			Vector3 max = mBounds.max;
+			Vector3 mid = {
+				(mBounds.min.x + mBounds.max.x) * 0.5f,
+				(mBounds.min.y + mBounds.max.y) * 0.5f,
+				(mBounds.min.z + mBounds.max.z) * 0.5f
+			};
+
+			mNodes[0] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, min.y, min.z }, { max.x, mid.y, mid.z});
+			mNodes[1] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, min.y, min.z }, { mid.x, mid.y, mid.z});
+			mNodes[2] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, mid.y, min.z }, { mid.x, max.y, mid.z});
+			mNodes[3] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, mid.y, min.z }, { max.x, max.y, mid.z});
+			mNodes[4] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, min.y, mid.z }, { max.x, mid.y, max.z});
+			mNodes[5] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, min.y, mid.z }, { mid.x, mid.y, max.z});
+			mNodes[6] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, mid.y, mid.z }, { mid.x, max.y, max.z});
+			mNodes[7] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, mid.y, mid.z }, { max.x, max.y, max.z});
 		}
 
 		int getIndex(const BoundingBox& bounds) const {
 			int index = -1;
 
+			Vector3 mid = {
+				(mBounds.min.x + mBounds.max.x) * 0.5f,
+				(mBounds.min.y + mBounds.max.y) * 0.5f,
+				(mBounds.min.z + mBounds.max.z) * 0.5f
+			};
+
+			bool fitsLeft = box.max.x < mid.x;
+			bool fitsRight = box.min.x > mid.x;
+			bool fitsBottom = box.max.y < mid.y;
+			bool fitsTop = box.min.y > mid.y;
+			bool fitsNear = box.max.z < mid.z;
+			bool fitsFar = box.min.z > mid.z;
+
+			if (fitsNear) {
+				if (fitsRight && fitsBottom) return 0;
+				if (fitsLeft && fitsBottom) return 1;
+				if (fitsLeft && fitsTop) return 2;
+				if (fitsRight && fitsTop) return 3;
+			}
+			else if (fitsFar) {
+				if (fitsRight && fitsBottom) return 4;
+				if (fitsLeft && fitsBottom) return 5;
+				if (fitsLeft && fitsTop) return 6;
+				if (fitsRight && fitsTop) return 7;
+			}
+			return -1;
+		}
+	public:
+		OctTree(int level, const BoundingBox& bounds) : mLevel(level), mBounds(bounds) {}
+
+		void clear() {
+			mObjects.clear();
+			for (auto& node : mNodes) {
+				if (node) {
+					node->clear();
+					node = nullptr;
+				}
+			}
+		}
+
+		void insert(const BoxCollider& col) {
+			
 		}
 };
 
@@ -46,7 +103,6 @@ class QuadTree {
 		}
 
 		int getIndex(const Rectangle& rect) const {
-			int index = -1;
 			float vertMidpoint = mBounds.x + (mBounds.width / 2.0f);
 			float horMidpoint = mBounds.y + (mBounds.height / 2.0f);
 
@@ -54,22 +110,14 @@ class QuadTree {
 			bool bottomQuad = (rect.y > horMidpoint);
 
 			if (rect.x < vertMidpoint && rect.x + rect.width < vertMidpoint) {
-				if (topQuad) {
-					index = 1;
-				}
-				else if (bottomQuad) {
-					index = 2;
-				}
+				if (topQuad) return 1;
+				if (bottomQuad) return 2;
 			}
 			else if (rect.x > vertMidpoint) {
-				if (topQuad) {
-					index = 0;
-				}
-				else if (bottomQuad) {
-					index = 3;
-				}
+				if (topQuad) return 0;
+				if (bottomQuad) return 3;
 			}
-			return index;
+			return -1;
 		}
 
 	public:
@@ -135,6 +183,12 @@ static bool aabbOverlap(const Rectangle& a, const Rectangle& b) {
 		b.y + b.height < a.y);
 }
 
+static bool aabbOverlap3D(const BoundingBox& a, const BoundingBox& b) {
+	return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
+		(a.min.y <= b.max.y && a.max.y >= b.min.y) &&
+		(a.min.z <= b.max.z && a.max.z >= b.min.z);
+}
+
 void PhysicsSystem::update(float dt) {
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<RigidBody2D>(e)) continue;
@@ -160,6 +214,7 @@ void PhysicsSystem::drawDebug() {
 
 void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 	QuadTree qt(0, Rectangle{ 0, 0, 640, 480 });
+	Color hitColor;
 
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<Collider2D>(e) | !world->hasComponent<BoxCollider>(e)) continue;
@@ -172,7 +227,7 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 		col.entityId = e;
 		if (drawBounds) {
 			DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
-			DrawBoundingBox(col3D.bounds, GREEN);
+			DrawBoundingBox(col3D.bounds, hitColor);
 		}
 		qt.insert(col);
 	}
