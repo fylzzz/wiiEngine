@@ -18,14 +18,14 @@
 #include "PhysicsTest.h"
 
 
-void SetDrawMode2D() {
+/*void SetDrawMode2D() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, 640, 480, 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	return;
-}
+}*/
 
 /*void SetDrawMode3D(Camera3D* camera) {
 	glMatrixMode(GL_PROJECTION);

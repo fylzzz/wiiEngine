@@ -1,6 +1,8 @@
 #include "PhysicsSystem.h"
 #include <math.h>
 
+Color hitColor;
+
 
 class OctTree {
 	private:
@@ -21,31 +23,31 @@ class OctTree {
 				(mBounds.min.z + mBounds.max.z) * 0.5f
 			};
 
-			mNodes[0] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, min.y, min.z }, { max.x, mid.y, mid.z});
-			mNodes[1] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, min.y, min.z }, { mid.x, mid.y, mid.z});
-			mNodes[2] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, mid.y, min.z }, { mid.x, max.y, mid.z});
-			mNodes[3] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, mid.y, min.z }, { max.x, max.y, mid.z});
-			mNodes[4] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, min.y, mid.z }, { max.x, mid.y, max.z});
-			mNodes[5] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, min.y, mid.z }, { mid.x, mid.y, max.z});
-			mNodes[6] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, mid.y, mid.z }, { mid.x, max.y, max.z});
-			mNodes[7] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, mid.y, mid.z }, { max.x, max.y, max.z});
+			mNodes[0] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, min.y, min.z }, { max.x, mid.y, mid.z} });
+			mNodes[1] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, min.y, min.z }, { mid.x, mid.y, mid.z} });
+			mNodes[2] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, mid.y, min.z }, { mid.x, max.y, mid.z} });
+			mNodes[3] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, mid.y, min.z }, { max.x, max.y, mid.z} });
+			mNodes[4] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, min.y, mid.z }, { max.x, mid.y, max.z} });
+			mNodes[5] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, min.y, mid.z }, { mid.x, mid.y, max.z} });
+			mNodes[6] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { min.x, mid.y, mid.z }, { mid.x, max.y, max.z} });
+			mNodes[7] = std::make_unique<OctTree>(mLevel + 1, BoundingBox{ { mid.x, mid.y, mid.z }, { max.x, max.y, max.z} });
 		}
 
 		int getIndex(const BoundingBox& bounds) const {
-			int index = -1;
-
+			Vector3 min = bounds.min;
+			Vector3 max = bounds.max;
 			Vector3 mid = {
 				(mBounds.min.x + mBounds.max.x) * 0.5f,
 				(mBounds.min.y + mBounds.max.y) * 0.5f,
 				(mBounds.min.z + mBounds.max.z) * 0.5f
 			};
 
-			bool fitsLeft = box.max.x < mid.x;
-			bool fitsRight = box.min.x > mid.x;
-			bool fitsBottom = box.max.y < mid.y;
-			bool fitsTop = box.min.y > mid.y;
-			bool fitsNear = box.max.z < mid.z;
-			bool fitsFar = box.min.z > mid.z;
+			bool fitsLeft = max.x < mid.x;
+			bool fitsRight = min.x > mid.x;
+			bool fitsBottom = max.y < mid.y;
+			bool fitsTop = min.y > mid.y;
+			bool fitsNear = max.z < mid.z;
+			bool fitsFar = min.z > mid.z;
 
 			if (fitsNear) {
 				if (fitsRight && fitsBottom) return 0;
@@ -75,7 +77,44 @@ class OctTree {
 		}
 
 		void insert(const BoxCollider& col) {
-			
+			if (mNodes[0] != nullptr) {
+				int index = getIndex(col.bounds);
+				if (index != -1) {
+					mNodes[index]->insert(col);
+					return;
+				}
+			}
+
+			mObjects.push_back(col);
+
+			if (mObjects.size() > MAX_OBJECTS && mLevel < MAX_LEVELS) {
+				if (mNodes[0] == nullptr) {
+					split();
+				}
+				auto it = mObjects.begin();
+				while (it != mObjects.end()) {
+					int index = getIndex(it->bounds);
+					if (index != -1) {
+						mNodes[index]->insert(*it);
+						it = mObjects.erase(it);
+					} else {
+						++it;
+					}
+				}
+			}
+		}
+
+		void retrieve(std::vector<BoxCollider>& returncol, const BoundingBox& col) const {
+			int index = getIndex(col);
+			if (index != -1 && mNodes[0] != nullptr) {
+				mNodes[index]->retrieve(returncol, col);
+			}
+			else if (mNodes[0] != nullptr) {
+				for (const auto& node : mNodes) {
+					node->retrieve(returncol, col);
+				}
+			}
+			returncol.insert(returncol.end(), mObjects.begin(), mObjects.end());
 		}
 };
 
@@ -189,6 +228,7 @@ static bool aabbOverlap3D(const BoundingBox& a, const BoundingBox& b) {
 		(a.min.z <= b.max.z && a.max.z >= b.min.z);
 }
 
+
 void PhysicsSystem::update(float dt) {
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<RigidBody2D>(e)) continue;
@@ -208,13 +248,13 @@ void PhysicsSystem::drawDebug() {
 		//auto& trans = world->getComponent<EngineTransform>(e);
 
 		DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
-		DrawBoundingBox(col3D.bounds, GREEN);
+		DrawBoundingBox(col3D.bounds, hitColor);
 	}
 }
 
 void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 	QuadTree qt(0, Rectangle{ 0, 0, 640, 480 });
-	Color hitColor;
+	OctTree ot(0, BoundingBox{ Vector3{ -10, -10, -10 }, Vector3{ 10, 10, 10 } });
 
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<Collider2D>(e) | !world->hasComponent<BoxCollider>(e)) continue;
@@ -225,19 +265,30 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 		col.bounds.x = trans.pos.x + col.offset.x;
 		col.bounds.y = trans.pos.y + col.offset.y;
 		col.entityId = e;
+
+
+		col3D.bounds.min = { trans.pos.x + col3D.center.x - col3D.halfExtents.x, trans.pos.y + col3D.center.y - col3D.halfExtents.y, trans.pos.z + col3D.center.z - col3D.halfExtents.z };
+		col3D.bounds.max = { trans.pos.x + col3D.center.x + col3D.halfExtents.x, trans.pos.y + col3D.center.y + col3D.halfExtents.y, trans.pos.z + col3D.center.z + col3D.halfExtents.z };
+		col3D.entityId = e;
+
 		if (drawBounds) {
 			DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
 			DrawBoundingBox(col3D.bounds, hitColor);
 		}
 		qt.insert(col);
+		ot.insert(col3D);
 	}
 
 	for (Entity e : mEntities) {
-		if (!world->hasComponent<Collider2D>(e)) continue;
+		if (!world->hasComponent<Collider2D>(e) || !world->hasComponent<BoxCollider>(e)) continue;
 		auto& col = world->getComponent<Collider2D>(e);
+		auto& col3D = world->getComponent<BoxCollider>(e);
 
 		std::vector<Collider2D> candidates;
 		qt.retrieve(candidates, col.bounds);
+
+		std::vector<BoxCollider> candidates3D;
+		ot.retrieve(candidates3D, col3D.bounds);
 
 		for (const auto& other : candidates) {
 			if (other.entityId == col.entityId) continue;
@@ -253,6 +304,18 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 				}
 			}
 		}  
+
+		for (const auto& other3D : candidates3D) {
+			if (other3D.entityId == col3D.entityId) continue;
+
+			bool hit = aabbOverlap3D(col3D.bounds, other3D.bounds);
+			if (hit) {
+				hitColor = RED;
+			}
+			else {
+				hitColor = GREEN;
+			}
+		}
 	}
 }
 

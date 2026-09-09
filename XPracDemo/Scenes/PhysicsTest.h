@@ -10,6 +10,15 @@
 #include <math.h>
 
 
+void SetDrawMode2D() {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, 640, 480, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	return;
+}
+
 void SetDrawMode3D(Camera3D* camera) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -71,6 +80,7 @@ public:
 	float total, x, y, screenX, screenY;
 
 	Entity e;
+	Entity other;
 
 	// Initialise ECS and camera for scene
 	void init() override {
@@ -80,7 +90,7 @@ public:
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		// Setup camera
-		camera.position = Vector3{ 0.0f, 5.0f, 5.0f };
+		camera.position = Vector3{ 0.0f, 5.0f, 10.0f };
 		camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
 		camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
 		camera.fovy = 90.0f;
@@ -159,6 +169,7 @@ public:
 		BoxCollider collider;
 		collider.entityId = e;
 		collider.bounds = world.getModelBoundingBox(teapotId);
+		collider.UpdateFromBounds();
 		world.addComponent(e, collider);
 
 		Collider2D col2d{};                 // bounds unused for the 3D box, fine to leave zeroed
@@ -167,6 +178,28 @@ public:
 		RigidBody2D rb2d;
 		rb2d.type = RbType::Static;         // avoids the Dynamic velocity-flip response
 		world.addComponent(e, rb2d);
+
+
+		other = world.createEntity();
+		world.addComponent<EngineTransform>(other, EngineTransform(Vector3{ 0, 5, 0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
+		//Renderable modelother;
+		//model.shape = RenderShape::ModelWires;
+		//model.color = WHITE;
+		//model.model.modelId = teapotId;
+		//model.model.scale = 1.0f;
+		world.addComponent(other, model);
+		BoxCollider colliderother;
+		colliderother.entityId = other;
+		colliderother.bounds = world.getModelBoundingBox(teapotId);
+		colliderother.UpdateFromBounds();
+		world.addComponent(other, colliderother);
+
+		//Collider2D col2d{};                 // bounds unused for the 3D box, fine to leave zeroed
+		world.addComponent(other, col2d);
+
+		//RigidBody2D rb2d;
+		//rb2d.type = RbType::Static;         // avoids the Dynamic velocity-flip response
+		world.addComponent(other, rb2d);
 	}
 
 	void update(float dt, WPADData* data) override {
@@ -221,8 +254,8 @@ public:
 			//DrawText("Board Disconnected", 10, 30, 20, WHITE);
 		}
 
-
-		DrawFPS(10, 10);
+		SetDrawMode2D();
+		DrawText(TextFormat("%f FPS", 1/dt), 10, 10, 20, RED);
 		EndDrawing();
 	}
 

@@ -84,4 +84,19 @@ struct Collider2D {
 struct BoxCollider {
     Entity entityId;
     BoundingBox bounds;
+    Vector3 halfExtents;
+    Vector3 center;
+
+    void UpdateFromBounds() {
+        halfExtents = {
+            (bounds.max.x - bounds.min.x) * 0.5f,
+            (bounds.max.y - bounds.min.y) * 0.5f,
+            (bounds.max.z - bounds.min.z) * 0.5f
+        };
+        center = {
+            (bounds.min.x + bounds.max.x) * 0.5f,
+            (bounds.min.y + bounds.max.y) * 0.5f,
+            (bounds.min.z + bounds.max.z) * 0.5f
+        };
+    }
 };
