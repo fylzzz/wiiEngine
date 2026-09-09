@@ -227,9 +227,13 @@ public:
 		// update animation system
 		animation->update(dt);
 
-		//EngineTransform& transform = world.getComponent<EngineTransform>(e);
-		//transform.pos.x = screenX;
-		//transform.pos.y = screenY;
+		EngineTransform& transform = world.getComponent<EngineTransform>(other);
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_UP) transform.pos.z += 1.0f * dt;;
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_DOWN) transform.pos.z -= 1.0f * dt;;
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_LEFT) transform.pos.x -= 1.0f * dt;;
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_RIGHT) transform.pos.x += 1.0f * dt;;
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_A) transform.pos.y += 1.0f * dt;;
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_B) transform.pos.y -= 1.0f * dt;;
 	}
 
 	void render(float dt) override {
