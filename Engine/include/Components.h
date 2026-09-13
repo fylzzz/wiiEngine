@@ -86,6 +86,7 @@ struct BoxCollider {
     BoundingBox bounds;
     Vector3 halfExtents;
     Vector3 center;
+    bool isColliding = false;
 
     void UpdateFromBounds() {
         halfExtents = {

@@ -81,11 +81,12 @@ public:
 
 	Entity e;
 	Entity other;
+	ResourceId teapotId;
 
 	// Initialise ECS and camera for scene
 	void init() override {
 		// load scene resources/sprites
-		ResourceId teapotId = world.loadModel("sd:/teapot.obj");
+		teapotId = world.loadModel("sd:/sphere.obj");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
@@ -129,9 +130,9 @@ public:
 
 		Signature physicsSig;
 		physicsSig.set(world.getComponentType<EngineTransform>());
-		physicsSig.set(world.getComponentType<Collider2D>());
+		//physicsSig.set(world.getComponentType<Collider2D>());
 		physicsSig.set(world.getComponentType<BoxCollider>());
-		physicsSig.set(world.getComponentType<RigidBody2D>());
+		//physicsSig.set(world.getComponentType<RigidBody2D>());
 		world.setSystemSignature<PhysicsSystem>(physicsSig);
 
 		Signature animationSig;
@@ -172,13 +173,6 @@ public:
 		collider.UpdateFromBounds();
 		world.addComponent(e, collider);
 
-		Collider2D col2d{};                 // bounds unused for the 3D box, fine to leave zeroed
-		world.addComponent(e, col2d);
-
-		RigidBody2D rb2d;
-		rb2d.type = RbType::Static;         // avoids the Dynamic velocity-flip response
-		world.addComponent(e, rb2d);
-
 
 		other = world.createEntity();
 		world.addComponent<EngineTransform>(other, EngineTransform(Vector3{ 0, 5, 0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
@@ -193,13 +187,6 @@ public:
 		colliderother.bounds = world.getModelBoundingBox(teapotId);
 		colliderother.UpdateFromBounds();
 		world.addComponent(other, colliderother);
-
-		//Collider2D col2d{};                 // bounds unused for the 3D box, fine to leave zeroed
-		world.addComponent(other, col2d);
-
-		//RigidBody2D rb2d;
-		//rb2d.type = RbType::Static;         // avoids the Dynamic velocity-flip response
-		world.addComponent(other, rb2d);
 	}
 
 	void update(float dt, WPADData* data) override {
@@ -234,6 +221,25 @@ public:
 		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_RIGHT) transform.pos.x += 1.0f * dt;;
 		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_A) transform.pos.y += 1.0f * dt;;
 		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_B) transform.pos.y -= 1.0f * dt;;
+
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_1) camera.position.z += 1.0f * dt;
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_2) camera.position.z -= 1.0f * dt;
+
+		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_PLUS) {
+			Entity newe = world.createEntity();
+			world.addComponent<EngineTransform>(newe, EngineTransform(Vector3{ GetRandomValue(-10, 10), GetRandomValue(-10, 10), GetRandomValue(-10, 10) }, Vector3{0,0,0}, Vector3{1,1,1}));
+			Renderable model;
+			model.shape = RenderShape::ModelWires;
+			model.color = WHITE;
+			model.model.modelId = teapotId;
+			model.model.scale = 1.0f;
+			world.addComponent(newe, model);
+			BoxCollider colliderother;
+			colliderother.entityId = newe;
+			colliderother.bounds = world.getModelBoundingBox(teapotId);
+			colliderother.UpdateFromBounds();
+			world.addComponent(newe, colliderother);
+		}
 	}
 
 	void render(float dt) override {

@@ -1,8 +1,6 @@
 #include "PhysicsSystem.h"
 #include <math.h>
 
-Color hitColor;
-
 
 class OctTree {
 	private:
@@ -242,13 +240,14 @@ void PhysicsSystem::update(float dt) {
 
 void PhysicsSystem::drawDebug() {
 	for (Entity e : mEntities) {
-		if (!world->hasComponent<Collider2D>(e) || !world->hasComponent<BoxCollider>(e)) continue;
-		auto& col = world->getComponent<Collider2D>(e);
-		auto& col3D = world->getComponent<BoxCollider>(e);
-		//auto& trans = world->getComponent<EngineTransform>(e);
-
-		DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
-		DrawBoundingBox(col3D.bounds, hitColor);
+		if (world->hasComponent<Collider2D>(e)) {
+			auto& col = world->getComponent<Collider2D>(e);
+			DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
+		}
+		if (world->hasComponent<BoxCollider>(e)) {
+			auto& col3D = world->getComponent<BoxCollider>(e);
+			DrawBoundingBox(col3D.bounds, col3D.isColliding ? RED : GREEN);
+		}
 	}
 }
 
@@ -257,63 +256,67 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 	OctTree ot(0, BoundingBox{ Vector3{ -10, -10, -10 }, Vector3{ 10, 10, 10 } });
 
 	for (Entity e : mEntities) {
-		if (!world->hasComponent<Collider2D>(e) | !world->hasComponent<BoxCollider>(e)) continue;
-		auto& col = world->getComponent<Collider2D>(e);
-		auto& col3D = world->getComponent<BoxCollider>(e);
+		if (!world->hasComponent<EngineTransform>(e)) continue;
 		auto& trans = world->getComponent<EngineTransform>(e);
 
-		col.bounds.x = trans.pos.x + col.offset.x;
-		col.bounds.y = trans.pos.y + col.offset.y;
-		col.entityId = e;
-
-
-		col3D.bounds.min = { trans.pos.x + col3D.center.x - col3D.halfExtents.x, trans.pos.y + col3D.center.y - col3D.halfExtents.y, trans.pos.z + col3D.center.z - col3D.halfExtents.z };
-		col3D.bounds.max = { trans.pos.x + col3D.center.x + col3D.halfExtents.x, trans.pos.y + col3D.center.y + col3D.halfExtents.y, trans.pos.z + col3D.center.z + col3D.halfExtents.z };
-		col3D.entityId = e;
-
-		if (drawBounds) {
-			DrawRectangleLines(col.bounds.x, col.bounds.y, col.bounds.width, col.bounds.height, GREEN);
-			DrawBoundingBox(col3D.bounds, hitColor);
+		if (world->hasComponent<Collider2D>(e)) {
+			auto& col = world->getComponent<Collider2D>(e);
+			col.bounds.x = trans.pos.x + col.offset.x;
+			col.bounds.y = trans.pos.y + col.offset.y;
+			col.entityId = e;
+			qt.insert(col);
 		}
-		qt.insert(col);
-		ot.insert(col3D);
+
+		if (world->hasComponent<BoxCollider>(e)) {
+			auto& col3D = world->getComponent<BoxCollider>(e);
+			col3D.bounds.min = { trans.pos.x + col3D.center.x - col3D.halfExtents.x,
+								  trans.pos.y + col3D.center.y - col3D.halfExtents.y,
+								  trans.pos.z + col3D.center.z - col3D.halfExtents.z };
+			col3D.bounds.max = { trans.pos.x + col3D.center.x + col3D.halfExtents.x,
+								  trans.pos.y + col3D.center.y + col3D.halfExtents.y,
+								  trans.pos.z + col3D.center.z + col3D.halfExtents.z };
+			col3D.entityId = e;
+			ot.insert(col3D);
+		}
 	}
 
 	for (Entity e : mEntities) {
-		if (!world->hasComponent<Collider2D>(e) || !world->hasComponent<BoxCollider>(e)) continue;
-		auto& col = world->getComponent<Collider2D>(e);
-		auto& col3D = world->getComponent<BoxCollider>(e);
+		if (world->hasComponent<Collider2D>(e)) {
+			auto& col = world->getComponent<Collider2D>(e);
 
-		std::vector<Collider2D> candidates;
-		qt.retrieve(candidates, col.bounds);
+			std::vector<Collider2D> candidates;
+			qt.retrieve(candidates, col.bounds);
 
-		std::vector<BoxCollider> candidates3D;
-		ot.retrieve(candidates3D, col3D.bounds);
+			for (const auto& other : candidates) {
+				if (other.entityId == col.entityId) continue;
 
-		for (const auto& other : candidates) {
-			if (other.entityId == col.entityId) continue;
-
-			bool hit = aabbOverlap(col.bounds, other.bounds);
-
-			if (hit) {
-				if (!world->hasComponent<RigidBody2D>(e)) continue;
-				auto& rb = world->getComponent<RigidBody2D>(e);
-				if (rb.type == RbType::Dynamic) {
-					rb.velocity.x = -rb.velocity.x;
-					rb.velocity.y = -rb.velocity.y;
+				bool hit = aabbOverlap(col.bounds, other.bounds);
+				if (hit) {
+					if (!world->hasComponent<RigidBody2D>(e)) continue;
+					auto& rb = world->getComponent<RigidBody2D>(e);
+					if (rb.type == RbType::Dynamic) {
+						rb.velocity.x = -rb.velocity.x;
+						rb.velocity.y = -rb.velocity.y;
+					}
 				}
 			}
-		}  
+		}
 
-		for (const auto& other3D : candidates3D) {
-			if (other3D.entityId == col3D.entityId) continue;
+		if (world->hasComponent<BoxCollider>(e)) {
+			auto& col3D = world->getComponent<BoxCollider>(e);
 
-			bool hit = aabbOverlap3D(col3D.bounds, other3D.bounds);
-			if (hit) {
-				hitColor = RED;
-			}
-			else {
-				hitColor = GREEN;
+			std::vector<BoxCollider> candidates3D;
+			ot.retrieve(candidates3D, col3D.bounds);
+
+			col3D.isColliding = false;
+			for (const auto& other3D : candidates3D) {
+				if (other3D.entityId == col3D.entityId) continue;
+
+				bool hit = aabbOverlap3D(col3D.bounds, other3D.bounds);
+				if (hit) {
+					col3D.isColliding = true;
+					break;
+				}
 			}
 		}
 	}
