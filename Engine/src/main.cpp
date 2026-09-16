@@ -15,7 +15,8 @@
 
 
 // Scenes to include
-#include "PhysicsTest.h"
+#include "WeightTest.h"
+//#include "PhysicsTest.h"
 
 
 /*void SetDrawMode2D() {
@@ -89,7 +90,7 @@ int main() {
 	int currentScene = 0;
 
 	SceneManager scenes;
-	scenes.registerScene<PhysicsTest>(0);
+	scenes.registerScene<WeightTest>(0);
 	scenes.switchTo(currentScene);
 
 

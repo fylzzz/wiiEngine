@@ -17,8 +17,19 @@ public:
 	std::shared_ptr<AnimationSystem> animation;
 	Camera3D camera = {};
 
+	enum gameState {
+		MENU,
+		PLAY,
+		END
+	};
+
 	bool board;
 	struct wii_board_t* wb;
+
+	float calTL = 0, calTR = 0, calBL = 0, calBR = 0;
+	bool calibrated = false;
+	int calFrames = 0;
+	static const int CAL_SAMPLE_COUNT = 60;
 
 	float total, x, y, screenX, screenY;
 
@@ -106,6 +117,9 @@ public:
 	}
 
 	void update(float dt, WPADData* data) override {
+
+		EngineTransform& transform = world.getComponent<EngineTransform>(e);
+
 		// update inputs, entities, camera etc. here
 		u32 expType;
 		s32 result = WPAD_Probe(WPAD_BALANCE_BOARD, &expType);
@@ -114,12 +128,47 @@ public:
 		struct expansion_t exp;
 		WPAD_Expansion(WPAD_BALANCE_BOARD, &exp);
 		wb = &exp.wb;
-		total = wb->tl + wb->tr + wb->bl + wb->br;
-		x = ((wb->tr + wb->br) / total) * 2 - 1;
-		y = ((wb->tl + wb->tr) / total) * 2 - 1;
+		if (!calibrated) {
+			calTL += wb->tl;
+			calTR += wb->tr;
+			calBL += wb->bl;
+			calBR += wb->br;
+			calFrames++;
+			if (calFrames >= CAL_SAMPLE_COUNT) {
+				calTL /= calFrames;
+				calTR /= calFrames;
+				calBL /= calFrames;
+				calBR /= calFrames;
+				calibrated = true;
+			}
+		}
+		else {
+			float tl = fmaxf(0.0f, wb->tl - calTL);
+			float tr = fmaxf(0.0f, wb->tr - calTR);
+			float bl = fmaxf(0.0f, wb->bl - calBL);
+			float br = fmaxf(0.0f, wb->br - calBR);
+
+			total = tl + tr + bl + br;
+			if (total > 0.5f) {
+				x = ((tr + br) / total) * 2 - 1;
+				y = ((tl + tr) / total) * 2 - 1;
+				x = fmaxf(-1.0f, fminf(1.0f, x));
+				y = fmaxf(-1.0f, fminf(1.0f, y));
+			}
+			else {
+				x = 0.0f;
+				y = 0.0f;
+			}
+		}
 
 		screenX = ((x + 1.0f) * 0.5f) * 640.0f;
 		screenY = ((1.0f - y) * 0.5f) * 480.0f;
+
+		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+			calibrated = false;
+			calFrames = 0;
+			calTL = calTR = calBL = calBR = 0;
+		}
 
 		// update physics system
 		physics->update(dt);
@@ -128,7 +177,6 @@ public:
 		// update animation system
 		animation->update(dt);
 
-		EngineTransform& transform = world.getComponent<EngineTransform>(e);
 		transform.pos.x = screenX;
 		transform.pos.y = screenY;
 	}

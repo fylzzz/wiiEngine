@@ -14,6 +14,9 @@ public:
     void onEntityAdded(Entity e) override;
     void onEntityRemoved(Entity e) override;
 
+    void SetDrawMode2D();
+    void SetDrawMode3D(Camera3D* camera);
+
 private:
     std::multimap<int, Entity> mEntityZMap;
     std::unordered_map<Entity, int> mEntityZIndex;
