@@ -10,6 +10,53 @@
 #include <math.h>
 
 
+void SetDrawMode3D(Camera3D* camera) {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	float aspect = 640.0f / 480.0f;
+	float near = 0.05f, far = 1000.0f;
+	float t = near * tanf(camera->fovy * 0.5f * 3.14159f / 180.0f);
+	glFrustum(-t * aspect, t * aspect, -t, t, near, far);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	// Manual lookAt
+	Vector3 eye = camera->position;
+	Vector3 center = camera->target;
+	Vector3 up = camera->up;
+
+	// forward = normalize(center - eye)
+	float fx = center.x - eye.x, fy = center.y - eye.y, fz = center.z - eye.z;
+	float fl = sqrtf(fx * fx + fy * fy + fz * fz);
+	fx /= fl; fy /= fl; fz /= fl;
+
+	// right = normalize(forward x up)
+	float rx = fy * up.z - fz * up.y;
+	float ry = fz * up.x - fx * up.z;
+	float rz = fx * up.y - fy * up.x;
+	float rl = sqrtf(rx * rx + ry * ry + rz * rz);
+	rx /= rl; ry /= rl; rz /= rl;
+
+	// up = right x forward
+	float ux = ry * fz - rz * fy;
+	float uy = rz * fx - rx * fz;
+	float uz = rx * fy - ry * fx;
+
+	float m[16] = {
+		rx, ux, -fx, 0,
+		ry, uy, -fy, 0,
+		rz, uz, -fz, 0,
+		-(rx * eye.x + ry * eye.y + rz * eye.z),
+		-(ux * eye.x + uy * eye.y + uz * eye.z),
+		(fx * eye.x + fy * eye.y + fz * eye.z), 1
+	};
+	glMultMatrixf(m);
+
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+}
+
 class WeightTest : public Scene {
 public:
 	std::shared_ptr<RenderSystem> rendersys;
@@ -17,11 +64,12 @@ public:
 	std::shared_ptr<AnimationSystem> animation;
 	Camera3D camera = {};
 
-	enum gameState {
-		MENU,
-		PLAY,
-		END
-	};
+	ResourceId playerId;
+	std::vector<Entity> enemy;
+	enum state { MENU, PLAY, END };
+	state gameState;
+
+	float spawnTimer = 0.0f;
 
 	bool board;
 	struct wii_board_t* wb;
@@ -38,12 +86,12 @@ public:
 	// Initialise ECS and camera for scene
 	void init() override {
 		// load scene resources/sprites
-		//ResourceId teapotId = world.loadModel("sd:/teapot.obj");
+		playerId = world.loadModel("sd:/sphere.obj");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		// Setup camera
-		camera.position = Vector3{ 0.0f, 5.0f, 5.0f };
+		camera.position = Vector3{ 0.0f, 2.0f, 10.0f };
 		camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
 		camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
 		camera.fovy = 90.0f;
@@ -109,18 +157,53 @@ public:
 
 		// Create new/default entities here
 		e = world.createEntity();
-		world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 640 / 2, 480 / 2,0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
-		PrimitiveRenderable2D dot;
-		dot.shape = RenderShape2D::Circle;
-		dot.circle.radius = 5.0f;
-		world.addComponent(e, dot);
+		world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
+		Renderable mesh;
+		mesh.shape = RenderShape::ModelWires;
+		mesh.color = WHITE;
+		mesh.model.modelId = playerId;
+		mesh.model.scale = 1.0f;
+		world.addComponent(e, mesh);
+
+		gameState = PLAY;
 	}
 
 	void update(float dt, WPADData* data) override {
 
+		UpdateCamera(&camera, CAMERA_ORTHOGRAPHIC);
+
 		EngineTransform& transform = world.getComponent<EngineTransform>(e);
 
 		// update inputs, entities, camera etc. here
+		spawnTimer += dt;
+		if (spawnTimer >= 1.5f) {
+			Entity newenemy = world.createEntity();
+			world.addComponent<EngineTransform>(newenemy, EngineTransform(Vector3{ GetRandomValue(12, -12),GetRandomValue(12, -12),-10}, Vector3{0,0,0}, Vector3{1,1,1}));
+			Renderable enemyMesh;
+			enemyMesh.shape = RenderShape::ModelWires;
+			enemyMesh.color = WHITE;
+			enemyMesh.model.modelId = playerId;
+			enemyMesh.model.scale = 0.5f;
+			world.addComponent(newenemy, enemyMesh);
+
+			enemy.push_back(newenemy);
+
+			spawnTimer = 0.0f;
+		}
+
+		for (auto it = enemy.begin(); it != enemy.end(); ) {
+			EngineTransform& enemyTrans = world.getComponent<EngineTransform>(*it);
+			enemyTrans.pos.z += 5.0f * dt;
+
+			if (enemyTrans.pos.z > 30.0f) {
+				world.destroyEntity(*it);
+				it = enemy.erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+
 		u32 expType;
 		s32 result = WPAD_Probe(WPAD_BALANCE_BOARD, &expType);
 		board = (result == WPAD_ERR_NONE);
@@ -161,8 +244,8 @@ public:
 			}
 		}
 
-		screenX = ((x + 1.0f) * 0.5f) * 640.0f;
-		screenY = ((1.0f - y) * 0.5f) * 480.0f;
+		float worldX = x * 10.0f;
+		float worldY = y * 10.0f;
 
 		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
 			calibrated = false;
@@ -177,23 +260,30 @@ public:
 		// update animation system
 		animation->update(dt);
 
-		transform.pos.x = screenX;
-		transform.pos.y = screenY;
+		transform.pos.x = worldX;
+		transform.pos.y = worldY;
 	}
 
 	void render(float dt) override {
 		BeginDrawing();
 		ClearBackground(BLACK);
 		glClear(GL_DEPTH_BUFFER_BIT);
+		rendersys->SetDrawMode3D(&camera);
 		rendersys->update(dt);
+
+		switch (gameState) {
+		case MENU:
+			break;
+		case PLAY:
+			break;
+		case END:
+			break;
+		}
+
 		if (board) {
 			DrawText("Board Connected", 10, 30, 20, WHITE);
 			DrawText(TextFormat("X: %f, Y: %f)", x, y), 10, 50, 20, WHITE);
 			DrawText(TextFormat("ScreenX: %f, ScreenY: %f)", screenX, screenY), 10, 70, 20, WHITE);
-			//DrawText(TextFormat("Raw weight: TL:%d  TR:%d", wb->tl, wb->tr), 10, 70, 20, WHITE);
-			//DrawText(TextFormat("Raw weight: BL:%d  BR:%d", wb->bl, wb->br), 10, 90, 20, WHITE);
-			//DrawText("Board Connected", 10, 30, 20, WHITE);
-
 		}
 		else {
 			DrawText("Board Disconnected", 10, 30, 20, WHITE);
