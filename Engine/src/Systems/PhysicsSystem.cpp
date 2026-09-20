@@ -1,5 +1,6 @@
 #include "PhysicsSystem.h"
 #include <math.h>
+#include <raymath.h>
 
 
 class OctTree {
@@ -337,4 +338,50 @@ bool PhysicsSystem::isColliding(Entity a, Entity b) const {
 	Rectangle boundsB{ colB.bounds.x, colB.bounds.y, colB.bounds.width, colB.bounds.height };
 
 	return aabbOverlap(boundsA, boundsB);
+}
+
+static bool rayIntersectAABB(const PhysicsRay& r, const BoundingBox& box, float tOut) {
+	Vector3 bounds[2] = { box.min, box.max };
+
+	float tmin = (bounds[r.sign[0]].x - r.origin.x) * r.invDirection.x;
+	float tmax = (bounds[1 - r.sign[0]].x - r.origin.x) * r.invDirection.x;
+	float tymin = (bounds[r.sign[1]].y - r.origin.y) * r.invDirection.y;
+	float tymax = (bounds[1 - r.sign[1]].y - r.origin.y) * r.invDirection.y;
+
+	if ((tmin > tymax) || (tymin > tmax)) return false;
+	if (tymin > tmin) tmin = tymin;
+	if (tymax < tmax) tmax = tymax;
+
+	float tzmin = (bounds[r.sign[2]].z - r.origin.z) * r.invDirection.z;
+	float tzmax = (bounds[1 - r.sign[2]].z - r.origin.z) * r.invDirection.z;
+
+	if ((tmin > tzmax) || (tzmin > tmax)) return false;
+	if (tzmin > tmin) tmin = tzmin;
+	if (tzmax < tmax) tmax = tzmax;
+
+	if (tmax < 0) return false;
+
+	tOut = tmin >= 0 ? tmin : tmax;
+	return true;
+}
+
+bool PhysicsSystem::rayTest(const PhysicsRay& r) const {
+	DrawLine3D(r.origin, Vector3Add(r.origin, Vector3Scale(r.direction, 100)), BLUE);
+
+	bool hitAny = false;
+	float closestT = 1e30f;
+
+	for (Entity e : mEntities) {
+		if (!world->hasComponent<BoxCollider>(e)) continue;
+		auto& col3D = world->getComponent<BoxCollider>(e);
+
+		float t;
+		if (rayIntersectAABB(r, col3D.bounds, t)) {
+			hitAny = true;
+			col3D.isColliding = true;
+			if (t < closestT) closestT = t;
+		}
+	}
+
+	return hitAny;
 }

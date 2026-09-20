@@ -9,6 +9,8 @@
 #include <wiiuse/wpad.h>
 #include <math.h>
 
+#include <raymath.h>
+
 
 class PhysicsTest : public Scene {
 public:
@@ -191,6 +193,13 @@ public:
 		ClearBackground(BLACK);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		rendersys->update(dt);
+
+		if (WPAD_ButtonsHeld(0) & WPAD_BUTTON_MINUS) {
+			physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(other).pos.x + world.getComponent<BoxCollider>(other).halfExtents.x + 1.0f,
+												 world.getComponent<EngineTransform>(other).pos.y,
+												 world.getComponent<EngineTransform>(other).pos.z },
+										Vector3{1, 0, 0}));
+		}
 
 		physics->drawDebug();
 

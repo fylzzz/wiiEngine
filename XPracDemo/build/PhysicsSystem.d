@@ -14,7 +14,8 @@ PhysicsSystem.o: \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
- C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h \
+ C:/devkitPro/libogc2/wii/include/raymath.h
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h:
@@ -30,3 +31,4 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SpriteManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h:
+C:/devkitPro/libogc2/wii/include/raymath.h:

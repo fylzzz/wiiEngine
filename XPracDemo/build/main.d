@@ -81,7 +81,8 @@ main.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/main.cpp \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SceneManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Scene.h \
  C:/Users/iChoc/Desktop/wiiEngine/XPracDemo/Scenes/PhysicsTest.h \
- C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h \
+ C:/devkitPro/libogc2/wii/include/raymath.h
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/gccore.h:
 C:/devkitPro/libogc2/wii/include/ogc/dsp.h:
@@ -165,3 +166,4 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SceneManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Scene.h:
 C:/Users/iChoc/Desktop/wiiEngine/XPracDemo/Scenes/PhysicsTest.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h:
+C:/devkitPro/libogc2/wii/include/raymath.h:
