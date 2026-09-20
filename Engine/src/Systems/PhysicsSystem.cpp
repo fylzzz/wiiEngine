@@ -365,23 +365,23 @@ static bool rayIntersectAABB(const PhysicsRay& r, const BoundingBox& box, float 
 	return true;
 }
 
-bool PhysicsSystem::rayTest(const PhysicsRay& r) const {
+Entity* PhysicsSystem::rayTest(const PhysicsRay& r) const {
 	DrawLine3D(r.origin, Vector3Add(r.origin, Vector3Scale(r.direction, 100)), BLUE);
 
-	bool hitAny = false;
 	float closestT = 1e30f;
+	Entity* closestEntity = nullptr;
 
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<BoxCollider>(e)) continue;
 		auto& col3D = world->getComponent<BoxCollider>(e);
 
 		float t;
-		if (rayIntersectAABB(r, col3D.bounds, t)) {
-			hitAny = true;
+		if (rayIntersectAABB(r, col3D.bounds, t) && t < closestT) {
+			closestT = t;
 			col3D.isColliding = true;
-			if (t < closestT) closestT = t;
+			closestEntity = &e;
 		}
 	}
 
-	return hitAny;
+	return closestEntity;
 }

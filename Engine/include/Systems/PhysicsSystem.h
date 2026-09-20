@@ -33,7 +33,7 @@ class PhysicsSystem : public System {
 		void updateCollisions(float dt, bool drawBounds);
 		bool isColliding(Entity a, Entity b) const;
 
-		bool rayTest(const PhysicsRay& r) const;
+		Entity* rayTest(const PhysicsRay& r) const;
 
 		void drawDebug();
 };

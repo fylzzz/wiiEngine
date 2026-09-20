@@ -198,7 +198,7 @@ public:
 			physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(other).pos.x + world.getComponent<BoxCollider>(other).halfExtents.x + 1.0f,
 												 world.getComponent<EngineTransform>(other).pos.y,
 												 world.getComponent<EngineTransform>(other).pos.z },
-										Vector3{1, 0, 0}));
+				Vector3{ 1, 0, 0 }));
 		}
 
 		physics->drawDebug();
