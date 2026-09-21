@@ -369,7 +369,7 @@ Entity* PhysicsSystem::rayTest(const PhysicsRay& r) const {
 	DrawLine3D(r.origin, Vector3Add(r.origin, Vector3Scale(r.direction, 100)), BLUE);
 
 	float closestT = 1e30f;
-	Entity* closestEntity = nullptr;
+	bool found = false;
 
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<BoxCollider>(e)) continue;
@@ -379,9 +379,10 @@ Entity* PhysicsSystem::rayTest(const PhysicsRay& r) const {
 		if (rayIntersectAABB(r, col3D.bounds, t) && t < closestT) {
 			closestT = t;
 			col3D.isColliding = true;
-			closestEntity = &e;
+			mLastHitEntity = e;
+			found = true;
 		}
 	}
 
-	return closestEntity;
+	return found ? &mLastHitEntity : nullptr;
 }

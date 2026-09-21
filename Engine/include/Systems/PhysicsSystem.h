@@ -36,4 +36,6 @@ class PhysicsSystem : public System {
 		Entity* rayTest(const PhysicsRay& r) const;
 
 		void drawDebug();
+	private:
+		mutable Entity mLastHitEntity = 0;
 };

@@ -8,6 +8,7 @@
 #include "GL/gl.h"
 #include <wiiuse/wpad.h>
 #include <math.h>
+#include <algorithm>
 
 
 void SetDrawMode3D(Camera3D* camera) {
@@ -65,11 +66,15 @@ public:
 	Camera3D camera = {};
 
 	ResourceId playerId;
+	ResourceId enemyId;
 	std::vector<Entity> enemy;
 	enum state { MENU, PLAY, END };
 	state gameState;
 
 	float spawnTimer = 0.0f;
+	float distance = 0.0f;
+	float score = 0.0f;
+
 
 	bool board;
 	struct wii_board_t* wb;
@@ -86,12 +91,13 @@ public:
 	// Initialise ECS and camera for scene
 	void init() override {
 		// load scene resources/sprites
-		playerId = world.loadModel("sd:/sphere.obj");
+		playerId = world.loadModel("sd:/box.obj");
+		enemyId = world.loadModel("sd:/sphere.obj");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		// Setup camera
-		camera.position = Vector3{ 0.0f, 2.0f, 10.0f };
+		camera.position = Vector3{ 0.0f, 10.0f, 10.0f };
 		camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
 		camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
 		camera.fovy = 90.0f;
@@ -109,6 +115,8 @@ public:
 		world.registerComponentSerializer<PrimitiveRenderable2D>();
 		world.registerComponent<Collider2D>();
 		world.registerComponentSerializer<Collider2D>();
+		world.registerComponent<BoxCollider>();
+		world.registerComponentSerializer<BoxCollider>();
 		world.registerComponent<RigidBody2D>();
 		world.registerComponentSerializer<RigidBody2D>();
 		world.registerComponent<Animator2D>();
@@ -128,8 +136,9 @@ public:
 
 		Signature physicsSig;
 		physicsSig.set(world.getComponentType<EngineTransform>());
-		physicsSig.set(world.getComponentType<Collider2D>());
-		physicsSig.set(world.getComponentType<RigidBody2D>());
+		//physicsSig.set(world.getComponentType<Collider2D>());
+		physicsSig.set(world.getComponentType<BoxCollider>());
+		//physicsSig.set(world.getComponentType<RigidBody2D>());
 		world.setSystemSignature<PhysicsSystem>(physicsSig);
 
 		Signature animationSig;
@@ -164,27 +173,38 @@ public:
 		mesh.model.modelId = playerId;
 		mesh.model.scale = 1.0f;
 		world.addComponent(e, mesh);
+		BoxCollider col;
+		col.entityId = e;
+		col.bounds = world.getModelBoundingBox(playerId);
+		col.UpdateFromBounds();
+		world.addComponent(e, col);
 
 		gameState = PLAY;
 	}
 
 	void update(float dt, WPADData* data) override {
 
-		UpdateCamera(&camera, CAMERA_ORTHOGRAPHIC);
+		UpdateCamera(&camera, CAMERA_PERSPECTIVE);
 
 		EngineTransform& transform = world.getComponent<EngineTransform>(e);
 
 		// update inputs, entities, camera etc. here
+		distance += dt;
 		spawnTimer += dt;
 		if (spawnTimer >= 1.5f) {
 			Entity newenemy = world.createEntity();
-			world.addComponent<EngineTransform>(newenemy, EngineTransform(Vector3{ GetRandomValue(12, -12),GetRandomValue(12, -12),-10}, Vector3{0,0,0}, Vector3{1,1,1}));
+			world.addComponent<EngineTransform>(newenemy, EngineTransform(Vector3{ GetRandomValue(7,-7), GetRandomValue(7,-7), -20}, Vector3{0,0,0}, Vector3{1,1,1}));
 			Renderable enemyMesh;
 			enemyMesh.shape = RenderShape::ModelWires;
 			enemyMesh.color = WHITE;
-			enemyMesh.model.modelId = playerId;
-			enemyMesh.model.scale = 0.5f;
+			enemyMesh.model.modelId = enemyId;
+			enemyMesh.model.scale = 1.0f;
 			world.addComponent(newenemy, enemyMesh);
+			BoxCollider enemyCol;
+			enemyCol.entityId = newenemy;
+			enemyCol.bounds = world.getModelBoundingBox(enemyId);
+			enemyCol.UpdateFromBounds();
+			world.addComponent(newenemy, enemyCol);
 
 			enemy.push_back(newenemy);
 
@@ -271,10 +291,29 @@ public:
 		rendersys->SetDrawMode3D(&camera);
 		rendersys->update(dt);
 
+		physics->drawDebug();
+
 		switch (gameState) {
 		case MENU:
 			break;
 		case PLAY:
+			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_B) {
+				Entity* hitEntity = physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(e).pos.x,
+													 world.getComponent<EngineTransform>(e).pos.y,
+													 world.getComponent<EngineTransform>(e).pos.z + world.getComponent<BoxCollider>(e).halfExtents.z },
+					Vector3{ 0, 0, -1 }));
+
+				if (hitEntity) {
+					Entity hitID = *hitEntity;
+					if (hitID != e) {
+						world.destroyEntity(hitID);
+						enemy.erase(std::remove(enemy.begin(), enemy.end(), hitID), enemy.end());
+					}
+				}
+			}
+			rendersys->SetDrawMode2D();
+			DrawText(TextFormat("Distance: %f", distance), 10, 460, 20, WHITE);
+			DrawText(TextFormat("Score: %f", score), 10, 440, 20, WHITE);
 			break;
 		case END:
 			break;
