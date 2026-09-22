@@ -340,6 +340,24 @@ bool PhysicsSystem::isColliding(Entity a, Entity b) const {
 	return aabbOverlap(boundsA, boundsB);
 }
 
+Entity PhysicsSystem::getCollision(Entity test) const {
+	if (!world->hasComponent<BoxCollider>(test)) return INVALID_ENTITY;
+
+	auto& testCol = world->getComponent<BoxCollider>(test);
+	
+	for (Entity e : mEntities) {
+		if (e == test) continue;
+		if (!world->hasComponent<BoxCollider>(e)) continue;
+
+		auto& col = world->getComponent<BoxCollider>(e);
+		if (aabbOverlap3D(testCol.bounds, col.bounds)) {
+			return e;
+		}
+	}
+
+	return INVALID_ENTITY;
+}
+
 static bool rayIntersectAABB(const PhysicsRay& r, const BoundingBox& box, float tOut) {
 	Vector3 bounds[2] = { box.min, box.max };
 

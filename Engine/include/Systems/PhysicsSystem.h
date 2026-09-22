@@ -32,6 +32,7 @@ class PhysicsSystem : public System {
 		void update(float dt) override;
 		void updateCollisions(float dt, bool drawBounds);
 		bool isColliding(Entity a, Entity b) const;
+		Entity getCollision(Entity test) const;
 
 		Entity* rayTest(const PhysicsRay& r) const;
 

@@ -26,6 +26,7 @@ class World {
 		// Entity API calls
 		Entity createEntity();
 		void destroyEntity(Entity e);
+		void destroyAllEntities();
 
 		// Component API calls
 		template<typename T> void registerComponent();

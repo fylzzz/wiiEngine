@@ -74,6 +74,7 @@ public:
 	float spawnTimer = 0.0f;
 	float distance = 0.0f;
 	float score = 0.0f;
+	int lives = 3;
 
 
 	bool board;
@@ -91,13 +92,13 @@ public:
 	// Initialise ECS and camera for scene
 	void init() override {
 		// load scene resources/sprites
-		playerId = world.loadModel("sd:/box.obj");
+		playerId = world.loadModel("sd:/ship.obj");
 		enemyId = world.loadModel("sd:/sphere.obj");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		// Setup camera
-		camera.position = Vector3{ 0.0f, 10.0f, 10.0f };
+		camera.position = Vector3{ 0.0f, 15.0f, 15.0f };
 		camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
 		camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
 		camera.fovy = 90.0f;
@@ -165,138 +166,173 @@ public:
 		}*/
 
 		// Create new/default entities here
-		e = world.createEntity();
-		world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
-		Renderable mesh;
-		mesh.shape = RenderShape::ModelWires;
-		mesh.color = WHITE;
-		mesh.model.modelId = playerId;
-		mesh.model.scale = 1.0f;
-		world.addComponent(e, mesh);
-		BoxCollider col;
-		col.entityId = e;
-		col.bounds = world.getModelBoundingBox(playerId);
-		col.UpdateFromBounds();
-		world.addComponent(e, col);
-
-		gameState = PLAY;
+		gameState = MENU;
 	}
 
 	void update(float dt, WPADData* data) override {
+		switch (gameState) {
+			case MENU:
+				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+					e = world.createEntity();
+					world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
+					Renderable mesh;
+					mesh.shape = RenderShape::ModelWires;
+					mesh.color = WHITE;
+					mesh.model.modelId = playerId;
+					mesh.model.scale = 1.0f;
+					world.addComponent(e, mesh);
+					BoxCollider col;
+					col.entityId = e;
+					col.bounds = world.getModelBoundingBox(playerId);
+					col.UpdateFromBounds();
+					world.addComponent(e, col);
 
-		UpdateCamera(&camera, CAMERA_PERSPECTIVE);
+					distance = 0.0f;
+					score = 0.0f;
+					lives = 3;
 
-		EngineTransform& transform = world.getComponent<EngineTransform>(e);
+					gameState = PLAY;
+				}
+				break;
+			case PLAY: {
+				UpdateCamera(&camera, CAMERA_PERSPECTIVE);
+				EngineTransform& transform = world.getComponent<EngineTransform>(e);
+
+				u32 expType;
+				s32 result = WPAD_Probe(WPAD_BALANCE_BOARD, &expType);
+				board = (result == WPAD_ERR_NONE);
+
+				struct expansion_t exp;
+				WPAD_Expansion(WPAD_BALANCE_BOARD, &exp);
+				wb = &exp.wb;
+				if (!calibrated) {
+					calTL += wb->tl;
+					calTR += wb->tr;
+					calBL += wb->bl;
+					calBR += wb->br;
+					calFrames++;
+					if (calFrames >= CAL_SAMPLE_COUNT) {
+						calTL /= calFrames;
+						calTR /= calFrames;
+						calBL /= calFrames;
+						calBR /= calFrames;
+						calibrated = true;
+					}
+				}
+				else {
+					float tl = fmaxf(0.0f, wb->tl - calTL);
+					float tr = fmaxf(0.0f, wb->tr - calTR);
+					float bl = fmaxf(0.0f, wb->bl - calBL);
+					float br = fmaxf(0.0f, wb->br - calBR);
+
+					total = tl + tr + bl + br;
+					if (total > 0.5f) {
+						x = ((tr + br) / total) * 2 - 1;
+						y = ((tl + tr) / total) * 2 - 1;
+						x = fmaxf(-1.0f, fminf(1.0f, x));
+						y = fmaxf(-1.0f, fminf(1.0f, y));
+					}
+					else {
+						x = 0.0f;
+						y = 0.0f;
+					}
+				}
+
+				float worldX = x * 10.0f;
+				float worldY = y * 10.0f;
+
+				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+					calibrated = false;
+					calFrames = 0;
+					calTL = calTR = calBL = calBR = 0;
+				}
+
+				distance += dt * 5;
+				spawnTimer += dt;
+				if (spawnTimer >= 1.5f) {
+					Entity newenemy = world.createEntity();
+					world.addComponent<EngineTransform>(newenemy, EngineTransform(Vector3{ GetRandomValue(7,-7), GetRandomValue(7,-7), -20 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
+					Renderable enemyMesh;
+					enemyMesh.shape = RenderShape::ModelWires;
+					enemyMesh.color = WHITE;
+					enemyMesh.model.modelId = enemyId;
+					enemyMesh.model.scale = 1.0f;
+					world.addComponent(newenemy, enemyMesh);
+					BoxCollider enemyCol;
+					enemyCol.entityId = newenemy;
+					enemyCol.bounds = world.getModelBoundingBox(enemyId);
+					enemyCol.UpdateFromBounds();
+					world.addComponent(newenemy, enemyCol);
+
+					enemy.push_back(newenemy);
+
+					spawnTimer = 0.0f;
+				}
+
+				for (auto it = enemy.begin(); it != enemy.end(); ) {
+					EngineTransform& enemyTrans = world.getComponent<EngineTransform>(*it);
+					enemyTrans.pos.z += 5.0f * dt;
+
+					if (enemyTrans.pos.z > 30.0f) {
+						world.destroyEntity(*it);
+						it = enemy.erase(it);
+					}
+					else {
+						++it;
+					}
+				}
+
+				transform.pos.x = worldX;
+				transform.pos.y = worldY;
+
+				physics->update(dt);
+				physics->updateCollisions(dt, false);
+
+				if (world.getComponent<BoxCollider>(e).isColliding) {
+					lives--;
+					Entity hitEnemy = physics->getCollision(e);
+					world.destroyEntity(hitEnemy);
+					enemy.erase(std::remove(enemy.begin(), enemy.end(), hitEnemy), enemy.end());
+				}
+				if (lives == 0) {
+					world.destroyAllEntities();
+					enemy.clear();
+					gameState = END;
+				}
+
+
+				break;
+			}
+			case END:
+				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+					gameState = MENU;
+				}
+				break;
+		}
 
 		// update inputs, entities, camera etc. here
-		distance += dt;
-		spawnTimer += dt;
-		if (spawnTimer >= 1.5f) {
-			Entity newenemy = world.createEntity();
-			world.addComponent<EngineTransform>(newenemy, EngineTransform(Vector3{ GetRandomValue(7,-7), GetRandomValue(7,-7), -20}, Vector3{0,0,0}, Vector3{1,1,1}));
-			Renderable enemyMesh;
-			enemyMesh.shape = RenderShape::ModelWires;
-			enemyMesh.color = WHITE;
-			enemyMesh.model.modelId = enemyId;
-			enemyMesh.model.scale = 1.0f;
-			world.addComponent(newenemy, enemyMesh);
-			BoxCollider enemyCol;
-			enemyCol.entityId = newenemy;
-			enemyCol.bounds = world.getModelBoundingBox(enemyId);
-			enemyCol.UpdateFromBounds();
-			world.addComponent(newenemy, enemyCol);
-
-			enemy.push_back(newenemy);
-
-			spawnTimer = 0.0f;
-		}
-
-		for (auto it = enemy.begin(); it != enemy.end(); ) {
-			EngineTransform& enemyTrans = world.getComponent<EngineTransform>(*it);
-			enemyTrans.pos.z += 5.0f * dt;
-
-			if (enemyTrans.pos.z > 30.0f) {
-				world.destroyEntity(*it);
-				it = enemy.erase(it);
-			}
-			else {
-				++it;
-			}
-		}
-
-		u32 expType;
-		s32 result = WPAD_Probe(WPAD_BALANCE_BOARD, &expType);
-		board = (result == WPAD_ERR_NONE);
-
-		struct expansion_t exp;
-		WPAD_Expansion(WPAD_BALANCE_BOARD, &exp);
-		wb = &exp.wb;
-		if (!calibrated) {
-			calTL += wb->tl;
-			calTR += wb->tr;
-			calBL += wb->bl;
-			calBR += wb->br;
-			calFrames++;
-			if (calFrames >= CAL_SAMPLE_COUNT) {
-				calTL /= calFrames;
-				calTR /= calFrames;
-				calBL /= calFrames;
-				calBR /= calFrames;
-				calibrated = true;
-			}
-		}
-		else {
-			float tl = fmaxf(0.0f, wb->tl - calTL);
-			float tr = fmaxf(0.0f, wb->tr - calTR);
-			float bl = fmaxf(0.0f, wb->bl - calBL);
-			float br = fmaxf(0.0f, wb->br - calBR);
-
-			total = tl + tr + bl + br;
-			if (total > 0.5f) {
-				x = ((tr + br) / total) * 2 - 1;
-				y = ((tl + tr) / total) * 2 - 1;
-				x = fmaxf(-1.0f, fminf(1.0f, x));
-				y = fmaxf(-1.0f, fminf(1.0f, y));
-			}
-			else {
-				x = 0.0f;
-				y = 0.0f;
-			}
-		}
-
-		float worldX = x * 10.0f;
-		float worldY = y * 10.0f;
-
-		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
-			calibrated = false;
-			calFrames = 0;
-			calTL = calTR = calBL = calBR = 0;
-		}
 
 		// update physics system
-		physics->update(dt);
-		physics->updateCollisions(dt, false);
 
 		// update animation system
 		animation->update(dt);
 
-		transform.pos.x = worldX;
-		transform.pos.y = worldY;
 	}
 
 	void render(float dt) override {
 		BeginDrawing();
 		ClearBackground(BLACK);
 		glClear(GL_DEPTH_BUFFER_BIT);
-		rendersys->SetDrawMode3D(&camera);
-		rendersys->update(dt);
-
-		physics->drawDebug();
 
 		switch (gameState) {
 		case MENU:
+			rendersys->SetDrawMode2D();
+
+			DrawText("Press A to Start", 10, 10, 20, WHITE);
 			break;
 		case PLAY:
+			rendersys->SetDrawMode3D(&camera);
+
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_B) {
 				Entity* hitEntity = physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(e).pos.x,
 													 world.getComponent<EngineTransform>(e).pos.y,
@@ -308,28 +344,33 @@ public:
 					if (hitID != e) {
 						world.destroyEntity(hitID);
 						enemy.erase(std::remove(enemy.begin(), enemy.end(), hitID), enemy.end());
+						score += 100;
 					}
 				}
 			}
+
+			rendersys->update(dt);
+			physics->drawDebug();
+
 			rendersys->SetDrawMode2D();
-			DrawText(TextFormat("Distance: %f", distance), 10, 460, 20, WHITE);
-			DrawText(TextFormat("Score: %f", score), 10, 440, 20, WHITE);
+
+			DrawText(TextFormat("Distance: %.0f", distance), 10, 10, 20, WHITE);
+			DrawText(TextFormat("Score: %.0f", score), 10, 30, 20, WHITE);
+			DrawText(TextFormat("Lives: %i", lives), 10, 50, 20, WHITE);
+
 			break;
 		case END:
+			rendersys->SetDrawMode2D();
+
+			DrawText("Game Over", 10, 10, 20, WHITE);
+			DrawText(TextFormat("Distance: %.0f", distance), 10, 30, 20, WHITE);
+			DrawText(TextFormat("Score: %.0f", score), 10, 50, 20, WHITE);
+			DrawText("Press A to return to title", 10, 90, 20, WHITE);
 			break;
 		}
 
-		if (board) {
-			DrawText("Board Connected", 10, 30, 20, WHITE);
-			DrawText(TextFormat("X: %f, Y: %f)", x, y), 10, 50, 20, WHITE);
-			DrawText(TextFormat("ScreenX: %f, ScreenY: %f)", screenX, screenY), 10, 70, 20, WHITE);
-		}
-		else {
-			DrawText("Board Disconnected", 10, 30, 20, WHITE);
-		}
 
-
-		DrawFPS(10, 10);
+		//DrawFPS(10, 10);
 		EndDrawing();
 	}
 

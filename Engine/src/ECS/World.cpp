@@ -1,4 +1,5 @@
 #include "World.h"
+#include "System.h"
 
 
 void World::init() {
@@ -18,6 +19,14 @@ void World::destroyEntity(Entity e) {
 	mEntityManager->destroy(e);
 	mComponentManager->entityDestroyed(e);
 	mSystemManager->entityDestroyed(e);
+}
+
+void World::destroyAllEntities() {
+    for (Entity e = 0; e < MAX_ENTITIES; ++e) {
+        if (mEntityManager->getSignature(e).any()) {
+            destroyEntity(e);
+        }
+    }
 }
 
 ResourceId World::loadModel(const char* path) {
