@@ -76,6 +76,9 @@ public:
 	float score = 0.0f;
 	int lives = 3;
 
+	float rumbleTimer = 0.0f;
+	bool takeDamage = false;
+
 
 	bool board;
 	struct wii_board_t* wb;
@@ -98,7 +101,7 @@ public:
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
 		// Setup camera
-		camera.position = Vector3{ 0.0f, 15.0f, 15.0f };
+		camera.position = Vector3{ 0.0f, 0.0f, 10.0f };
 		camera.target = Vector3{ 0.0f, 0.0f, 0.0f };
 		camera.up = Vector3{ 0.0f, 1.0f, 0.0f };
 		camera.fovy = 90.0f;
@@ -170,11 +173,12 @@ public:
 	}
 
 	void update(float dt, WPADData* data) override {
+
 		switch (gameState) {
 			case MENU:
 				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
 					e = world.createEntity();
-					world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,0 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
+					world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,5.0f }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
 					Renderable mesh;
 					mesh.shape = RenderShape::ModelWires;
 					mesh.color = WHITE;
@@ -241,12 +245,6 @@ public:
 				float worldX = x * 10.0f;
 				float worldY = y * 10.0f;
 
-				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
-					calibrated = false;
-					calFrames = 0;
-					calTL = calTR = calBL = calBR = 0;
-				}
-
 				distance += dt * 5;
 				spawnTimer += dt;
 				if (spawnTimer >= 1.5f) {
@@ -289,6 +287,9 @@ public:
 				physics->updateCollisions(dt, false);
 
 				if (world.getComponent<BoxCollider>(e).isColliding) {
+					WPAD_Rumble(0, 1);
+					takeDamage = true;
+					rumbleTimer = 0.0f;
 					lives--;
 					Entity hitEnemy = physics->getCollision(e);
 					world.destroyEntity(hitEnemy);
@@ -298,6 +299,14 @@ public:
 					world.destroyAllEntities();
 					enemy.clear();
 					gameState = END;
+				}
+
+				if (takeDamage) {
+					rumbleTimer += dt;
+					if (rumbleTimer >= 0.5f) {
+						takeDamage = false;
+						WPAD_Rumble(0, 0);
+					}
 				}
 
 
@@ -311,6 +320,11 @@ public:
 		}
 
 		// update inputs, entities, camera etc. here
+		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_1) {
+			calibrated = false;
+			calFrames = 0;
+			calTL = calTR = calBL = calBR = 0;
+		}
 
 		// update physics system
 
@@ -336,7 +350,7 @@ public:
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_B) {
 				Entity* hitEntity = physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(e).pos.x,
 													 world.getComponent<EngineTransform>(e).pos.y,
-													 world.getComponent<EngineTransform>(e).pos.z + world.getComponent<BoxCollider>(e).halfExtents.z },
+													 world.getComponent<EngineTransform>(e).pos.z - world.getComponent<BoxCollider>(e).halfExtents.z },
 					Vector3{ 0, 0, -1 }));
 
 				if (hitEntity) {

@@ -384,7 +384,8 @@ static bool rayIntersectAABB(const PhysicsRay& r, const BoundingBox& box, float 
 }
 
 Entity* PhysicsSystem::rayTest(const PhysicsRay& r) const {
-	DrawLine3D(r.origin, Vector3Add(r.origin, Vector3Scale(r.direction, 100)), BLUE);
+	//DrawLine3D(r.origin, Vector3Add(r.origin, Vector3Scale(r.direction, 100)), BLUE);
+	PhysicsRay::DrawRay(r.origin, Vector3Add(r.origin, Vector3Scale(r.direction, 100)), 1.0f, WHITE);
 
 	float closestT = 1e30f;
 	bool found = false;
