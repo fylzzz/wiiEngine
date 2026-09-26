@@ -3,6 +3,7 @@
 #include <map>
 
 #include <raylib.h>
+#include <raymath.h>
 #include "ResourceManager.h"
 #include "SpriteManager.h"
 
@@ -100,4 +101,56 @@ struct BoxCollider {
             (bounds.min.z + bounds.max.z) * 0.5f
         };
     }
+};
+
+struct MeshCollider {
+    Entity entityId;
+    bool isColliding = false;
+    std::vector<Vector3> localVertices;
+    std::vector<Vector3> vertices;
+    
+    Vector3 FindFurthestPoint(Vector3 direction) const {
+        Vector3 maxPoint;
+        float maxDistance = -__FLT_MAX__;
+
+        for (Vector3 vertex : vertices) {
+            float distance = Vector3DotProduct(vertex, direction);
+            if (distance > maxDistance) {
+                maxDistance = distance;
+                maxPoint = vertex;
+            }
+        }
+
+        return maxPoint;
+    }
+
+    std::vector<Vector3> GetModelVertices(const Model& model) {
+        std::vector<Vector3> mVertices;
+
+        for (int m = 0; m < model.meshCount; m++) {
+            const Mesh& mesh = model.meshes[m];
+            if (mesh.vertices == nullptr) continue;
+
+            mVertices.reserve(mVertices.size() + mesh.vertexCount);
+
+            for (int v = 0; v < mesh.vertexCount; v++) {
+                Vector3 pos = {
+                    mesh.vertices[v * 3 + 0],
+                    mesh.vertices[v * 3 + 1],
+                    mesh.vertices[v * 3 + 2]
+                };
+                mVertices.push_back(pos);
+            }
+        }
+
+        return mVertices;
+    }
+
+    void UpdateWorldVertices(const Vector3& pos) {
+        vertices.resize(localVertices.size());
+        for (size_t i = 0; i < localVertices.size(); i++) {
+            vertices[i] = Vector3Add(localVertices[i], pos);
+        }
+    }
+
 };

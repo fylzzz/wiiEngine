@@ -121,6 +121,8 @@ public:
 		world.registerComponentSerializer<Collider2D>();
 		world.registerComponent<BoxCollider>();
 		world.registerComponentSerializer<BoxCollider>();
+		world.registerComponent<MeshCollider>();
+		world.registerComponentSerializer<MeshCollider>();
 		world.registerComponent<RigidBody2D>();
 		world.registerComponentSerializer<RigidBody2D>();
 		world.registerComponent<Animator2D>();
@@ -143,6 +145,7 @@ public:
 		//physicsSig.set(world.getComponentType<Collider2D>());
 		physicsSig.set(world.getComponentType<BoxCollider>());
 		//physicsSig.set(world.getComponentType<RigidBody2D>());
+		physicsSig.set(world.getComponentType<MeshCollider>());
 		world.setSystemSignature<PhysicsSystem>(physicsSig);
 
 		Signature animationSig;
@@ -185,11 +188,17 @@ public:
 					mesh.model.modelId = playerId;
 					mesh.model.scale = 1.0f;
 					world.addComponent(e, mesh);
+
 					BoxCollider col;
 					col.entityId = e;
 					col.bounds = world.getModelBoundingBox(playerId);
 					col.UpdateFromBounds();
 					world.addComponent(e, col);
+
+					MeshCollider meshcol;
+					meshcol.entityId = e;
+					meshcol.localVertices = meshcol.GetModelVertices(world.getModel(playerId));
+					world.addComponent(e, meshcol);
 
 					distance = 0.0f;
 					score = 0.0f;
@@ -250,17 +259,24 @@ public:
 				if (spawnTimer >= 1.5f) {
 					Entity newenemy = world.createEntity();
 					world.addComponent<EngineTransform>(newenemy, EngineTransform(Vector3{ GetRandomValue(7,-7), GetRandomValue(7,-7), -20 }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
+
 					Renderable enemyMesh;
 					enemyMesh.shape = RenderShape::ModelWires;
 					enemyMesh.color = WHITE;
 					enemyMesh.model.modelId = enemyId;
 					enemyMesh.model.scale = 1.0f;
 					world.addComponent(newenemy, enemyMesh);
+
 					BoxCollider enemyCol;
 					enemyCol.entityId = newenemy;
 					enemyCol.bounds = world.getModelBoundingBox(enemyId);
 					enemyCol.UpdateFromBounds();
 					world.addComponent(newenemy, enemyCol);
+
+					MeshCollider enemyMeshCol;
+					enemyMeshCol.entityId = newenemy;
+					enemyMeshCol.localVertices = enemyMeshCol.GetModelVertices(world.getModel(enemyId));
+					world.addComponent(newenemy, enemyMeshCol);
 
 					enemy.push_back(newenemy);
 
@@ -286,12 +302,12 @@ public:
 				physics->update(dt);
 				physics->updateCollisions(dt, false);
 
-				if (world.getComponent<BoxCollider>(e).isColliding) {
+				if (world.getComponent<MeshCollider>(e).isColliding) {
 					WPAD_Rumble(0, 1);
 					takeDamage = true;
 					rumbleTimer = 0.0f;
 					lives--;
-					Entity hitEnemy = physics->getCollision(e);
+					Entity hitEnemy = physics->getMeshCollision(e);
 					world.destroyEntity(hitEnemy);
 					enemy.erase(std::remove(enemy.begin(), enemy.end(), hitEnemy), enemy.end());
 				}
@@ -364,7 +380,7 @@ public:
 			}
 
 			rendersys->update(dt);
-			physics->drawDebug();
+			//physics->drawDebug();
 
 			rendersys->SetDrawMode2D();
 

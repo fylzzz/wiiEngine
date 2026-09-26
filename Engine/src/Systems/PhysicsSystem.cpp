@@ -3,6 +3,174 @@
 #include <raymath.h>
 
 
+class GJK {
+	Vector3 Support(const MeshCollider& colliderA, const MeshCollider& colliderB, Vector3 direction) {
+		return colliderA.FindFurthestPoint(direction)
+			- colliderB.FindFurthestPoint(Vector3Negate(direction));
+	}
+
+	struct Simplex
+	{
+		private:
+			std::array<Vector3, 4> mPoints;
+			int mSize;
+
+		public:
+			Simplex() : mSize(0) { }
+
+			Simplex& operator=(std::initializer_list<Vector3> list) {
+				mSize = 0;
+
+				for (Vector3 point : list) {
+					mPoints[mSize++] = point;
+				}
+				return *this;
+			}
+
+			void push_front(Vector3 point) {
+				mPoints = { point, mPoints[0], mPoints[1], mPoints[2] };
+				mSize = std::min(mSize + 1, 4);
+			}
+
+			Vector3& operator[](int i) { return mPoints[i]; }
+			size_t size() const { return mSize; }
+
+			auto begin() const { return mPoints.begin(); }
+			auto end() const { return mPoints.end(); }
+	};
+
+	public:
+		bool solveGJK(const MeshCollider& colliderA, const MeshCollider& colliderB) {
+			Vector3 support = Support(colliderA, colliderB, Vector3{ 1, 0, 0 });
+
+			Simplex points;
+			points.push_front(support);
+
+			Vector3 direction = Vector3Negate(support);
+
+			while (true) {
+				support = Support(colliderA, colliderB, direction);
+
+				if (Vector3DotProduct(support, direction) <= 0) {
+					return false;
+				}
+
+				points.push_front(support);
+
+				if (NextSimplex(points, direction)) {
+					return true;
+				}
+			}
+		}
+
+private:
+	bool NextSimplex(Simplex& points, Vector3& direction) {
+		switch (points.size()) {
+		case 2: return Line(points, direction);
+		case 3: return Triangle(points, direction);
+		case 4: return Tetrahedron(points, direction);
+		}
+
+		return false;
+	}
+
+	bool SameDirection(const Vector3& direction, const Vector3& ao) {
+		return Vector3DotProduct(direction, ao) > 0;
+	}
+
+	bool Line(Simplex& points, Vector3& direction) {
+		Vector3 a = points[0];
+		Vector3 b = points[1];
+
+		Vector3 ab = b - a;
+		Vector3 ao = Vector3Negate(a);
+
+		if (SameDirection(ab, ao)) {
+			direction = Vector3CrossProduct(Vector3CrossProduct(ab, ao), ab);
+		}
+		else {
+			points = { a };
+			direction = ao;
+		}
+
+		return false;
+	}
+
+	bool Triangle(Simplex& points, Vector3& direction)
+	{
+		Vector3 a = points[0];
+		Vector3 b = points[1];
+		Vector3 c = points[2];
+
+		Vector3 ab = b - a;
+		Vector3 ac = c - a;
+		Vector3 ao = Vector3Negate(a);
+
+		Vector3 abc = Vector3CrossProduct(ab, ac);
+
+		if (SameDirection(Vector3CrossProduct(abc, ac), ao)) {
+			if (SameDirection(ac, ao)) {
+				points = { a, c };
+				direction = Vector3CrossProduct(Vector3CrossProduct(ac, ao), ac);
+			}
+
+			else {
+				return Line(points = { a, b }, direction);
+			}
+		}
+
+		else {
+			if (SameDirection(Vector3CrossProduct(ab, abc), ao)) {
+				return Line(points = { a, b }, direction);
+			}
+
+			else {
+				if (SameDirection(abc, ao)) {
+					direction = abc;
+				}
+
+				else {
+					points = { a, c, b };
+					direction = Vector3Negate(abc);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	bool Tetrahedron(Simplex& points, Vector3& direction)
+	{
+		Vector3 a = points[0];
+		Vector3 b = points[1];
+		Vector3 c = points[2];
+		Vector3 d = points[3];
+
+		Vector3 ab = b - a;
+		Vector3 ac = c - a;
+		Vector3 ad = d - a;
+		Vector3 ao = Vector3Negate(a);
+
+		Vector3 abc = Vector3CrossProduct(ab, ac);
+		Vector3 acd = Vector3CrossProduct(ac, ad);
+		Vector3 adb = Vector3CrossProduct(ad, ab);
+
+		if (SameDirection(abc, ao)) {
+			return Triangle(points = { a, b, c }, direction);
+		}
+
+		if (SameDirection(acd, ao)) {
+			return Triangle(points = { a, c, d }, direction);
+		}
+
+		if (SameDirection(adb, ao)) {
+			return Triangle(points = { a, d, b }, direction);
+		}
+
+		return true;
+	}
+};
+
 class OctTree {
 	private:
 		int mLevel;
@@ -255,6 +423,7 @@ void PhysicsSystem::drawDebug() {
 void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 	QuadTree qt(0, Rectangle{ 0, 0, 640, 480 });
 	OctTree ot(0, BoundingBox{ Vector3{ -10, -10, -10 }, Vector3{ 10, 10, 10 } });
+	GJK gjk;
 
 	for (Entity e : mEntities) {
 		if (!world->hasComponent<EngineTransform>(e)) continue;
@@ -278,6 +447,11 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 								  trans.pos.z + col3D.center.z + col3D.halfExtents.z };
 			col3D.entityId = e;
 			ot.insert(col3D);
+		}
+
+		if (world->hasComponent<MeshCollider>(e)) {
+			auto& meshcol = world->getComponent<MeshCollider>(e);
+			meshcol.UpdateWorldVertices(trans.pos);
 		}
 	}
 
@@ -310,13 +484,25 @@ void PhysicsSystem::updateCollisions(float dt, bool drawBounds) {
 			ot.retrieve(candidates3D, col3D.bounds);
 
 			col3D.isColliding = false;
+			if (world->hasComponent<MeshCollider>(e)) {
+				world->getComponent<MeshCollider>(e).isColliding = false;
+			}
 			for (const auto& other3D : candidates3D) {
 				if (other3D.entityId == col3D.entityId) continue;
 
 				bool hit = aabbOverlap3D(col3D.bounds, other3D.bounds);
 				if (hit) {
 					col3D.isColliding = true;
-					break;
+
+					if (!world->hasComponent<MeshCollider>(e)) continue;
+					auto& meshcol = world->getComponent<MeshCollider>(e);
+					
+					bool narrowHit = gjk.solveGJK(meshcol, world->getComponent<MeshCollider>(other3D.entityId));
+					if (narrowHit) {
+						meshcol.isColliding = true;
+						//world->getComponent<Renderable>(e).color = RED;
+						break;
+					}
 				}
 			}
 		}
@@ -351,6 +537,25 @@ Entity PhysicsSystem::getCollision(Entity test) const {
 
 		auto& col = world->getComponent<BoxCollider>(e);
 		if (aabbOverlap3D(testCol.bounds, col.bounds)) {
+			return e;
+		}
+	}
+
+	return INVALID_ENTITY;
+}
+
+Entity PhysicsSystem::getMeshCollision(Entity test) const {
+	if (!world->hasComponent<MeshCollider>(test)) return INVALID_ENTITY;
+
+	auto& testCol = world->getComponent<MeshCollider>(test);
+
+	for (Entity e : mEntities) {
+		if (e == test) continue;
+		if (!world->hasComponent<MeshCollider>(e)) continue;
+
+		auto& col = world->getComponent<MeshCollider>(e);
+		GJK gjk;
+		if (gjk.solveGJK(testCol, col)) {
 			return e;
 		}
 	}
