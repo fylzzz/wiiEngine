@@ -9,6 +9,7 @@ void World::init() {
 	mResourceManager = std::make_unique<ResourceManager>();
     mSpriteManager = std::make_unique<SpriteManager>();
     mAnimationManager = std::make_unique<AnimationManager>();
+    mAudioManager = std::make_unique<AudioManager>();
 }
 
 Entity World::createEntity() {
@@ -67,6 +68,14 @@ AnimationClip& World::getAnim(AnimId id) {
 
 void World::unloadAllAnims() {
     return mAnimationManager->unloadAll();
+}
+
+AudioId World::loadAudio(std::string name, const char* path) {
+    return mAudioManager->loadAudio(name, path);
+}
+
+int World::playAudio(AudioId id, int volL, int volR) {
+    return mAudioManager->playAudio(id, volL, volR);
 }
 
 void World::save(const char* path) {

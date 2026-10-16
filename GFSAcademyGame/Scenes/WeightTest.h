@@ -67,6 +67,9 @@ public:
 
 	ResourceId playerId;
 	ResourceId enemyId;
+
+	AudioId test;
+
 	std::vector<Entity> enemy;
 	enum state { MENU, PLAY, END };
 	state gameState;
@@ -97,6 +100,7 @@ public:
 		// load scene resources/sprites
 		playerId = world.loadModel("sd:/ship.obj");
 		enemyId = world.loadModel("sd:/sphere.obj");
+		test = world.loadAudio("test", "sd:/test.wav");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
@@ -304,6 +308,7 @@ public:
 
 				if (world.getComponent<MeshCollider>(e).isColliding) {
 					WPAD_Rumble(0, 1);
+					world.playAudio(test, 150, 150);
 					takeDamage = true;
 					rumbleTimer = 0.0f;
 					lives--;
@@ -364,6 +369,7 @@ public:
 			rendersys->SetDrawMode3D(&camera);
 
 			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_B) {
+				world.playAudio(test, 255, 255);
 				Entity* hitEntity = physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(e).pos.x,
 													 world.getComponent<EngineTransform>(e).pos.y,
 													 world.getComponent<EngineTransform>(e).pos.z - world.getComponent<BoxCollider>(e).halfExtents.z },

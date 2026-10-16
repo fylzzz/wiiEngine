@@ -6,6 +6,7 @@
 #include "ResourceManager.h"
 #include "SpriteManager.h"
 #include "AnimationManager.h"
+#include "AudioManager.h"
 #include "Serializer.h"
 #include "Types.h"
 
@@ -56,6 +57,10 @@ class World {
 		AnimationClip& getAnim(AnimId id);
 		void unloadAllAnims();
 
+		// Audio API calls
+		AudioId loadAudio(std::string name, const char* path);
+		int playAudio(AudioId id, int volL, int volR);
+
 		// Serializer API calls
 		template<typename T> void registerComponentSerializer();
 		void save(const char* path);
@@ -68,6 +73,7 @@ class World {
 		std::unique_ptr<ResourceManager> mResourceManager;
 		std::unique_ptr<SpriteManager> mSpriteManager;
 		std::unique_ptr<AnimationManager> mAnimationManager;
+		std::unique_ptr<AudioManager> mAudioManager;
 
 		std::array<ComponentSerializer, MAX_COMPONENTS> mSerializers{};
 };

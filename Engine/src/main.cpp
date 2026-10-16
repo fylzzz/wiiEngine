@@ -6,6 +6,7 @@
 
 #include <wiiuse/wpad.h>
 #include <ogc/lwp_watchdog.h>
+#include <asndlib.h>
 
 #include "World.h"
 #include "Components.h"
@@ -84,6 +85,9 @@ int main() {
 	WPAD_SetDataFormat(WPAD_CHAN_ALL, WPAD_FMT_BTNS_ACC_IR);
 	WPAD_SetVRes(WPAD_CHAN_ALL, 640, 480);
 
+	ASND_Init();
+	ASND_Pause(0);
+
 	InitWindow(640, 480, "Wii Raylib");
 	//SetTargetFPS(60);
 
@@ -114,6 +118,7 @@ int main() {
 		scenes.current()->shutdown();
 	}
 
+	ASND_End();
 	CloseWindow();
 	return 0;
 }
