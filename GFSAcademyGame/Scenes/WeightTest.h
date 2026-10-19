@@ -5,6 +5,8 @@
 #include "RenderSystem.h"
 #include "PhysicsSystem.h"
 #include "AnimationSystem.h"
+#include "MusicStream.h"
+
 #include "GL/gl.h"
 #include <wiiuse/wpad.h>
 #include <math.h>
@@ -63,6 +65,7 @@ public:
 	std::shared_ptr<RenderSystem> rendersys;
 	std::shared_ptr<PhysicsSystem> physics;
 	std::shared_ptr<AnimationSystem> animation;
+	MusicStream music;
 	Camera3D camera = {};
 
 	ResourceId playerId;
@@ -177,6 +180,9 @@ public:
 
 		// Create new/default entities here
 		gameState = MENU;
+
+		music.loadTrack("sd:/maintheme_final_mix2.wav");
+		music.playTrack(255, 255);
 	}
 
 	void update(float dt, WPADData* data) override {
@@ -352,6 +358,8 @@ public:
 		// update animation system
 		animation->update(dt);
 
+		// update music stream
+		music.update();
 	}
 
 	void render(float dt) override {
@@ -405,6 +413,12 @@ public:
 			break;
 		}
 
+		s32 v = music.voice();
+		DrawText(TextFormat("v:%d st:%d rdy:%d upd:%d fills:%d prime:%d add:%d",
+			v, v >= 0 ? ASND_StatusVoice(v) : -9, v >= 0 ? ASND_TestVoiceBufferReady(v) : -9,
+			music.dbgUpdates, music.dbgFills, music.dbgPrimeRet, music.dbgAddRet),
+			10, 450, 16, YELLOW);
+
 
 		//DrawFPS(10, 10);
 		EndDrawing();
@@ -414,6 +428,7 @@ public:
 		// save current scene state
 		//world.save("sd:/samplescene.bin");
 		// unload scene resources
+		music.unloadTrack();
 		world.unloadAllResources();
 		world.unloadAllSprites();
 	}
