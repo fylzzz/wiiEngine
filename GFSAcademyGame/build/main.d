@@ -83,6 +83,7 @@ main.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/main.cpp \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SceneManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Scene.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Input.h \
  C:/Users/iChoc/Desktop/wiiEngine/GFSAcademyGame/Scenes/WeightTest.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/MusicStream.h \
@@ -171,6 +172,7 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/PhysicsSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/SceneManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Scene.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Input.h:
 C:/Users/iChoc/Desktop/wiiEngine/GFSAcademyGame/Scenes/WeightTest.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/AnimationSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/MusicStream.h:

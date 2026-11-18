@@ -5,6 +5,7 @@ MusicStream.o: \
  C:/devkitPro/libogc2/wii/include/asndlib.h \
  C:/devkitPro/libogc2/wii/include/gctypes.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/dr_wav.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h \
  C:/devkitPro/libogc2/wii/include/malloc.h \
  C:/devkitPro/libogc2/wii/include/ogc/cache.h
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/MusicStream.h:
@@ -12,5 +13,6 @@ C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/devkitPro/libogc2/wii/include/asndlib.h:
 C:/devkitPro/libogc2/wii/include/gctypes.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/dr_wav.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h:
 C:/devkitPro/libogc2/wii/include/malloc.h:
 C:/devkitPro/libogc2/wii/include/ogc/cache.h:

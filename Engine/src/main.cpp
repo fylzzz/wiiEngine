@@ -1,3 +1,5 @@
+//Main file for Game Application
+
 #include <raylib.h>
 #include <gccore.h>
 #include "GL/gl.h"
@@ -97,6 +99,8 @@ int main() {
 	scenes.registerScene<WeightTest>(0);
 	scenes.switchTo(currentScene);
 
+	InputState input;
+
 
 	while (!WindowShouldClose()) {
 		static uint64_t lastTime = gettime();
@@ -105,13 +109,18 @@ int main() {
 		lastTime = now;
 		if (dt > 0.1f) dt = 0.1f;
 
-		WPAD_ScanPads();
-		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_HOME) break;
+		if (input.wasPressed(BTN_HOME)) break;
 
-		WPADData* data = WPAD_Data(0);
+		PollInput(input);
 
-		scenes.update(dt, data);
+		scenes.update(dt, input);
+
+		ApplyInputOutput(input);
+
+		BeginDrawing();
+		ClearBackground(BLACK);
 		scenes.render(dt);
+		EndDrawing();
 	}
 
 	if (scenes.current()) {

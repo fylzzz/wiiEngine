@@ -1,4 +1,5 @@
 #include "AudioManager.h"
+#include "Path.h"
 #include <cstring>
 
 
@@ -35,7 +36,7 @@ AudioId AudioManager::loadAudio(std::string name, const char* path) {
 	unsigned int ch, rate;
 	drwav_uint64 frames;
 
-	int16_t* pcm = drwav_open_file_and_read_pcm_frames_s16(path, &ch, &rate, &frames, nullptr);
+	int16_t* pcm = drwav_open_file_and_read_pcm_frames_s16(ResolvePath(path).c_str(), &ch, &rate, &frames, nullptr);
 	if (!pcm) return INVALID_AUDIO;
 
 	w.frameCount = (unsigned int)frames;
@@ -93,7 +94,7 @@ AudioId AudioManager::loadAudio(std::string name, const char* path) {
 
 	if (mSize >= MAX_AUDIO) return INVALID_AUDIO;
 
-	Wave w = LoadWave(path);
+	Wave w = LoadWave(ResolvePath(path).c_str());
 	if (!IsWaveValid(w)) return INVALID_AUDIO;
 
 	AudioSample& s = mAudio[mSize];

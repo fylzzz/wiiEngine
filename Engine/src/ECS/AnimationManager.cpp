@@ -1,4 +1,5 @@
 #include "AnimationManager.h"
+#include "Path.h"
 
 
 AnimId AnimationManager::loadAnim(std::string name, const char* path, int frameCount, int fps) {
@@ -11,7 +12,7 @@ AnimId AnimationManager::loadAnim(std::string name, const char* path, int frameC
 
 	AnimId id = mSize++;
 	mAnims[id].name = name;
-	Image img = LoadImage(path);
+	Image img = LoadImage(ResolvePath(path).c_str());
 	mAnims[id].spritesheet = LoadTextureFromImage(img);
 	UnloadImage(img);
 	mAnims[id].frameCount = frameCount;

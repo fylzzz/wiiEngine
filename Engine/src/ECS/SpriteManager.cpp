@@ -1,4 +1,5 @@
 #include "SpriteManager.h"
+#include "Path.h"
 
 
 SpriteId SpriteManager::loadSprite(const char* path) {
@@ -10,7 +11,7 @@ SpriteId SpriteManager::loadSprite(const char* path) {
 	}
 
 	SpriteId id = mSize++;
-	mSprites[id] = LoadImage(path);
+	mSprites[id] = LoadImage(ResolvePath(path).c_str());
 	mPaths[id] = path;
 	return id;
 }

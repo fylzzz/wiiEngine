@@ -28,9 +28,9 @@ class SceneManager {
 			}
 		}
 
-		void update(float dt, WPADData* data) {
+		void update(float dt, InputState& input) {
 			if (mCurrent) {
-				mCurrent->update(dt, data);
+				mCurrent->update(dt, input);
 			}
 		}
 		void render(float dt) {

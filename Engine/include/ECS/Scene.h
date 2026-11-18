@@ -1,6 +1,7 @@
 #pragma once
 
 #include "World.h"
+#include "Input.h"
 //#define RAYGUI_IMPLEMENTATION
 //#include "raygui.h"
 
@@ -15,7 +16,7 @@ class Scene {
 		virtual ~Scene() = default;
 
 		virtual void init() = 0;
-		virtual void update(float dt, WPADData* data) = 0;
+		virtual void update(float dt, InputState& input) = 0;
 		virtual void render(float dt) = 0;
 		virtual void shutdown() = 0;
 };

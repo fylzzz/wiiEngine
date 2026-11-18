@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "Path.h"
 
 
 ResourceId ResourceManager::loadModel(const char* path) {
@@ -10,7 +11,7 @@ ResourceId ResourceManager::loadModel(const char* path) {
 	}
 
 	ResourceId id = mSize++;
-	mModels[id] = LoadModel(path);
+	mModels[id] = LoadModel(ResolvePath(path).c_str());
 	mBoundingBoxes[id] = GetModelBoundingBox(mModels[id]);
 	mPaths[id] = path;
 	return id;

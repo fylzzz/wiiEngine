@@ -1,3 +1,5 @@
+//Main file for Editor Application
+
 #include "raylib.h"
 
 int main() {

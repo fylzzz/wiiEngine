@@ -7,58 +7,9 @@
 #include "AnimationSystem.h"
 #include "MusicStream.h"
 
-#include "GL/gl.h"
-#include <wiiuse/wpad.h>
 #include <math.h>
 #include <algorithm>
 
-
-void SetDrawMode3D(Camera3D* camera) {
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	float aspect = 640.0f / 480.0f;
-	float near = 0.05f, far = 1000.0f;
-	float t = near * tanf(camera->fovy * 0.5f * 3.14159f / 180.0f);
-	glFrustum(-t * aspect, t * aspect, -t, t, near, far);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	// Manual lookAt
-	Vector3 eye = camera->position;
-	Vector3 center = camera->target;
-	Vector3 up = camera->up;
-
-	// forward = normalize(center - eye)
-	float fx = center.x - eye.x, fy = center.y - eye.y, fz = center.z - eye.z;
-	float fl = sqrtf(fx * fx + fy * fy + fz * fz);
-	fx /= fl; fy /= fl; fz /= fl;
-
-	// right = normalize(forward x up)
-	float rx = fy * up.z - fz * up.y;
-	float ry = fz * up.x - fx * up.z;
-	float rz = fx * up.y - fy * up.x;
-	float rl = sqrtf(rx * rx + ry * ry + rz * rz);
-	rx /= rl; ry /= rl; rz /= rl;
-
-	// up = right x forward
-	float ux = ry * fz - rz * fy;
-	float uy = rz * fx - rx * fz;
-	float uz = rx * fy - ry * fx;
-
-	float m[16] = {
-		rx, ux, -fx, 0,
-		ry, uy, -fy, 0,
-		rz, uz, -fz, 0,
-		-(rx * eye.x + ry * eye.y + rz * eye.z),
-		-(ux * eye.x + uy * eye.y + uz * eye.z),
-		(fx * eye.x + fy * eye.y + fz * eye.z), 1
-	};
-	glMultMatrixf(m);
-
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-}
 
 class WeightTest : public Scene {
 public:
@@ -85,9 +36,10 @@ public:
 	float rumbleTimer = 0.0f;
 	bool takeDamage = false;
 
-
-	bool board;
-	struct wii_board_t* wb;
+	// last shot, kept so render() can draw it
+	static constexpr float SHOT_DISPLAY_TIME = 0.1f;
+	float shotTimer = 0.0f;
+	Vector3 shotStart = {}, shotEnd = {};
 
 	float calTL = 0, calTR = 0, calBL = 0, calBR = 0;
 	bool calibrated = false;
@@ -185,11 +137,11 @@ public:
 		music.playTrack(255, 255);
 	}
 
-	void update(float dt, WPADData* data) override {
+	void update(float dt, InputState& input) override {
 
 		switch (gameState) {
 			case MENU:
-				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+				if (input.wasPressed(BTN_A)) {
 					e = world.createEntity();
 					world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,5.0f }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
 					Renderable mesh;
@@ -221,18 +173,13 @@ public:
 				UpdateCamera(&camera, CAMERA_PERSPECTIVE);
 				EngineTransform& transform = world.getComponent<EngineTransform>(e);
 
-				u32 expType;
-				s32 result = WPAD_Probe(WPAD_BALANCE_BOARD, &expType);
-				board = (result == WPAD_ERR_NONE);
+				const BalanceBoardState& wb = input.board;
 
-				struct expansion_t exp;
-				WPAD_Expansion(WPAD_BALANCE_BOARD, &exp);
-				wb = &exp.wb;
 				if (!calibrated) {
-					calTL += wb->tl;
-					calTR += wb->tr;
-					calBL += wb->bl;
-					calBR += wb->br;
+					calTL += wb.tl;
+					calTR += wb.tr;
+					calBL += wb.bl;
+					calBR += wb.br;
 					calFrames++;
 					if (calFrames >= CAL_SAMPLE_COUNT) {
 						calTL /= calFrames;
@@ -243,10 +190,10 @@ public:
 					}
 				}
 				else {
-					float tl = fmaxf(0.0f, wb->tl - calTL);
-					float tr = fmaxf(0.0f, wb->tr - calTR);
-					float bl = fmaxf(0.0f, wb->bl - calBL);
-					float br = fmaxf(0.0f, wb->br - calBR);
+					float tl = fmaxf(0.0f, wb.tl - calTL);
+					float tr = fmaxf(0.0f, wb.tr - calTR);
+					float bl = fmaxf(0.0f, wb.bl - calBL);
+					float br = fmaxf(0.0f, wb.br - calBR);
 
 					total = tl + tr + bl + br;
 					if (total > 0.5f) {
@@ -309,11 +256,35 @@ public:
 				transform.pos.x = worldX;
 				transform.pos.y = worldY;
 
+				if (shotTimer > 0.0f) shotTimer -= dt;
+
+				if (input.wasPressed(BTN_B)) {
+					world.playAudio(test, 255, 255);
+					const EngineTransform& pt = world.getComponent<EngineTransform>(e);
+					Vector3 origin = { pt.pos.x, pt.pos.y, pt.pos.z - world.getComponent<BoxCollider>(e).halfExtents.z };
+					Vector3 dir = { 0, 0, -1 };
+
+					shotStart = origin;
+					shotEnd = Vector3Add(origin, Vector3Scale(dir, 100.0f));
+					shotTimer = SHOT_DISPLAY_TIME;
+
+					Entity* hitEntity = physics->rayTest(PhysicsRay(origin, dir));
+
+					if (hitEntity) {
+						Entity hitID = *hitEntity;
+						if (hitID != e) {
+							world.destroyEntity(hitID);
+							enemy.erase(std::remove(enemy.begin(), enemy.end(), hitID), enemy.end());
+							score += 100;
+						}
+					}
+				}
+
 				physics->update(dt);
 				physics->updateCollisions(dt, false);
 
 				if (world.getComponent<MeshCollider>(e).isColliding) {
-					WPAD_Rumble(0, 1);
+					input.rumble = true;
 					world.playAudio(test, 150, 150);
 					takeDamage = true;
 					rumbleTimer = 0.0f;
@@ -332,7 +303,7 @@ public:
 					rumbleTimer += dt;
 					if (rumbleTimer >= 0.5f) {
 						takeDamage = false;
-						WPAD_Rumble(0, 0);
+						input.rumble = false;
 					}
 				}
 
@@ -340,14 +311,14 @@ public:
 				break;
 			}
 			case END:
-				if (WPAD_ButtonsDown(0) & WPAD_BUTTON_A) {
+				if (input.wasPressed(BTN_A)) {
 					gameState = MENU;
 				}
 				break;
 		}
 
 		// update inputs, entities, camera etc. here
-		if (WPAD_ButtonsDown(0) & WPAD_BUTTON_1) {
+		if (input.wasPressed(BTN_1)) {
 			calibrated = false;
 			calFrames = 0;
 			calTL = calTR = calBL = calBR = 0;
@@ -363,9 +334,6 @@ public:
 	}
 
 	void render(float dt) override {
-		BeginDrawing();
-		ClearBackground(BLACK);
-		glClear(GL_DEPTH_BUFFER_BIT);
 
 		switch (gameState) {
 		case MENU:
@@ -376,24 +344,9 @@ public:
 		case PLAY:
 			rendersys->SetDrawMode3D(&camera);
 
-			if (WPAD_ButtonsDown(0) & WPAD_BUTTON_B) {
-				world.playAudio(test, 255, 255);
-				Entity* hitEntity = physics->rayTest(PhysicsRay(Vector3{ world.getComponent<EngineTransform>(e).pos.x,
-													 world.getComponent<EngineTransform>(e).pos.y,
-													 world.getComponent<EngineTransform>(e).pos.z - world.getComponent<BoxCollider>(e).halfExtents.z },
-					Vector3{ 0, 0, -1 }));
-
-				if (hitEntity) {
-					Entity hitID = *hitEntity;
-					if (hitID != e) {
-						world.destroyEntity(hitID);
-						enemy.erase(std::remove(enemy.begin(), enemy.end(), hitID), enemy.end());
-						score += 100;
-					}
-				}
-			}
-
 			rendersys->update(dt);
+			if (shotTimer > 0.0f)
+				PhysicsRay::DrawRay(shotStart, shotEnd, 1.0f, WHITE);
 			//physics->drawDebug();
 
 			rendersys->SetDrawMode2D();
@@ -413,15 +366,15 @@ public:
 			break;
 		}
 
+#ifdef GEKKO
 		s32 v = music.voice();
 		DrawText(TextFormat("v:%d st:%d rdy:%d upd:%d fills:%d prime:%d add:%d",
 			v, v >= 0 ? ASND_StatusVoice(v) : -9, v >= 0 ? ASND_TestVoiceBufferReady(v) : -9,
 			music.dbgUpdates, music.dbgFills, music.dbgPrimeRet, music.dbgAddRet),
 			10, 450, 16, YELLOW);
-
+#endif
 
 		//DrawFPS(10, 10);
-		EndDrawing();
 	}
 
 	void shutdown() override {

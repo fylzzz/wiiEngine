@@ -1,4 +1,5 @@
 #include "MusicStream.h"
+#include "Path.h"
 
 
 #ifdef GEKKO
@@ -13,7 +14,7 @@ static void MusicVoiceCallback(s32 voice) {}
 
 bool MusicStream::loadTrack(const char* path, bool loop) {
 	unloadTrack();
-	if (!drwav_init_file(&mWav, path, nullptr)) return false;
+	if (!drwav_init_file(&mWav, ResolvePath(path).c_str(), nullptr)) return false;
 
 	if (mWav.translatedFormatTag != DR_WAVE_FORMAT_PCM || mWav.bitsPerSample != 16) {
 		drwav_uninit(&mWav);
@@ -118,7 +119,7 @@ void MusicStream::unloadTrack() {
 
 bool MusicStream::loadTrack(const char* path, bool loop) {
 	unloadTrack();
-	mMusic = LoadMusicStream(path);
+	mMusic = LoadMusicStream(ResolvePath(path).c_str());
 	if (!IsMusicValid(mMusic)) return false;
 
 	mMusic.looping = loop;

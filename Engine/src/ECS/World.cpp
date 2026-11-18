@@ -1,4 +1,5 @@
 #include "World.h"
+#include "Path.h"
 #include "System.h"
 
 
@@ -80,7 +81,7 @@ int World::playAudio(AudioId id, int volL, int volR) {
 
 void World::save(const char* path) {
     Writer w;
-    w.file = fopen(path, "wb");
+    w.file = fopen(ResolvePath(path).c_str(), "wb");
     if (!w.file) return;
 
     // count living entities first
@@ -108,7 +109,7 @@ void World::save(const char* path) {
 
 void World::load(const char* path) {
     Reader r;
-    r.file = fopen(path, "rb");
+    r.file = fopen(ResolvePath(path).c_str(), "rb");
     if (!r.file) return;
 
     uint32_t count = 0;

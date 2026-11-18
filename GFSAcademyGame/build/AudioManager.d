@@ -3,6 +3,7 @@ AudioManager.o: \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AudioManager.h \
  C:/devkitPro/libogc2/wii/include/raylib.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h \
  C:/devkitPro/libogc2/wii/include/asndlib.h \
  C:/devkitPro/libogc2/wii/include/gctypes.h \
  C:/devkitPro/libogc2/wii/include/malloc.h \
@@ -11,6 +12,7 @@ AudioManager.o: \
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AudioManager.h:
 C:/devkitPro/libogc2/wii/include/raylib.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h:
 C:/devkitPro/libogc2/wii/include/asndlib.h:
 C:/devkitPro/libogc2/wii/include/gctypes.h:
 C:/devkitPro/libogc2/wii/include/malloc.h:
