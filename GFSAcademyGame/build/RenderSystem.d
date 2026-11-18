@@ -17,9 +17,7 @@ RenderSystem.o: \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h \
  C:/devkitPro/libogc2/wii/include/raymath.h \
- C:/devkitPro/libogc2/wii/include/GL/gl.h \
- C:/devkitPro/libogc2/wii/include/GL/glext.h \
- C:/devkitPro/libogc2/wii/include/KHR/khrplatform.h
+ C:/devkitPro/libogc2/wii/include/rlgl.h
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Systems/RenderSystem.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/System.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h:
@@ -37,6 +35,4 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AudioManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Components.h:
 C:/devkitPro/libogc2/wii/include/raymath.h:
-C:/devkitPro/libogc2/wii/include/GL/gl.h:
-C:/devkitPro/libogc2/wii/include/GL/glext.h:
-C:/devkitPro/libogc2/wii/include/KHR/khrplatform.h:
+C:/devkitPro/libogc2/wii/include/rlgl.h:

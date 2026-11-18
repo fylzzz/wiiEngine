@@ -1,26 +1,28 @@
 #include "RenderSystem.h"
-#include "GL/gl.h"
+#include "rlgl.h"
 #include <math.h>
 
 void RenderSystem::SetDrawMode2D() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, 640, 480, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    rlMatrixMode(RL_PROJECTION);
+    rlLoadIdentity();
+    rlOrtho(0, 640, 480, 0, -1, 1);
+    rlMatrixMode(RL_MODELVIEW);
+    rlLoadIdentity();
     return;
 }
 
 void RenderSystem::SetDrawMode3D(Camera3D* camera) {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    rlDrawRenderBatchActive();
+    
+    rlMatrixMode(RL_PROJECTION);
+    rlLoadIdentity();
     float aspect = 640.0f / 480.0f;
     float near = 0.05f, far = 1000.0f;
     float t = near * tanf(camera->fovy * 0.5f * 3.14159f / 180.0f);
-    glFrustum(-t * aspect, t * aspect, -t, t, near, far);
+    rlFrustum(-t * aspect, t * aspect, -t, t, near, far);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    rlMatrixMode(RL_MODELVIEW);
+    rlLoadIdentity();
 
     // Manual lookAt
     Vector3 eye = camera->position;
@@ -52,10 +54,10 @@ void RenderSystem::SetDrawMode3D(Camera3D* camera) {
         -(ux * eye.x + uy * eye.y + uz * eye.z),
         (fx * eye.x + fy * eye.y + fz * eye.z), 1
     };
-    glMultMatrixf(m);
+    rlMultMatrixf(m);
 
-    glDisable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST);
+    rlDisableBackfaceCulling();
+    rlEnableDepthTest();
 }
 
 void RenderSystem::onEntityAdded(Entity e) {

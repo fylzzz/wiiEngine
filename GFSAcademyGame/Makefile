@@ -22,7 +22,7 @@ include /opt/devkitpro/libogc2/wii_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	output/$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	../Engine/src ../Engine/src/ECS ../Engine/src/Systems
+SOURCES		:=	../Engine/src ../Engine/src/ECS ../Engine/src/Systems ../Engine/src/Platform/Wii
 DATA		:=
 TEXTURES	:=	textures
 INCLUDES	:=	../Engine/include ../Engine/include/ECS ../Engine/include/Systems Scenes

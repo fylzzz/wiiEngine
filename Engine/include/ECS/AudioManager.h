@@ -11,6 +11,10 @@
 struct AudioSample {
 	std::string name;
 	Wave audioData;
+
+#ifndef GEKKO
+	Sound sound{};
+#endif
 };
 
 

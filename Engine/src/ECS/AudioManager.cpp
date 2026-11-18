@@ -1,9 +1,14 @@
 #include "AudioManager.h"
+#include <cstring>
+
+
+#ifdef GEKKO
+
 #include <asndlib.h>
 #include <malloc.h>
-#include <string.h>
 #include <ogc/cache.h>
 #include <math.h>
+
 
 #define DR_WAV_IMPLEMENTATION
 #include "dr_wav.h"
@@ -22,11 +27,11 @@ AudioId AudioManager::loadAudio(std::string name, const char* path) {
 			return i;
 		}
 	}
-	
+
 	AudioId id = mSize++;
 	mAudio[id].name = name;
 
-	Wave w = { };
+	Wave w = {};
 	unsigned int ch, rate;
 	drwav_uint64 frames;
 
@@ -68,3 +73,43 @@ int AudioManager::playAudio(AudioId id, int volL, int volR) {
 	ASND_SetVoice(voice, VOICE_MONO_16BIT, rate, 0, tone, bytes, volL, volR, nullptr);
 	return voice;*/
 }
+
+#else
+
+#include <algorithm>
+
+
+static void ApplyStereo(Sound& s, int volL, int volR) {
+	int peak = std::max(volL, volR);
+	SetSoundVolume(s, peak / 255.0f);
+	float pan = (peak > 0) ? 0.5f + 0.5f * float(volL - volR) / float(peak) : 0.5f;
+	SetSoundPan(s, pan);
+}
+
+AudioId AudioManager::loadAudio(std::string name, const char* path) {
+	for (uint16_t i = 0; i < mSize; ++i) {
+		if (std::strcmp(mPaths[i], path) == 0) return i;
+	}
+
+	if (mSize >= MAX_AUDIO) return INVALID_AUDIO;
+
+	Wave w = LoadWave(path);
+	if (!IsWaveValid(w)) return INVALID_AUDIO;
+
+	AudioSample& s = mAudio[mSize];
+	s.name = std::move(name);
+	s.audioData = w;
+	s.sound = LoadSoundFromWave(w);
+	mPaths[mSize] = path;
+	return mSize++;
+}
+
+int AudioManager::playAudio(AudioId id, int volL, int volR) {
+	if (id >= mSize) return -1;
+	Sound& s = mAudio[id].sound;
+	ApplyStereo(s, volL, volR);
+	PlaySound(s);
+	return id;
+}
+
+#endif

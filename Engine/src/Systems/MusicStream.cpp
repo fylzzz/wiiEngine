@@ -1,5 +1,8 @@
 #include "MusicStream.h"
 
+
+#ifdef GEKKO
+
 #include <malloc.h>
 #include <cstring>
 #include <ogc/cache.h>
@@ -107,3 +110,51 @@ void MusicStream::unloadTrack() {
 	}
 	mOpen = false;
 }
+
+#else
+
+#include <algorithm>
+
+
+bool MusicStream::loadTrack(const char* path, bool loop) {
+	unloadTrack();
+	mMusic = LoadMusicStream(path);
+	if (!IsMusicValid(mMusic)) return false;
+
+	mMusic.looping = loop;
+	mLoop = loop;
+	mLoaded = true;
+	return true;
+}
+
+void MusicStream::playTrack(int volL, int volR) {
+	if (!mLoaded) return;
+
+	int peak = std::max(volL, volR);
+	SetMusicVolume(mMusic, peak / 255.0f);
+	float pan = peak > 0 ? 0.5f + 0.5f * float(volL - volR) / float(peak) : 0.5f;
+	SetMusicPan(mMusic, pan);
+	PlayMusicStream(mMusic);
+	mPlaying = true;
+}
+
+void MusicStream::update() {
+	if (!mPlaying) return;
+	++dbgUpdates;
+	UpdateMusicStream(mMusic);
+	if (!mLoop && !IsMusicStreamPlaying(mMusic)) {
+		mPlaying = false;
+	}
+}
+
+void MusicStream::stopTrack() {
+	if (mLoaded) StopMusicStream(mMusic);
+	mPlaying = false;
+}
+
+void MusicStream::unloadTrack() {
+	stopTrack();
+	if (mLoaded) UnloadMusicStream(mMusic);
+	mLoaded = false;
+}
+#endif
