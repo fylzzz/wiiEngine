@@ -1,11 +1,16 @@
 #pragma once
 
+
 #include <map>
+#include <string>
+#include <vector>
 
 #include <raylib.h>
 #include <raymath.h>
 #include "ResourceManager.h"
 #include "SpriteManager.h"
+#include "AnimationManager.h"
+#include "Serializer.h"
 
 struct EngineTransform {
 	Vector3 pos;
@@ -154,3 +159,17 @@ struct MeshCollider {
     }
 
 };
+
+
+// ---------------------------------------------------------------
+//  Serialization: authored data only. Defined in ComponentSerialization.cpp
+// ---------------------------------------------------------------
+void serialize(Writer& w, const EngineTransform& c);        void deserialize(Reader& r, EngineTransform& c);
+void serialize(Writer& w, const PrimitiveRenderable2D& c);  void deserialize(Reader& r, PrimitiveRenderable2D& c);
+void serialize(Writer& w, const Renderable2D& c);           void deserialize(Reader& r, Renderable2D& c);
+void serialize(Writer& w, const Animator2D& c);             void deserialize(Reader& r, Animator2D& c);
+void serialize(Writer& w, const Renderable& c);             void deserialize(Reader& r, Renderable& c);
+void serialize(Writer& w, const RigidBody2D& c);            void deserialize(Reader& r, RigidBody2D& c);
+void serialize(Writer& w, const Collider2D& c);             void deserialize(Reader& r, Collider2D& c);
+void serialize(Writer& w, const BoxCollider& c);            void deserialize(Reader& r, BoxCollider& c);
+void serialize(Writer& w, const MeshCollider& c);           void deserialize(Reader& r, MeshCollider& c);

@@ -79,59 +79,70 @@ int World::playAudio(AudioId id, int volL, int volR) {
     return mAudioManager->playAudio(id, volL, volR);
 }
 
-void World::save(const char* path) {
-    Writer w;
-    w.file = fopen(ResolvePath(path).c_str(), "wb");
-    if (!w.file) return;
+bool World::save(const char* path) {
+    Writer w(ResolvePath(path).c_str());
+    if (!w.ok()) return false;
 
-    // count living entities first
+    w.u32(SCENE_MAGIC);
+    w.u16(SCENE_VER);
+
+    // Only serialize components that are registered with the serializer
+    Signature savable;
+    for (uint8_t i = 0; i < MAX_COMPONENTS; ++i) {
+        if (mSerializers[i].serialize) savable.set(i);
+    }
+
     uint32_t count = 0;
-    for (Entity e = 0; e < MAX_ENTITIES; ++e)
-        if (mEntityManager->getSignature(e).any()) count++;
-
-    w.write(count);
+    for (Entity e = 0; e < MAX_ENTITIES; ++e) {
+        if (mEntityManager->getSignature(e).any()) ++count;
+    }
+    w.u32(count);
 
     for (Entity e = 0; e < MAX_ENTITIES; ++e) {
         Signature sig = mEntityManager->getSignature(e);
         if (sig.none()) continue;
 
-        w.write(e);
-        w.write(sig);
+        Signature out = sig & savable;
+        w.u32(e);
+        w.u32(uint32_t(out.to_ulong()));
 
         for (uint8_t i = 0; i < MAX_COMPONENTS; ++i) {
-            if (sig.test(i) && mSerializers[i].serialize)
+            if (out.test(i)) {
                 mSerializers[i].serialize(w, mSerializers[i].arrayPtr, e);
+            }
         }
     }
 
-    fclose(w.file);
+    return w.ok();
 }
 
-void World::load(const char* path) {
-    Reader r;
-    r.file = fopen(ResolvePath(path).c_str(), "rb");
-    if (!r.file) return;
+bool World::load(const char* path) {
+    Reader r(ResolvePath(path).c_str());
+    if (!r.ok()) return false;
 
-    uint32_t count = 0;
-    r.read(count);
+    if (r.u32() != SCENE_MAGIC)   return false;
+    if (r.u16() != SCENE_VER) return false;
+
+    uint32_t count = r.u32();
+    if (!r.ok() || count > MAX_ENTITIES) return false;
 
     for (uint32_t i = 0; i < count; ++i) {
-        Entity e;
-        Signature sig;
-        r.read(e);
-        r.read(sig);
+        Entity e = r.u32();
+        Signature sig(r.u32());
+        if (!r.ok() || e >= MAX_ENTITIES) return false;
 
         mEntityManager->restoreEntity(e, sig);
 
         for (uint8_t j = 0; j < MAX_COMPONENTS; ++j) {
-            if (sig.test(j) && mSerializers[j].deserialize)
-                mSerializers[j].deserialize(r, mSerializers[j].arrayPtr, e);
+            if (!sig.test(j)) continue;
+            if (!mSerializers[j].deserialize) return false;   // component not registered
+            mSerializers[j].deserialize(r, mSerializers[j].arrayPtr, e);
         }
+        if (!r.ok()) return false;
 
         mSystemManager->entitySignatureChanged(e, sig);
     }
 
     mEntityManager->rebuildAvailableQueue();
-
-    fclose(r.file);
+    return r.ok();
 }

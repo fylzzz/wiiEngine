@@ -63,8 +63,8 @@ class World {
 
 		// Serializer API calls
 		template<typename T> void registerComponentSerializer();
-		void save(const char* path);
-		void load(const char* path);
+		bool save(const char* path);
+		bool load(const char* path);
 
 	private:
 		std::unique_ptr<EntityManager> mEntityManager;
@@ -142,13 +142,15 @@ void World::registerComponentSerializer() {
 		};
 
 	mSerializers[id].serialize = [](Writer& w, void* ptr, Entity e) {
-		T& comp = static_cast<ComponentArray<T>*>(ptr)->getComponent(e);
-		w.write(comp);
+		const T& comp = static_cast<ComponentArray<T>*>(ptr)->getComponent(e);
+		serialize(w, comp);
 		};
 
 	mSerializers[id].deserialize = [](Reader& r, void* ptr, Entity e) {
-		alignas(T) unsigned char buf[sizeof(T)];
-		r.read(*reinterpret_cast<T*>(buf));
-		static_cast<ComponentArray<T>*>(ptr)->insertComponent(e, *reinterpret_cast<T*>(buf));
+		T comp{};
+		deserialize(r, comp);
+		if constexpr (requires { comp.entityId; })
+			comp.entityId = e;              // owner isn't stored in the file
+		static_cast<ComponentArray<T>*>(ptr)->insertComponent(e, comp);
 		};
 }

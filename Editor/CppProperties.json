@@ -1,0 +1,23 @@
+{
+	"configurations": [
+		{
+			"name": "MinGW (Editor)",
+			"includePath": [
+				"${projectRoot}\\src",
+				"${projectRoot}\\..\\Engine\\include",
+				"${projectRoot}\\..\\Engine\\include\\ECS",
+				"${projectRoot}\\..\\Engine\\include\\Systems",
+				"${projectRoot}\\..\\thirdparty\\raylib-desktop\\src",
+				"${projectRoot}\\..\\thirdparty\\imgui",
+				"${projectRoot}\\..\\thirdparty\\rlImGui",
+				"C:\\msys64\\ucrt64\\include\\c++\\16.2.0",
+				"C:\\msys64\\ucrt64\\include\\c++\\16.2.0\\x86_64-w64-mingw32",
+				"C:\\msys64\\ucrt64\\lib\\gcc\\x86_64-w64-mingw32\\16.2.0\\include",
+				"C:\\msys64\\ucrt64\\include"
+			],
+			"defines": [ "ENGEN7_DESKTOP" ],
+			"compilerSwitches": "-std=c++20",
+			"intelliSenseMode": "windows-gcc-x64"
+		}
+	]
+}

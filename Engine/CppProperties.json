@@ -21,6 +21,22 @@
       ],
       "compilerSwitches": "-std=c++20",
       "intelliSenseMode": "linux-gcc-x64"
+    },
+    {
+      "name": "MinGW (Desktop)",
+      "includePath": [
+        "${projectRoot}\\include",
+        "${projectRoot}\\include\\ECS",
+        "${projectRoot}\\include\\Systems",
+        "${projectRoot}\\..\\thirdparty\\raylib-desktop\\src",
+        "C:\\msys64\\ucrt64\\include\\c++\\16.2.0",
+        "C:\\msys64\\ucrt64\\include\\c++\\16.2.0\\x86_64-w64-mingw32",
+        "C:\\msys64\\ucrt64\\lib\\gcc\\x86_64-w64-mingw32\\16.2.0\\include",
+        "C:\\msys64\\ucrt64\\include"
+      ],
+      "defines": [ "ENGEN7_DESKTOP" ],
+      "compilerSwitches": "-std=c++20",
+      "intelliSenseMode": "windows-gcc-x64"
     }
   ]
 }
