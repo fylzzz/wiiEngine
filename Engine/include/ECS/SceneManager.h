@@ -28,6 +28,13 @@ class SceneManager {
 			}
 		}
 
+		void stop() {
+			if (mCurrent) {
+				mCurrent->shutdown();
+				mCurrent = nullptr;
+			}
+		}
+
 		void update(float dt, InputState& input) {
 			if (mCurrent) {
 				mCurrent->update(dt, input);

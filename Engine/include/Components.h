@@ -38,7 +38,6 @@ struct PrimitiveRenderable2D {
 struct Renderable2D {
     SpriteId spriteId;
     Color color;
-    Texture2D texture;
 };
 
 struct Animator2D {

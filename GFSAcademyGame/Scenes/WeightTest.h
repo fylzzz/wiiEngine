@@ -13,6 +13,9 @@
 
 class WeightTest : public Scene {
 public:
+	bool sceneTestLoaded = false;
+	bool sceneTestSaved = false;
+
 	std::shared_ptr<RenderSystem> rendersys;
 	std::shared_ptr<PhysicsSystem> physics;
 	std::shared_ptr<AnimationSystem> animation;
@@ -55,7 +58,7 @@ public:
 		// load scene resources/sprites
 		playerId = world.loadModel("sd:/ship.obj");
 		enemyId = world.loadModel("sd:/sphere.obj");
-		test = world.loadAudio("test", "sd:/test.wav");
+		//test = world.loadAudio("test", "sd:/test.wav");
 		//SpriteId testimageId = world.loadSprite("sd:/laser.png");
 		//AnimId testAnimId = world.loadAnim("run", "sd:/scarfy.png", 6, 8);
 
@@ -66,27 +69,7 @@ public:
 		camera.fovy = 90.0f;
 		camera.projection = CAMERA_PERSPECTIVE;
 
-
-		// Setup components and systems
-		world.registerComponent<EngineTransform>();
-		world.registerComponentSerializer<EngineTransform>();
-		world.registerComponent<Renderable>();
-		world.registerComponentSerializer<Renderable>();
-		world.registerComponent<Renderable2D>();
-		world.registerComponentSerializer<Renderable2D>();
-		world.registerComponent<PrimitiveRenderable2D>();
-		world.registerComponentSerializer<PrimitiveRenderable2D>();
-		world.registerComponent<Collider2D>();
-		world.registerComponentSerializer<Collider2D>();
-		world.registerComponent<BoxCollider>();
-		world.registerComponentSerializer<BoxCollider>();
-		world.registerComponent<MeshCollider>();
-		world.registerComponentSerializer<MeshCollider>();
-		world.registerComponent<RigidBody2D>();
-		world.registerComponentSerializer<RigidBody2D>();
-		world.registerComponent<Animator2D>();
-		world.registerComponentSerializer<Animator2D>();
-
+		// Setup system signatures
 		rendersys = world.registerSystem<RenderSystem>();
 		rendersys->world = &world;
 		rendersys->camera = &camera;
@@ -135,6 +118,17 @@ public:
 
 		music.loadTrack("sd:/maintheme_final_mix2.wav");
 		music.playTrack(255, 255);
+
+		// TEMP: cross-platform scene format test
+		{
+			World tmp;
+			tmp.init();
+			sceneTestLoaded = tmp.load("sd:/test_a.scene");
+			sceneTestSaved = sceneTestLoaded && tmp.save("sd:/test_wii.scene");
+			tmp.unloadAllResources();
+			tmp.unloadAllSprites();
+			tmp.unloadAllAnims();
+		}
 	}
 
 	void update(float dt, InputState& input) override {
@@ -340,6 +334,9 @@ public:
 			rendersys->SetDrawMode2D();
 
 			DrawText("Press A to Start", 10, 10, 20, WHITE);
+
+			DrawText(TextFormat("scene test  load:%d  save:%d", sceneTestLoaded, sceneTestSaved),
+				10, 40, 20, YELLOW);
 			break;
 		case PLAY:
 			rendersys->SetDrawMode3D(&camera);

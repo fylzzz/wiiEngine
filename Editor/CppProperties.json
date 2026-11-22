@@ -10,6 +10,7 @@
 				"${projectRoot}\\..\\thirdparty\\raylib-desktop\\src",
 				"${projectRoot}\\..\\thirdparty\\imgui",
 				"${projectRoot}\\..\\thirdparty\\rlImGui",
+				"${projectRoot}\\..\\GFSAcademyGame\\Scenes",
 				"C:\\msys64\\ucrt64\\include\\c++\\16.2.0",
 				"C:\\msys64\\ucrt64\\include\\c++\\16.2.0\\x86_64-w64-mingw32",
 				"C:\\msys64\\ucrt64\\lib\\gcc\\x86_64-w64-mingw32\\16.2.0\\include",

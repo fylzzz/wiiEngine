@@ -13,7 +13,8 @@ World.o: C:/Users/iChoc/Desktop/wiiEngine/Engine/src/ECS/World.cpp \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AudioManager.h \
  C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h \
- C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h \
+ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/EngineComponents.h
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/World.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/EntityManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Types.h:
@@ -29,3 +30,4 @@ C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AnimationManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/AudioManager.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/ECS/Serializer.h:
 C:/Users/iChoc/Desktop/wiiEngine/Engine/include/Path.h:
+C:/Users/iChoc/Desktop/wiiEngine/Engine/include/EngineComponents.h:

@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <string>
+#include <vector>
 #include <type_traits>
 #include "raylib.h"
 
@@ -24,7 +25,12 @@ namespace ser {
 }
 
 constexpr uint32_t SCENE_MAGIC = ser::FourCC('E', 'G', '7', 'S');
-constexpr uint16_t SCENE_VER = 1;
+constexpr uint16_t SCENE_VER = 3;
+
+struct AssetMap {
+	std::vector<uint16_t> models, sprites, anims;
+};
+constexpr uint16_t INVALID_REF = 0xFFFF;
 
 class Writer {
 	public:
@@ -47,6 +53,11 @@ class Writer {
 		void vec2(Vector2 v) { f32(v.x); f32(v.y); }
 		void vec3(Vector3 v) { f32(v.x); f32(v.y); f32(v.z); }
 		void color(Color c) { u8(c.r); u8(c.g); u8(c.b); u8(c.a); }
+
+
+		void modelRef(uint16_t id) { u16(id); }
+		void spriteRef(uint16_t id) { u16(id); }
+		void animRef(uint16_t id) { u16(id); }
 
 	private:
 		void raw(const void* p, size_t n) {
@@ -87,6 +98,13 @@ public:
 	Vector3 vec3() { Vector3 v; v.x = f32(); v.y = f32(); v.z = f32(); return v; }
 	Color   color() { Color c; c.r = u8(); c.g = u8(); c.b = u8(); c.a = u8(); return c; }
 
+
+	const AssetMap* map = nullptr;
+
+	uint16_t modelRef() { return mapRef(map ? &map->models : nullptr); }
+	uint16_t spriteRef() { return mapRef(map ? &map->sprites : nullptr); }
+	uint16_t animRef() { return mapRef(map ? &map->anims : nullptr); }
+
 private:
 	void raw(void* p, size_t n)
 	{
@@ -96,4 +114,14 @@ private:
 
 	FILE* mFile = nullptr;
 	bool mError = false;
+
+
+	uint16_t mapRef(const std::vector<uint16_t>* table)
+	{
+		uint16_t i = u16();
+		if (!table || i == INVALID_REF) return i;
+		if (i >= table->size()) { mError = true; return INVALID_REF; }
+		return (*table)[i];
+	}
+
 };

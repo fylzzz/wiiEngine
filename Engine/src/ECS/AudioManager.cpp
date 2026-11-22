@@ -24,7 +24,7 @@ static inline size_t AlignedWaveBytes(const Wave& w) {
 AudioId AudioManager::loadAudio(std::string name, const char* path) {
 	for (AudioId i = 0; i < mSize; ++i) {
 		// check that audio hasn't been loaded, otherwise return that path
-		if (mPaths[i] && strcmp(mPaths[i], path) == 0) {
+		if (mPaths[i] == path) {
 			return i;
 		}
 	}
@@ -89,7 +89,7 @@ static void ApplyStereo(Sound& s, int volL, int volR) {
 
 AudioId AudioManager::loadAudio(std::string name, const char* path) {
 	for (uint16_t i = 0; i < mSize; ++i) {
-		if (std::strcmp(mPaths[i], path) == 0) return i;
+		if (mPaths[i] == path) return i;
 	}
 
 	if (mSize >= MAX_AUDIO) return INVALID_AUDIO;

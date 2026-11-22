@@ -6,6 +6,7 @@
 #include <array>
 #include <vector>
 #include <cstring>
+#include <string>
 
 
 struct AnimationClip {
@@ -23,12 +24,15 @@ constexpr AnimId MAX_ANIMS = 256;
 
 class AnimationManager {
 	public:
+		uint16_t count() const { return mSize; }
+		const std::string& path(AnimId id) const { return mPaths[id]; }
+
 		AnimId loadAnim(std::string name, const char* path, int frameCount, int fps);
 		AnimationClip& getAnim(AnimId id);
 		void unloadAll();
 
 	private:
 		std::array<AnimationClip, MAX_ANIMS> mAnims{};
-		std::array<const char*, MAX_ANIMS> mPaths{};
+		std::array<std::string, MAX_ANIMS> mPaths{};
 		uint16_t mSize = 0;
 };

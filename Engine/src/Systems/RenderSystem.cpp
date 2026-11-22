@@ -161,7 +161,7 @@ void RenderSystem::update(float dt) {
             auto& render2D = world->getComponent<Renderable2D>(e);
 
             if (render2D.spriteId == INVALID_SPRITE) continue;
-            DrawTexture(render2D.texture, (int)trans.pos.x, (int)trans.pos.y, render2D.color);
+            DrawTexture(world->getSpriteTexture(render2D.spriteId), (int)trans.pos.x, (int)trans.pos.y, render2D.color);
         }
         else if (world->hasComponent<Animator2D>(e)) {
             auto& anim2D = world->getComponent<Animator2D>(e);

@@ -10,7 +10,9 @@ ENGINE     := ../Engine
 
 ENGINE_SRC_DIRS := $(ENGINE)/src $(ENGINE)/src/ECS $(ENGINE)/src/Systems
 EDITOR_SRC_DIRS := src
-INC_DIRS := src $(ENGINE)/include $(ENGINE)/include/ECS $(ENGINE)/include/Systems $(RAYLIB_DIR) $(IMGUI_DIR) $(RLIMGUI_DIR)
+INC_DIRS := src $(ENGINE)/include $(ENGINE)/include/ECS $(ENGINE)/include/Systems \
+            ../GFSAcademyGame/Scenes \
+            $(RAYLIB_DIR) $(IMGUI_DIR) $(RLIMGUI_DIR)
 
 ENGINE_CPP := $(filter-out main.cpp,$(notdir $(foreach d,$(ENGINE_SRC_DIRS),$(wildcard $(d)/*.cpp))))
 ENGINE_C   := $(notdir $(foreach d,$(ENGINE_SRC_DIRS),$(wildcard $(d)/*.c)))

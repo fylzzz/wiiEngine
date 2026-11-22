@@ -5,9 +5,8 @@
 AnimId AnimationManager::loadAnim(std::string name, const char* path, int frameCount, int fps) {
 	for (AnimId i = 0; i < mSize; ++i) {
 		// check that anim hasn't already been loaded, if it has then return that path
-		if (mPaths[i] && strcmp(mPaths[i], path) == 0) {
+		if (mPaths[i] == path)
 			return i;
-		}
 	}
 
 	AnimId id = mSize++;
@@ -37,6 +36,7 @@ AnimationClip& AnimationManager::getAnim(AnimId id) {
 void AnimationManager::unloadAll() {
 	for (AnimId i = 0; i < mSize; ++i) {
 		UnloadTexture(mAnims[i].spritesheet);
+		mPaths[i].clear();
 	}
 	mSize = 0;
 }

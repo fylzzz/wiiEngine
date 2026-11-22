@@ -1,6 +1,7 @@
 #include "World.h"
 #include "Path.h"
 #include "System.h"
+#include "EngineComponents.h"
 
 
 void World::init() {
@@ -11,6 +12,8 @@ void World::init() {
     mSpriteManager = std::make_unique<SpriteManager>();
     mAnimationManager = std::make_unique<AnimationManager>();
     mAudioManager = std::make_unique<AudioManager>();
+
+    RegisterEngineComponents(*this);
 }
 
 Entity World::createEntity() {
@@ -55,6 +58,10 @@ Image& World::getSprite(SpriteId id) {
     return mSpriteManager->getSprite(id);
 }
 
+Texture2D& World::getSpriteTexture(SpriteId id) {
+    return mSpriteManager->getTexture(id);
+}
+
 void World::unloadAllSprites() {
     return mSpriteManager->unloadAll();
 }
@@ -85,6 +92,24 @@ bool World::save(const char* path) {
 
     w.u32(SCENE_MAGIC);
     w.u16(SCENE_VER);
+
+    // ---- asset table ----
+    w.u16(mResourceManager->count());
+    for (uint16_t i = 0; i < mResourceManager->count(); ++i)
+        w.str(mResourceManager->path(i));
+
+    w.u16(mSpriteManager->count());
+    for (uint16_t i = 0; i < mSpriteManager->count(); ++i)
+        w.str(mSpriteManager->path(i));
+
+    w.u16(mAnimationManager->count());
+    for (uint16_t i = 0; i < mAnimationManager->count(); ++i) {
+        const AnimationClip& a = mAnimationManager->getAnim(i);
+        w.str(a.name);
+        w.str(mAnimationManager->path(i));
+        w.u16(uint16_t(a.frameCount));
+        w.u16(uint16_t(a.fps));
+    }
 
     // Only serialize components that are registered with the serializer
     Signature savable;
@@ -123,6 +148,33 @@ bool World::load(const char* path) {
     if (r.u32() != SCENE_MAGIC)   return false;
     if (r.u16() != SCENE_VER) return false;
 
+    // ---- asset table: load each, record its new ID ----
+    AssetMap map;
+
+    uint16_t n = r.u16();
+    for (uint16_t i = 0; i < n && r.ok(); ++i) {
+        std::string p = r.str();
+        map.models.push_back(loadModel(p.c_str()));
+    }
+
+    n = r.u16();
+    for (uint16_t i = 0; i < n && r.ok(); ++i) {
+        std::string p = r.str();
+        map.sprites.push_back(loadSprite(p.c_str()));
+    }
+
+    n = r.u16();
+    for (uint16_t i = 0; i < n && r.ok(); ++i) {
+        std::string name = r.str();
+        std::string p = r.str();
+        int frames = r.u16();
+        int fps = r.u16();
+        map.anims.push_back(loadAnim(name, p.c_str(), frames, fps));
+    }
+    if (!r.ok()) return false;
+
+    r.map = &map;
+
     uint32_t count = r.u32();
     if (!r.ok() || count > MAX_ENTITIES) return false;
 
@@ -141,6 +193,7 @@ bool World::load(const char* path) {
         if (!r.ok()) return false;
 
         mSystemManager->entitySignatureChanged(e, sig);
+        ApplyComponentMethods(*this, e, sig);
     }
 
     mEntityManager->rebuildAvailableQueue();

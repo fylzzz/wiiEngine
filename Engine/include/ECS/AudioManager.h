@@ -6,6 +6,7 @@
 #include <vector>
 #include <array>
 #include <cstring>
+#include <string>
 
 
 struct AudioSample {
@@ -24,11 +25,14 @@ constexpr AudioId MAX_AUDIO = 256;
 
 class AudioManager {
 	public:
+		uint16_t count() const { return mSize; }
+		const std::string& path(AudioId id) const { return mPaths[id]; }
+
 		AudioId loadAudio(std::string name, const char* path);
 		int playAudio(AudioId id, int volL, int volR);
 
 	private:
 		std::array<AudioSample, MAX_AUDIO> mAudio;
-		std::array<const char*, MAX_AUDIO> mPaths;
+		std::array<std::string, MAX_AUDIO> mPaths;
 		uint16_t mSize = 0;
 };

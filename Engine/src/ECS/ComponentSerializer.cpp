@@ -35,14 +35,14 @@ void deserialize(Reader& r, PrimitiveRenderable2D& c) {
 }
 
 // ---- Renderable2D ----  (texture is a GPU handle: rebuilt from spriteId in step 3)
-void serialize(Writer& w, const Renderable2D& c) { w.u16(c.spriteId); w.color(c.color); }
-void deserialize(Reader& r, Renderable2D& c) { c.spriteId = r.u16(); c.color = r.color(); }
+void serialize(Writer& w, const Renderable2D& c) { w.spriteRef(c.spriteId); w.color(c.color); }
+void deserialize(Reader& r, Renderable2D& c) { c.spriteId = r.spriteRef(); c.color = r.color(); }
 
 // ---- Animator2D ----  (playback state is runtime, not saved)
 void serialize(Writer& w, const Animator2D& c) {
 	w.str(c.currentAnim);
 	w.u32(uint32_t(c.animClips.size()));
-	for (const auto& [name, id] : c.animClips) { w.str(name); w.u16(id); }
+	for (const auto& [name, id] : c.animClips) { w.str(name); w.animRef(id); }
 	w.color(c.color);
 }
 void deserialize(Reader& r, Animator2D& c) {
@@ -51,7 +51,7 @@ void deserialize(Reader& r, Animator2D& c) {
 	if (n > 256) n = 0;   // corrupt-count guard; Reader's error flag catches the rest
 	for (uint32_t i = 0; i < n && r.ok(); ++i) {
 		std::string name = r.str();
-		c.animClips[name] = r.u16();
+		c.animClips[name] = r.animRef();
 	}
 	c.color = r.color();
 }
@@ -68,8 +68,8 @@ void serialize(Writer& w, const Renderable& c) {
 	case RenderShape::Capsule:  w.f32(c.capsule.height); w.f32(c.capsule.radius);
 		w.i32(c.capsule.slices); w.i32(c.capsule.rings); break;
 	case RenderShape::Plane:    w.vec2(c.plane.size); break;
-	case RenderShape::Model:
-	case RenderShape::ModelWires: w.u16(c.model.modelId); w.f32(c.model.scale); break;
+	case RenderShape::Model:    w.modelRef(c.model.modelId); w.f32(c.model.scale); break;
+	case RenderShape::ModelWires: w.modelRef(c.model.modelId); w.f32(c.model.scale); break;;
 	}
 }
 void deserialize(Reader& r, Renderable& c) {
@@ -83,8 +83,8 @@ void deserialize(Reader& r, Renderable& c) {
 	case RenderShape::Capsule:  c.capsule.height = r.f32(); c.capsule.radius = r.f32();
 		c.capsule.slices = r.i32(); c.capsule.rings = r.i32(); break;
 	case RenderShape::Plane:    c.plane.size = r.vec2(); break;
-	case RenderShape::Model:
-	case RenderShape::ModelWires: c.model.modelId = r.u16(); c.model.scale = r.f32(); break;
+	case RenderShape::Model:    c.model.modelId = r.modelRef(); c.model.scale = r.f32(); break;
+	case RenderShape::ModelWires: c.model.modelId = r.modelRef(); c.model.scale = r.f32(); break;
 	}
 }
 
@@ -97,11 +97,12 @@ void serialize(Writer& w, const Collider2D& c) { writeRect(w, c.bounds); w.vec2(
 void deserialize(Reader& r, Collider2D& c) { c.bounds = readRect(r); c.offset = r.vec2(); }
 
 // ---- BoxCollider ----  (extents/center recomputed from bounds)
-void serialize(Writer& w, const BoxCollider& c) { w.vec3(c.bounds.min); w.vec3(c.bounds.max); }
+void serialize(Writer& w, const BoxCollider& c) { w.vec3(c.center); w.vec3(c.halfExtents); }
 void deserialize(Reader& r, BoxCollider& c) {
-	c.bounds.min = r.vec3();
-	c.bounds.max = r.vec3();
-	c.UpdateFromBounds();
+	c.center = r.vec3();
+	c.halfExtents = r.vec3();
+	c.bounds.min = Vector3Subtract(c.center, c.halfExtents);
+	c.bounds.max = Vector3Add(c.center, c.halfExtents);
 }
 
 // ---- MeshCollider ----  (geometry comes from the entity's model; rebuilt after load in step 4)

@@ -50,6 +50,7 @@ class World {
 		// Sprite API calls
 		SpriteId loadSprite(const char* path);
 		Image& getSprite(SpriteId id);
+		Texture2D& getSpriteTexture(SpriteId id);
 		void unloadAllSprites();
 
 		// Animation API calls
