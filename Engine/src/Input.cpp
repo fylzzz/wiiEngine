@@ -44,6 +44,11 @@ void PollInput(InputState& in) {
 		in.board.tr = exp.wb.tr;
 		in.board.bl = exp.wb.bl;
 		in.board.br = exp.wb.br;
+		in.board.weight = in.board.tl + in.board.tr + in.board.bl + in.board.br;
+	}
+	else {
+		// clear stale readings so a dropped board doesn't look occupied
+		in.board.tl = in.board.tr = in.board.bl = in.board.br = in.board.weight = 0.0f;
 	}
 }
 

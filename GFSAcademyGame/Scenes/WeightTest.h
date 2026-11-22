@@ -28,7 +28,7 @@ public:
 	AudioId test;
 
 	std::vector<Entity> enemy;
-	enum state { MENU, PLAY, END };
+	enum state { MENU, PLAY, END, CALIBRATING };
 	state gameState;
 
 	float spawnTimer = 0.0f;
@@ -48,10 +48,39 @@ public:
 	bool calibrated = false;
 	int calFrames = 0;
 	static const int CAL_SAMPLE_COUNT = 60;
+	// board must read below this (kg) to count as empty; sensors drift so it's never exactly 0
+	static constexpr float EMPTY_BOARD_THRESHOLD = 5.0f;
 
-	float total, x, y, screenX, screenY;
+	float total = 0.0f, x = 0.0f, y = 0.0f;
+	bool boardOccupied = false; // set in update() so render() can prompt the player to step off
 
 	Entity e;
+
+	void resetCalibration() {
+		calibrated = false;
+		calFrames = 0;
+		calTL = calTR = calBL = calBR = 0;
+	}
+
+	// accumulates one sample of the empty board; sets calibrated once enough are averaged
+	void sampleCalibration(const BalanceBoardState& wb) {
+		calTL += wb.tl;
+		calTR += wb.tr;
+		calBL += wb.bl;
+		calBR += wb.br;
+		calFrames++;
+		if (calFrames >= CAL_SAMPLE_COUNT) {
+			calTL /= calFrames;
+			calTR /= calFrames;
+			calBL /= calFrames;
+			calBR /= calFrames;
+			calibrated = true;
+		}
+	}
+
+	static void DrawTextCentered(const char* text, int y, int size, Color color) {
+		DrawText(text, 320 - MeasureText(text, size) / 2, y, size, color);
+	}
 
 	// Initialise ECS and camera for scene
 	void init() override {
@@ -136,6 +165,20 @@ public:
 		switch (gameState) {
 			case MENU:
 				if (input.wasPressed(BTN_A)) {
+					resetCalibration();
+					gameState = CALIBRATING;
+				}
+				break;
+			case CALIBRATING:
+				// only sample while the board is empty; restart if someone steps on mid-calibration
+				boardOccupied = input.board.weight > EMPTY_BOARD_THRESHOLD;
+				if (boardOccupied) {
+					resetCalibration();
+				}
+				else {
+					sampleCalibration(input.board);
+				}
+				if (calibrated) {
 					e = world.createEntity();
 					world.addComponent<EngineTransform>(e, EngineTransform(Vector3{ 0,0,5.0f }, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }));
 					Renderable mesh;
@@ -159,6 +202,8 @@ public:
 					distance = 0.0f;
 					score = 0.0f;
 					lives = 3;
+					spawnTimer = 0.0f;
+					x = y = total = 0.0f;
 
 					gameState = PLAY;
 				}
@@ -170,18 +215,7 @@ public:
 				const BalanceBoardState& wb = input.board;
 
 				if (!calibrated) {
-					calTL += wb.tl;
-					calTR += wb.tr;
-					calBL += wb.bl;
-					calBR += wb.br;
-					calFrames++;
-					if (calFrames >= CAL_SAMPLE_COUNT) {
-						calTL /= calFrames;
-						calTR /= calFrames;
-						calBL /= calFrames;
-						calBR /= calFrames;
-						calibrated = true;
-					}
+					sampleCalibration(wb);
 				}
 				else {
 					float tl = fmaxf(0.0f, wb.tl - calTL);
@@ -313,9 +347,7 @@ public:
 
 		// update inputs, entities, camera etc. here
 		if (input.wasPressed(BTN_1)) {
-			calibrated = false;
-			calFrames = 0;
-			calTL = calTR = calBL = calBR = 0;
+			resetCalibration();
 		}
 
 		// update physics system
@@ -333,10 +365,23 @@ public:
 		case MENU:
 			rendersys->SetDrawMode2D();
 
-			DrawText("Press A to Start", 10, 10, 20, WHITE);
+			DrawTextCentered("StarBoard", 220, 60, WHITE);
+			DrawTextCentered("Press A to Start", 300, 20, WHITE);
 
-			DrawText(TextFormat("scene test  load:%d  save:%d", sceneTestLoaded, sceneTestSaved),
-				10, 40, 20, YELLOW);
+			//DrawText(TextFormat("scene test  load:%d  save:%d", sceneTestLoaded, sceneTestSaved),
+			//	10, 40, 20, YELLOW);
+			break;
+		case CALIBRATING:
+			rendersys->SetDrawMode2D();
+
+			if (boardOccupied) {
+				DrawTextCentered("Calibration Required", 220, 30, WHITE);
+				DrawTextCentered("Please step off the Balance Board", 300, 20, WHITE);
+			}
+			else {
+				DrawTextCentered("Calibrating...", 220, 30, WHITE);
+				DrawTextCentered("Keep off the Balance Board", 300, 20, WHITE);
+			}
 			break;
 		case PLAY:
 			rendersys->SetDrawMode3D(&camera);
@@ -362,14 +407,6 @@ public:
 			DrawText("Press A to return to title", 10, 90, 20, WHITE);
 			break;
 		}
-
-#ifdef GEKKO
-		s32 v = music.voice();
-		DrawText(TextFormat("v:%d st:%d rdy:%d upd:%d fills:%d prime:%d add:%d",
-			v, v >= 0 ? ASND_StatusVoice(v) : -9, v >= 0 ? ASND_TestVoiceBufferReady(v) : -9,
-			music.dbgUpdates, music.dbgFills, music.dbgPrimeRet, music.dbgAddRet),
-			10, 450, 16, YELLOW);
-#endif
 
 		//DrawFPS(10, 10);
 	}

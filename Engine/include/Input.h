@@ -19,7 +19,7 @@ enum InputButton : uint32_t {
 
 struct BalanceBoardState {
 	bool connected = false;
-	float tl = 0, tr = 0, bl = 0, br = 0;
+	float tl = 0, tr = 0, bl = 0, br = 0, weight = 0;
 };
 
 struct InputState {
